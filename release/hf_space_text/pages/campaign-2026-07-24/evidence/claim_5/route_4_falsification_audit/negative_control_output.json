@@ -1,0 +1,12 @@
+{
+  "counterfeit_caama_revenue": {
+    "decimal": 2.6958333333333333,
+    "exact": "647/240"
+  },
+  "counterfeit_revenue_is_rejected": true,
+  "expected_welfare_plus_reported_regret": {
+    "decimal": 2.6010333333333335,
+    "exact": "78031/30000"
+  },
+  "purpose": "prove the necessary-bound test detects an impossible claim"
+}

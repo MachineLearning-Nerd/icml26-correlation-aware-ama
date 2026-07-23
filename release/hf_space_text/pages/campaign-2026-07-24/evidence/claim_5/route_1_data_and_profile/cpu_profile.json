@@ -1,0 +1,52 @@
+{
+  "cpu": {
+    "logical_cores": 8,
+    "memory_bytes": 17179869184,
+    "physical_cores": 8,
+    "torch_interop_threads": 8,
+    "torch_threads": 4
+  },
+  "profiles": [
+    {
+      "estimate_warning": "Small-batch linear extrapolation only; full-batch kernels, memory, evaluation, five seeds, baseline training, and post-training differ.",
+      "init_seconds": 0.09373258298728615,
+      "joint_forward_backward_step_seconds": 0.32667675003176555,
+      "linear_hours_estimate_for_32000_minibatches": 743.3710934056176,
+      "linear_seconds_estimate_for_32000_minibatches": 2676135.9362602234,
+      "loss": -1.0496079921722412,
+      "menu_size": 2048,
+      "n_bidders": 3,
+      "n_items": 10,
+      "name": "claim_4_dirichlet",
+      "paper_batch_size": 1024,
+      "paper_total_iterations": 32000,
+      "peak_process_rss_mb": 502.375,
+      "profile_batch_size": 4,
+      "profile_only_not_claim_evidence": true,
+      "seconds_per_sample": 0.08166918750794139
+    },
+    {
+      "estimate_warning": "Small-batch linear extrapolation only; full-batch kernels, memory, evaluation, five seeds, baseline training, and post-training differ.",
+      "init_seconds": 0.01124324998818338,
+      "joint_forward_backward_step_seconds": 0.11311062501044944,
+      "linear_hours_estimate_for_32000_minibatches": 64.34737778372235,
+      "linear_seconds_estimate_for_32000_minibatches": 231650.56002140045,
+      "loss": -0.34432557225227356,
+      "menu_size": 256,
+      "n_bidders": 2,
+      "n_items": 5,
+      "name": "claim_5_linear_asymmetric",
+      "paper_batch_size": 2048,
+      "paper_total_iterations": 32000,
+      "peak_process_rss_mb": 502.828125,
+      "profile_batch_size": 32,
+      "profile_only_not_claim_evidence": true,
+      "seconds_per_sample": 0.003534707031576545
+    }
+  ],
+  "source_ambiguities": [
+    "Paper says 32,000 iterations and total mutual+post-training, but released scripts default to 2,000 outer steps and each outer step processes train_sample_num=32,768 through many minibatches.",
+    "Paper does not state the 3x10 menu size; released scripts omit 3 bidders x 10 items. The profile uses the scripts' apparent 2048 cap.",
+    "Paper says a three-layer ReLU pCor MLP; released mutual-training code uses Payment_Cor_max_min, while post-training uses Payment_Cor."
+  ]
+}

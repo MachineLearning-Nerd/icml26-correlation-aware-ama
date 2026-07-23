@@ -1,0 +1,16 @@
+{
+  "acceptance": "Five-seed revenue means within 5%, regret within 0.003, positive paired CI, sensitive negative control, and the paper's neural 2048-menu method scope.",
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "claim": 4,
+  "paper_result": {
+    "caama_ex_post_ir_revenue": 3.5623,
+    "caama_ir_regret": 0.0031,
+    "caama_revenue": 3.6205,
+    "randomized_ama_revenue": 3.1363,
+    "setting": "Dirichlet Value Share alpha=0.5, 3 bidders x 10 items"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "anchors": "S3.Thmtheorem3; Theorems B.1 and B.2",
+  "claim": 2,
+  "domain_and_quantifiers": "single item; every positive integer n; all bidder-independent F for equality; every delta>0 for correlated separation",
+  "machine_checkable_contract": "Certify both inequalities giving D-CA=D-AMA on independent product supports, and audit the literal all-n correlated construction with D-CA=REV and D-AMA<delta*REV, including n=1.",
+  "paper_sha256": "2018a533559d5777eedfb1a0bb043bd490b07b2d89b8f5d3edf3adad4ad72e4f",
+  "paper_source": "https://ar5iv.labs.arxiv.org/html/2602.09455",
+  "success_verdict": "FALSIFIED",
+  "title": "Theorem 3.3: independence equality and correlated separation"
+}

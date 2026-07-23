@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "five_seeds": true,
+    "negative_control_increases_regret": true,
+    "row_count": true,
+    "samplewise_revenue_bound": true,
+    "twenty_thousand_profiles_per_seed": true
+  },
+  "means": {
+    "baseline_revenue": 3.053014222639799,
+    "caama_ex_post_ir_revenue": 3.6862696693144326,
+    "caama_ir_regret": 0.0028126945753363113,
+    "caama_revenue": 3.7359405275949396,
+    "shuffled_pcor_ir_regret": 0.1294268114582415,
+    "welfare": 5.16256883765459
+  }
+}

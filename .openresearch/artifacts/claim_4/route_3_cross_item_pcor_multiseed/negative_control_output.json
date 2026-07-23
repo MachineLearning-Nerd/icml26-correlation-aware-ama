@@ -1,0 +1,35 @@
+{
+  "all_seeds_pass": true,
+  "per_seed": [
+    {
+      "normal_ir_regret": 0.0027288453434563794,
+      "seed": 1,
+      "shuffled_increases_regret": true,
+      "shuffled_ir_regret": 0.13043789265207237
+    },
+    {
+      "normal_ir_regret": 0.0029017503180997894,
+      "seed": 7,
+      "shuffled_increases_regret": true,
+      "shuffled_ir_regret": 0.12737315921839645
+    },
+    {
+      "normal_ir_regret": 0.0027918342319550355,
+      "seed": 19,
+      "shuffled_increases_regret": true,
+      "shuffled_ir_regret": 0.13585302653604117
+    },
+    {
+      "normal_ir_regret": 0.002798962018244602,
+      "seed": 41,
+      "shuffled_increases_regret": true,
+      "shuffled_ir_regret": 0.12732442535410574
+    },
+    {
+      "normal_ir_regret": 0.00284208096492575,
+      "seed": 73,
+      "shuffled_increases_regret": true,
+      "shuffled_ir_regret": 0.1261455535305918
+    }
+  ]
+}

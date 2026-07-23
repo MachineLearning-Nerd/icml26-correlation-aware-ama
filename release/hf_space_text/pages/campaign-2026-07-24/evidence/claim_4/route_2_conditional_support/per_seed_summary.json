@@ -1,0 +1,67 @@
+{
+  "1": {
+    "baseline_reserve": 0.368,
+    "baseline_revenue": 3.0478207694870485,
+    "baseline_training_item_revenue": 0.30445979213958213,
+    "caama_ex_post_ir_revenue": 3.3276884199886774,
+    "caama_ir_regret": 0.0,
+    "caama_reserve": 0.276,
+    "caama_revenue": 3.3276884199886774,
+    "caama_training_item_revenue": 0.3324798734277148,
+    "pcor_revenue": 0.551615943503253,
+    "shuffled_pcor_ir_regret": 0.04498176384653821,
+    "welfare": 5.162265361594364
+  },
+  "2": {
+    "baseline_reserve": 0.376,
+    "baseline_revenue": 3.049476453628105,
+    "baseline_training_item_revenue": 0.3056290087476853,
+    "caama_ex_post_ir_revenue": 3.3276884199886774,
+    "caama_ir_regret": 0.0,
+    "caama_reserve": 0.276,
+    "caama_revenue": 3.3276884199886774,
+    "caama_training_item_revenue": 0.33348875195422256,
+    "pcor_revenue": 0.551615943503253,
+    "shuffled_pcor_ir_regret": 0.04498176384653821,
+    "welfare": 5.162265361594364
+  },
+  "3": {
+    "baseline_reserve": 0.37,
+    "baseline_revenue": 3.048194375478391,
+    "baseline_training_item_revenue": 0.3050096799558803,
+    "caama_ex_post_ir_revenue": 3.32779708116061,
+    "caama_ir_regret": 0.0,
+    "caama_reserve": 0.278,
+    "caama_revenue": 3.32779708116061,
+    "caama_training_item_revenue": 0.33270716262203376,
+    "pcor_revenue": 0.5414667223371673,
+    "shuffled_pcor_ir_regret": 0.0440148386385983,
+    "welfare": 5.156946687230847
+  },
+  "4": {
+    "baseline_reserve": 0.374,
+    "baseline_revenue": 3.0494703355564914,
+    "baseline_training_item_revenue": 0.30525804444766247,
+    "caama_ex_post_ir_revenue": 3.326481086218018,
+    "caama_ir_regret": 0.0,
+    "caama_reserve": 0.292,
+    "caama_revenue": 3.326481086218018,
+    "caama_training_item_revenue": 0.3334261589893021,
+    "pcor_revenue": 0.47322079536325556,
+    "shuffled_pcor_ir_regret": 0.037783071069865365,
+    "welfare": 5.113579129723656
+  },
+  "5": {
+    "baseline_reserve": 0.376,
+    "baseline_revenue": 3.049476453628105,
+    "baseline_training_item_revenue": 0.3059328512595356,
+    "caama_ex_post_ir_revenue": 3.327658021403835,
+    "caama_ir_regret": 0.0,
+    "caama_reserve": 0.28,
+    "caama_revenue": 3.3276580214038347,
+    "caama_training_item_revenue": 0.33339314998720443,
+    "pcor_revenue": 0.5314218160383094,
+    "shuffled_pcor_ir_regret": 0.04307105143285357,
+    "welfare": 5.15122614366285
+  }
+}

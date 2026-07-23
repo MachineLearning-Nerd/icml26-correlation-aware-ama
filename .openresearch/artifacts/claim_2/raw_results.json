@@ -1,0 +1,175 @@
+{
+  "bidder_independent_transform_cases": [
+    {
+      "boost_shift_b": 1.0051807343235988,
+      "designated_bidder": 1,
+      "minimum_pointwise_revenue_margin": -8.326672684688674e-17,
+      "n_bidders": 2,
+      "pointwise_transform_dominates": true,
+      "positive_bidders": [
+        1
+      ],
+      "positive_case": true,
+      "profiles_checked": 4,
+      "seed": 1103,
+      "transform_bidder": 1
+    },
+    {
+      "boost_shift_b": 0.0,
+      "designated_bidder": 2,
+      "minimum_pointwise_revenue_margin": 0.0,
+      "n_bidders": 3,
+      "pointwise_transform_dominates": true,
+      "positive_bidders": [],
+      "positive_case": false,
+      "profiles_checked": 8,
+      "seed": 2207,
+      "transform_bidder": null
+    },
+    {
+      "boost_shift_b": 0.9244959452799426,
+      "designated_bidder": 1,
+      "minimum_pointwise_revenue_margin": -2.7755575615628914e-17,
+      "n_bidders": 4,
+      "pointwise_transform_dominates": true,
+      "positive_bidders": [
+        1
+      ],
+      "positive_case": true,
+      "profiles_checked": 16,
+      "seed": 3301,
+      "transform_bidder": 1
+    },
+    {
+      "boost_shift_b": 0.0,
+      "designated_bidder": 4,
+      "minimum_pointwise_revenue_margin": 0.0,
+      "n_bidders": 5,
+      "pointwise_transform_dominates": true,
+      "positive_bidders": [],
+      "positive_case": false,
+      "profiles_checked": 32,
+      "seed": 4409,
+      "transform_bidder": null
+    },
+    {
+      "boost_shift_b": 0.8808450882048993,
+      "designated_bidder": 2,
+      "minimum_pointwise_revenue_margin": -5.551115123125783e-17,
+      "n_bidders": 3,
+      "pointwise_transform_dominates": true,
+      "positive_bidders": [
+        2
+      ],
+      "positive_case": true,
+      "profiles_checked": 8,
+      "seed": 5519,
+      "transform_bidder": 2
+    }
+  ],
+  "correlated_all_n_certificates": [
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.017986320473184995,
+      "n_bidders": 2,
+      "target_delta": "0.5"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.017986320473184995,
+      "n_bidders": 3,
+      "target_delta": "0.5"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.017986320473184995,
+      "n_bidders": 5,
+      "target_delta": "0.5"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.017986320473184995,
+      "n_bidders": 10,
+      "target_delta": "0.5"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.000335350130479138,
+      "n_bidders": 2,
+      "target_delta": "0.25"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.000335350130479138,
+      "n_bidders": 3,
+      "target_delta": "0.25"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.000335350130479138,
+      "n_bidders": 5,
+      "target_delta": "0.25"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 0.000335350130479138,
+      "n_bidders": 10,
+      "target_delta": "0.25"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 2.0611536181902037e-09,
+      "n_bidders": 2,
+      "target_delta": "0.1"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 2.0611536181902037e-09,
+      "n_bidders": 3,
+      "target_delta": "0.1"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 2.0611536181902037e-09,
+      "n_bidders": 5,
+      "target_delta": "0.1"
+    },
+    {
+      "full_extraction_holds": true,
+      "grid_points": 257,
+      "max_pointwise_full_extraction_error": 1.6653345369377348e-16,
+      "minimum_v1_minus_rival_value": 2.0611536181902037e-09,
+      "n_bidders": 10,
+      "target_delta": "0.1"
+    }
+  ],
+  "correlated_part_holds": true,
+  "independent_part_holds": true,
+  "literal_any_n_correlated_part_falsified": true,
+  "n_1_correlated_separation_impossible": true,
+  "n_1_independent_equality_holds": true,
+  "two_sided_argument": "D-CA >= D-AMA because pCor=0 embeds every AMA. Appendix-B's pointwise boost-shift transform gives D-AMA >= D-CA under Cartesian (independent) support, hence equality.",
+  "verdict": "FALSIFIED"
+}

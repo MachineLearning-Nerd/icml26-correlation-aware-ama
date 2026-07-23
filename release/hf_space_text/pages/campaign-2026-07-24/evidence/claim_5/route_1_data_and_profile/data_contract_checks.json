@@ -1,0 +1,57 @@
+{
+  "all_contracts_hold": true,
+  "dirichlet": {
+    "analytic_cross_bidder_covariance": -0.02361111111111111,
+    "contract_holds": true,
+    "empirical_cross_bidder_covariance": -0.023626143418010396,
+    "expected_mean_bidder_item_value": 0.25,
+    "expected_mean_total_value": 0.75,
+    "maximum_realized_total_value": 0.9999996220489403,
+    "mean_bidder_item_value": 0.25003978645751535,
+    "mean_total_value": 0.7501193593725459,
+    "minimum_realized_total_value": 0.5000001006520328,
+    "paper_shape": [
+      200000,
+      3,
+      10
+    ],
+    "shape": [
+      200000,
+      3,
+      10
+    ]
+  },
+  "linear_mixture_asymmetric": {
+    "analytic_covariance": -0.012499999999999999,
+    "analytic_v2_variance": 0.005208333333333333,
+    "contract_holds": true,
+    "empirical_covariance": -0.012457108428847636,
+    "empirical_dependent_fraction": 0.599654,
+    "empirical_v1_mean": 0.4999212613005744,
+    "empirical_v2_mean": 0.12496619047911427,
+    "empirical_v2_variance": 0.005204655527698989,
+    "exact_linear_relation_rate": 0.599654,
+    "expected_dependent_fraction": 0.6,
+    "expected_v1_mean": 0.5,
+    "expected_v2_mean": 0.125,
+    "paper_shape": [
+      200000,
+      2,
+      5
+    ],
+    "shape": [
+      200000,
+      2,
+      5
+    ]
+  },
+  "official_code_negative_control": {
+    "convex_exact_linear_relation_rate": 0.0,
+    "convex_v2_variance": 0.002709207424238295,
+    "distinguishes_paper_distribution": true,
+    "official_formula": "v=alpha*base+(1-alpha)*special; then bidder 2 divided by 4",
+    "official_generator": "upstream/gen_values.py::generate_data_22",
+    "paper_formula": "Bernoulli(alpha): v2=(1-v1)/4; otherwise v2~U[0,1/4]",
+    "paper_v2_variance": 0.005208333333333333
+  }
+}
