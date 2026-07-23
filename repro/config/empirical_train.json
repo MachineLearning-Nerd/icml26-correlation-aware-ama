@@ -2,7 +2,7 @@
   "claim": 5,
   "distribution": "paper_literal_bernoulli_mixture",
   "parameterization": "direct_mechanism_space",
-  "mode": "claim4_conditional_support",
+  "mode": "claim4_cross_item_pcor_pilot",
   "seeds": [1],
   "n_bidders": 2,
   "n_items": 5,

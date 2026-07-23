@@ -9,6 +9,7 @@ import torch
 import empirical_train as et
 import claim5_falsification as c5f
 import claim4_conditional as c4c
+import claim4_pcor_pilot as c4p
 
 
 def _official_args(batch_size: int) -> SimpleNamespace:
@@ -122,3 +123,15 @@ def test_claim4_conditional_floor_is_rival_only_and_support_ir():
         metrics["caama_revenue"]
         <= metrics["welfare"] + metrics["caama_ir_regret"] + 1e-12
     )
+
+
+def test_claim4_pcor_sampler_and_reserve_core_are_feasible():
+    generator = torch.Generator().manual_seed(88)
+    values = c4p.sample_torch(128, generator)
+    payment, utility, welfare = c4p.reserve_core(values, reserve=0.3)
+    assert values.shape == (128, 3, 10)
+    assert payment.shape == utility.shape == (128, 3)
+    assert welfare.shape == (128,)
+    assert torch.all(payment >= 0)
+    assert torch.all(utility >= -1e-7)
+    assert torch.all(payment.sum(dim=1) <= welfare + 1e-7)

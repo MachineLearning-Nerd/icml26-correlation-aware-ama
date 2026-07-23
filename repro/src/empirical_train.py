@@ -969,6 +969,11 @@ def main() -> None:
 
         run_claim4_conditional()
         return
+    if config["mode"] == "claim4_cross_item_pcor_pilot":
+        from claim4_pcor_pilot import main as run_claim4_pcor_pilot
+
+        run_claim4_pcor_pilot()
+        return
     if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
         raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()
