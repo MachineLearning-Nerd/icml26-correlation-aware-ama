@@ -94,7 +94,10 @@ def main():
 
     verified = bool(revf_ok and c1_ok and c2_ok and ctrl_ok)
     print("\n" + "=" * 74)
-    print(f"C1 + C2 EXACT IDENTITIES: {'ALL VERIFIED' if verified else 'PARTIAL'}")
+    print(
+        "C1 + C2 n>=2 CONSTRUCTION IDENTITIES: "
+        f"{'VERIFIED' if verified else 'PARTIAL'}"
+    )
     print("=" * 74)
     out = os.path.join(HERE, "..", "..", "outputs", "caama_summary.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)

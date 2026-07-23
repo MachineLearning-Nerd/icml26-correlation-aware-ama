@@ -982,6 +982,17 @@ def main() -> None:
     if config["mode"] == "theory_scope_audit":
         print("EMPIRICAL_TRAIN_STATUS=SKIPPED_THEORY_SCOPE_AUDIT")
         return
+    if config["mode"] == "cumulative_release_candidate":
+        from campaign_summary import main as run_campaign_summary
+        from claim4_conditional import main as run_claim4_conditional
+        from claim4_pcor_pilot import main as run_claim4_pcor_multiseed
+        from claim5_falsification import main as run_claim5_falsification
+
+        run_claim4_conditional()
+        run_claim4_pcor_multiseed()
+        run_claim5_falsification()
+        run_campaign_summary()
+        return
     if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
         raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()
