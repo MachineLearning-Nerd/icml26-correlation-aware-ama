@@ -109,6 +109,9 @@ def main():
     from empirical_audit import main as run_empirical_audit
     run_empirical_audit()
 
+    from empirical_train import main as run_empirical_train
+    run_empirical_train()
+
 
 if __name__ == "__main__":
     main()
