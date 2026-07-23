@@ -143,6 +143,81 @@ def bad_construction_control(target_delta: str) -> dict[str, str | bool]:
         }
 
 
+def single_bidder_scope_certificate() -> dict[str, Any]:
+    """Exact obstruction to the paper's positive-revenue n=1 separation.
+
+    For one bidder, every DSIC/IR single-item allocation rule x(v) is monotone
+    and therefore a mixture of posted-price threshold rules. Its expected
+    payment is the same mixture of posted-price revenues and cannot exceed the
+    best deterministic posted price. A one-bidder deterministic AMA implements
+    every posted price, so D-AMA is already optimal.
+    """
+    supports = [
+        ([0.1, 0.4, 0.9], [0.2, 0.5, 0.3], [0.0, 0.25, 0.8]),
+        ([0.2, 0.5, 1.0], [0.6, 0.1, 0.3], [0.1, 0.6, 1.0]),
+        ([0.05, 0.3, 0.7, 1.0], [0.1, 0.2, 0.4, 0.3], [0.0, 0.2, 0.7, 0.9]),
+    ]
+    cases = []
+    for values, probabilities, allocation in supports:
+        increments = [
+            allocation[0],
+            *[
+                allocation[index] - allocation[index - 1]
+                for index in range(1, len(allocation))
+            ],
+        ]
+        tail = [
+            sum(probabilities[index:])
+            for index in range(len(probabilities))
+        ]
+        posted_revenues = [
+            values[index] * tail[index] for index in range(len(values))
+        ]
+        mixture_revenue = sum(
+            increment * revenue
+            for increment, revenue in zip(increments, posted_revenues)
+        )
+        cases.append({
+            "values": values,
+            "probabilities": probabilities,
+            "monotone_allocation": allocation,
+            "threshold_mixture_weights": increments,
+            "posted_price_revenues": posted_revenues,
+            "randomized_dsic_revenue": mixture_revenue,
+            "best_deterministic_posted_price_revenue": max(posted_revenues),
+            "dominated_by_deterministic_ama": (
+                mixture_revenue <= max(posted_revenues) + 1e-15
+            ),
+        })
+    return {
+        "literal_source_quantifier": "for any number of bidders n",
+        "tested_number_of_bidders": 1,
+        "test_epsilon": 0.5,
+        "positive_optimal_revenue_required": True,
+        "dsic_ir_representation": (
+            "x(v)=integral 1{v>=r} dG(r); "
+            "p(v)=integral r*1{v>=r} dG(r)"
+        ),
+        "expected_revenue_identity": (
+            "E[p(V)]=integral r*Pr[V>=r] dG(r) "
+            "<= sup_r r*Pr[V>=r]"
+        ),
+        "dama_implements_every_posted_price": (
+            "w_1=1, lambda_allocate=0, lambda_reserve=r"
+        ),
+        "conclusion": (
+            "For every one-bidder distribution with positive optimal revenue, "
+            "REV_D-AMA=REV, so REV_D-AMA<=epsilon*REV is impossible for epsilon<1."
+        ),
+        "finite_support_independent_cases": cases,
+        "all_independent_cases_pass": all(
+            case["dominated_by_deterministic_ama"] for case in cases
+        ),
+        "positive_revenue_n1_separation_impossible": True,
+        "valid_literal_scope_falsification": True,
+    }
+
+
 def run_claim_1() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     deltas = ["0.5", "0.25", "0.1", "0.05", "0.01", "0.001"]
     bidder_counts = [2, 3, 5, 10, 50]
@@ -151,8 +226,9 @@ def run_claim_1() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         for delta in deltas
         for n in bidder_counts
     ]
+    n1 = single_bidder_scope_certificate()
     raw = {
-        "verdict": "VERIFIED",
+        "verdict": "FALSIFIED",
         "rows": rows,
         "all_contracts_hold": all(
             row["assumptions_hold"] and row["contract_holds"] and row["formula_agrees"]
@@ -162,6 +238,16 @@ def run_claim_1() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             "For every delta>0 and integer n>=2, eta=exp(-2/delta), eta_1=eta^2 "
             "gives bound/REV=delta/2+eta(1-eta)delta/2<delta; n does not enter "
             "the bound because bidders 2..n share eta_1(1-v_1)."
+        ),
+        "n_1_scope_counterexample": n1,
+        "literal_any_n_claim_falsified": (
+            n1["valid_literal_scope_falsification"]
+            and all(
+                row["assumptions_hold"]
+                and row["contract_holds"]
+                and row["formula_agrees"]
+                for row in rows
+            )
         ),
     }
     independent = {
@@ -174,7 +260,12 @@ def run_claim_1() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             for row in rows
         ).to_eng_string(),
         "all_30_certificates_pass": raw["all_contracts_hold"],
-        "n_1_domain_check": "rejected: Appendix-B construction requires at least one rival",
+        "n_1_domain_check": (
+            "literal source scope audited: positive-revenue separation is "
+            "impossible because one-bidder D-AMA implements the optimal posted price"
+        ),
+        "n_1_finite_support_checks": n1["finite_support_independent_cases"],
+        "n_1_finite_support_checks_pass": n1["all_independent_cases_pass"],
     }
     try:
         construction_certificate("0.1", 1)
@@ -189,7 +280,8 @@ def run_claim_1() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             bad_construction_control(delta)["rejected_as_intended"]
             for delta in ["0.5", "0.1", "0.01"]
         ),
-        "out_of_domain_n_1_rejected": n1_rejected,
+        "appendix_construction_rejects_n_1": n1_rejected,
+        "positive_revenue_n_1_falsification": n1,
     }
     return raw, independent, controls
 
@@ -325,6 +417,7 @@ def correlated_full_extraction_case(target_delta: str, n: int) -> dict[str, Any]
 
 
 def run_claim_2() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    n1 = single_bidder_scope_certificate()
     correlated = [
         correlated_full_extraction_case(delta, n)
         for delta in ["0.5", "0.25", "0.1"]
@@ -339,13 +432,20 @@ def run_claim_2() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         )
     ]
     raw = {
-        "verdict": "VERIFIED",
+        "verdict": "FALSIFIED",
         "correlated_all_n_certificates": correlated,
         "bidder_independent_transform_cases": independent_cases,
         "correlated_part_holds": all(row["full_extraction_holds"] for row in correlated),
         "independent_part_holds": all(
             row["pointwise_transform_dominates"] for row in independent_cases
         ),
+        "n_1_independent_equality_holds": True,
+        "n_1_correlated_separation_impossible": n1[
+            "positive_revenue_n1_separation_impossible"
+        ],
+        "literal_any_n_correlated_part_falsified": n1[
+            "valid_literal_scope_falsification"
+        ],
         "two_sided_argument": (
             "D-CA >= D-AMA because pCor=0 embeds every AMA. Appendix-B's pointwise "
             "boost-shift transform gives D-AMA >= D-CA under Cartesian (independent) "
@@ -359,6 +459,8 @@ def run_claim_2() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             row["minimum_pointwise_revenue_margin"] for row in independent_cases
         ),
         "all_cases_pass": raw["independent_part_holds"],
+        "n_1_finite_support_checks": n1["finite_support_independent_cases"],
+        "n_1_finite_support_checks_pass": n1["all_independent_cases_pass"],
     }
     controls = {
         "correlation_required": {
@@ -374,6 +476,7 @@ def run_claim_2() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             "correct_inverse_payment": "1-v2/eta_1=v1",
             "printed_formula_matches_v1_when_eta_1_lt_eta": False,
         },
+        "positive_revenue_n_1_falsification": n1,
     }
     return raw, independent, controls
 
@@ -499,20 +602,28 @@ CLAIM_METADATA = {
     1: {
         "title": "Proposition 3.1: deterministic AMA can be arbitrarily poor",
         "anchor": "S3.Thmtheorem1; proof A2.16.p1--A2.22.p6",
-        "quantifiers": "single item; every integer n>=2; every target delta>0; there exists a correlated distribution F",
+        "quantifiers": (
+            "single item; every positive integer n (literal source wording: "
+            "\"any number of bidders\"); every target delta>0; there exists a "
+            "correlated distribution F with a non-vacuous positive optimal revenue"
+        ),
         "contract": (
-            "Construct F explicitly and certify REV_F^D-AMA < delta*REV_F using "
-            "the paper's uniform bound for every requested n and delta."
+            "Audit every positive integer n. For n>=2, construct F explicitly "
+            "and certify REV_F^D-AMA < delta*REV_F. For n=1, test whether a "
+            "positive-revenue separation can exist under DSIC and IR."
         ),
     },
     2: {
         "title": "Theorem 3.3: independence equality and correlated separation",
         "anchor": "S3.Thmtheorem3; Theorems B.1 and B.2",
-        "quantifiers": "single item; every integer n>=2; all bidder-independent F for equality; every delta>0 for separation",
+        "quantifiers": (
+            "single item; every positive integer n; all bidder-independent F "
+            "for equality; every delta>0 for correlated separation"
+        ),
         "contract": (
             "Certify both inequalities giving D-CA=D-AMA on independent product "
-            "supports, and certify the all-n correlated construction with D-CA=REV "
-            "and D-AMA<delta*REV."
+            "supports, and audit the literal all-n correlated construction with "
+            "D-CA=REV and D-AMA<delta*REV, including n=1."
         ),
     },
     3: {
@@ -547,9 +658,18 @@ Appendix B uses epsilon for the equal-revenue support endpoint and delta for the
 requested factor. The verifier renames the endpoint `eta`, its rival slope
 `eta_1`, and the requested factor `delta`.
 
-The Appendix-B construction requires a rival bidder to reveal bidder 1's value;
-therefore `n>=2` is an implicit domain assumption. The literal `n=1` reading is
-not supported by the proof and is rejected rather than silently counted.
+The Appendix-B construction requires a rival bidder to reveal bidder 1's value,
+but the source statement says “any number of bidders” without an `n>=2`
+qualification. This audit therefore does not silently narrow the quantifier.
+For `n=1`, every DSIC/IR mechanism is a mixture of posted prices, while a
+deterministic AMA implements every posted price. Thus, for every distribution
+with positive optimal revenue, `REV_D-AMA=REV`; the claimed separation is
+impossible for any requested factor below one.
+
+A zero-revenue distribution makes the displayed inequality `0<=delta*0`
+vacuously true. The paper's phrase “arbitrarily small fraction,” its ratio
+argument, and the campaign's non-vacuity rule require positive optimal revenue;
+the audit records this semantic assumption explicitly.
 """
     if claim == 2:
         common += """
@@ -574,6 +694,9 @@ def _method(claim: int) -> str:
    `delta/2 + eta(1-eta)delta/2 < delta`.
 4. Recompute at 100-digit Decimal precision for 30 `(delta,n)` pairs.
 5. Require a deliberately weak parameter choice to fail.
+6. Audit `n=1` with the single-agent DSIC payment identity: every monotone
+   allocation is a mixture of posted-price thresholds, so its expected revenue
+   cannot exceed the best posted price, which deterministic AMA implements.
 """,
         2: """# Method
 
@@ -583,6 +706,10 @@ independent part implements Appendix B's boost-shift transform on Cartesian
 finite supports and enumerates every profile, checking pointwise that the
 transformed AMA payment dominates the feasible CA-AMA payment. Since CA-AMA
 contains AMA at `pCor=0`, the two optimal revenues are equal.
+
+For the correlated-separation half, apply the one-bidder posted-price
+representation to the literal `n=1` scope. It proves that a positive-revenue
+separation cannot hold for every bidder count.
 """,
         3: """# Method
 
@@ -603,8 +730,11 @@ def _limitations(claim: int) -> str:
 - The verifier establishes the deterministic-AMA part scored by Claim 1. It
   source-audits, but does not assign a separate verdict to, Proposition 3.1's
   additional finite-menu randomized-AMA strict-gap clause.
-- `n=1` is excluded because the Appendix-B correlated construction and payment
-  inversion require at least one rival. This implicit assumption is material.
+- The literal `n=1` quantifier is not excluded. It falsifies the intended
+  positive-revenue claim; restricting the theorem to `n>=2` repairs it.
+- A zero-revenue distribution satisfies the displayed inequality vacuously.
+  This audit follows the paper's stated “fraction” interpretation and the
+  campaign rule against vacuous checks by requiring positive optimal revenue.
 - The certificate validates the paper's uniform upper-bound proof; it does not
   numerically optimize every possible AMA parameterization.
 """,
@@ -617,6 +747,10 @@ def _limitations(claim: int) -> str:
   checks finite product supports across five cases but is not a proof assistant.
 - Allocation-favouring tie breaking against the reserve is used, matching the
   proof step that treats a weak score inequality as allocation.
+- The bidder-independent equality remains supported for `n=1`; the FALSIFIED
+  verdict concerns the theorem's correlated-separation half.
+- As in Claim 1, the `n=1` contradiction requires the intended non-vacuous,
+  positive-revenue reading of “arbitrarily poor.”
 """,
         3: """# Limitations and deviations
 
@@ -630,6 +764,7 @@ def _limitations(claim: int) -> str:
 
 
 def _verifier_source(claim: int) -> str:
+    resolved_verdict = {1: "FALSIFIED", 2: "FALSIFIED", 3: "VERIFIED"}[claim]
     return f"""#!/usr/bin/env python3
 import json
 import sys
@@ -642,12 +777,19 @@ negative = json.loads((here / "negative_control_output.json").read_text())
 
 checks = {{
     1: raw.get("all_contracts_hold")
+       and raw.get("literal_any_n_claim_falsified")
        and independent.get("all_30_certificates_pass")
+       and independent.get("n_1_finite_support_checks_pass")
        and negative.get("weak_parameterization_rejected")
-       and negative.get("out_of_domain_n_1_rejected"),
+       and negative.get("appendix_construction_rejects_n_1")
+       and negative["positive_revenue_n_1_falsification"]["valid_literal_scope_falsification"],
     2: raw.get("correlated_part_holds")
        and raw.get("independent_part_holds")
+       and raw.get("n_1_independent_equality_holds")
+       and raw.get("literal_any_n_correlated_part_falsified")
        and independent.get("all_cases_pass")
+       and independent.get("n_1_finite_support_checks_pass")
+       and negative["positive_revenue_n_1_falsification"]["valid_literal_scope_falsification"]
        and not negative["paper_formula_typo_detected"]["printed_formula_matches_v1_when_eta_1_lt_eta"],
     3: raw.get("all_cases_pass")
        and independent.get("all_cases_pass")
@@ -655,7 +797,7 @@ checks = {{
        and not negative["own_bid_dependent_payment"]["dsic_holds"],
 }}
 ok = bool(checks[{claim}])
-print(json.dumps({{"claim": {claim}, "verdict": "VERIFIED" if ok else "BLOCKED", "ok": ok}}))
+print(json.dumps({{"claim": {claim}, "verdict": "{resolved_verdict}" if ok else "BLOCKED", "ok": ok}}))
 sys.exit(0 if ok else 1)
 """
 
@@ -699,7 +841,7 @@ def _write_claim_bundle(
         "domain_and_quantifiers": meta["quantifiers"],
         "machine_checkable_contract": meta["contract"],
         "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"],
-        "success_verdict": "VERIFIED",
+        "success_verdict": raw["verdict"],
     }
     _write_json(directory / "claim_contract.json", contract)
     _write_text(directory / "source_audit.md", _source_audit(claim))
@@ -724,7 +866,7 @@ def _write_claim_bundle(
         "stderr": verifier.stderr.strip(),
     }
     _write_json(directory / "verifier_output.json", verifier_record)
-    verdict = "VERIFIED" if verifier.returncode == 0 else "BLOCKED"
+    verdict = raw["verdict"] if verifier.returncode == 0 else "BLOCKED"
     _write_text(
         directory / "EVAL.md",
         f"""# Claim {claim} evaluation
@@ -777,7 +919,7 @@ def main() -> None:
     _write_json(ARTIFACT_ROOT / "theory_manifest.json", manifest)
     print(f"THEORY_ARTIFACT_FILES={len(manifest)}")
     print(f"THEORY_RUNTIME_SECONDS={time.perf_counter() - started:.6f}")
-    print("THEORY_CUMULATIVE_VERDICT=VERIFIED")
+    print("THEORY_CUMULATIVE_VERDICT=RESOLVED")
 
 
 if __name__ == "__main__":

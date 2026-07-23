@@ -14,13 +14,21 @@ def test_claim_1_explicit_all_n_certificate():
             assert Decimal(str(row["upper_bound_ratio"])) < Decimal(delta)
 
 
-def test_claim_1_rejects_out_of_domain_n_1():
+def test_appendix_construction_rejects_n_1_instead_of_silently_counting_it():
     try:
         tc.construction_certificate("0.1", 1)
     except ValueError:
         pass
     else:
         raise AssertionError("n=1 must not be silently counted")
+
+
+def test_literal_n_1_positive_revenue_separation_is_falsified():
+    result = tc.single_bidder_scope_certificate()
+    assert result["positive_optimal_revenue_required"]
+    assert result["positive_revenue_n1_separation_impossible"]
+    assert result["valid_literal_scope_falsification"]
+    assert result["all_independent_cases_pass"]
 
 
 def test_claim_1_negative_control_fails_contract():

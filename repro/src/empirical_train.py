@@ -979,6 +979,9 @@ def main() -> None:
 
         run_claim4_pcor_multiseed()
         return
+    if config["mode"] == "theory_scope_audit":
+        print("EMPIRICAL_TRAIN_STATUS=SKIPPED_THEORY_SCOPE_AUDIT")
+        return
     if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
         raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()
