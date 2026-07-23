@@ -47,6 +47,15 @@ def _git_sha() -> str:
     ).strip()
 
 
+def _checks_payload(record: dict[str, Any]) -> dict[str, bool]:
+    """Accept the two explicit verifier record formats used by the campaign."""
+    if "checks" in record:
+        return record["checks"]
+    if "stdout" in record:
+        return json.loads(record["stdout"])["checks"]
+    raise KeyError("verifier record contains neither checks nor stdout")
+
+
 def _theory_verdict(claim: int) -> tuple[str, bool]:
     record = _read_json(
         ARTIFACT_ROOT / f"claim_{claim}" / "verifier_output.json"
@@ -146,7 +155,7 @@ def main() -> None:
         ],
     }
 
-    claim4_numeric_checks = json.loads(claim4_route3["stdout"])["checks"]
+    claim4_numeric_checks = _checks_payload(claim4_route3)
     claim4_resolved = bool(
         claim4_route2["returncode"] == 1
         and all(claim4_independent["checks"].values())
