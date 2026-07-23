@@ -79,3 +79,20 @@ def test_literal_sampler_preserves_asymmetric_support():
     assert values.shape == (4096, 2, 5)
     assert torch.all((values[:, 0] >= 0) & (values[:, 0] <= 1))
     assert torch.all((values[:, 1] >= 0) & (values[:, 1] <= 0.25))
+
+
+def test_direct_mechanism_space_is_feasible_and_differentiable():
+    torch.manual_seed(777)
+    model = et.DirectAMA(3, 4, 16, 10)
+    allocations, weights, boosts = model.parameters_for_auction()
+    assert allocations.shape == (17, 3, 4)
+    assert boosts.shape == (17,)
+    assert torch.all(allocations >= 0)
+    assert torch.all(allocations[:-1].sum(dim=1) <= 1 + 1e-6)
+    assert torch.all(weights > 0)
+    values = torch.rand(32, 3, 4)
+    payment, _, _ = model.soft_outcomes(values, 500)
+    loss = -payment.sum(dim=1).mean()
+    loss.backward()
+    assert model.allocation_logits.grad is not None
+    assert torch.isfinite(model.allocation_logits.grad).all()

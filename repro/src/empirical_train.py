@@ -196,6 +196,62 @@ class EfficientAMA(nn.Module):
         return payment, valuation, choice_index
 
 
+class DirectAMA(EfficientAMA):
+    """The same AMA mechanism space with allocations/weights/boosts explicit."""
+
+    def __init__(
+        self,
+        n_bidders: int,
+        n_items: int,
+        menu_size: int,
+        allocation_temperature: float = 10.0,
+    ) -> None:
+        nn.Module.__init__(self)
+        self.n_bidders = n_bidders
+        self.n_items = n_items
+        self.menu_size = menu_size
+        self.allocation_temperature = allocation_temperature
+        self.allocation_logits = nn.Parameter(
+            torch.randn(menu_size, n_bidders + 1, n_items) * 0.01
+        )
+        self.weight_logits = nn.Parameter(torch.zeros(n_bidders))
+        self.boosts = nn.Parameter(torch.randn(menu_size) * 0.01)
+
+    def parameters_for_auction(
+        self,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        feasible = torch.softmax(
+            self.allocation_logits * self.allocation_temperature, dim=1
+        )
+        allocations = feasible[:, : self.n_bidders]
+        weights = torch.sigmoid(self.weight_logits)
+        allocations = torch.cat(
+            (
+                allocations,
+                allocations.new_zeros(
+                    1, self.n_bidders, self.n_items
+                ),
+            ),
+            dim=0,
+        )
+        boosts = torch.cat((self.boosts, self.boosts.new_zeros(1)))
+        return allocations, weights, boosts
+
+
+def make_ama(config: dict[str, Any]) -> EfficientAMA:
+    parameters = (
+        int(config["n_bidders"]),
+        int(config["n_items"]),
+        int(config["menu_size"]),
+        float(config["allocation_temperature"]),
+    )
+    if config.get("parameterization", "amenunet_constant_context") == (
+        "direct_mechanism_space"
+    ):
+        return DirectAMA(*parameters)
+    return EfficientAMA(*parameters)
+
+
 class PaperPaymentMLP(nn.Module):
     """Three-linear-layer ReLU pCor network stated in Section 5."""
 
@@ -273,12 +329,7 @@ def train_baseline(
 ) -> EfficientAMA:
     torch.manual_seed(seed)
     generator = torch.Generator().manual_seed(seed * 1009 + 17)
-    model = EfficientAMA(
-        int(config["n_bidders"]),
-        int(config["n_items"]),
-        int(config["menu_size"]),
-        float(config["allocation_temperature"]),
-    )
+    model = make_ama(config)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-8)
     started = time.perf_counter()
     total = int(config["baseline_updates"])
@@ -321,12 +372,7 @@ def train_caama(
 ) -> tuple[EfficientAMA, PaperPaymentMLP]:
     torch.manual_seed(seed)
     generator = torch.Generator().manual_seed(seed * 1013 + 29)
-    model = EfficientAMA(
-        int(config["n_bidders"]),
-        int(config["n_items"]),
-        int(config["menu_size"]),
-        float(config["allocation_temperature"]),
-    )
+    model = make_ama(config)
     pcor = PaperPaymentMLP(
         int(config["n_bidders"]), int(config["n_items"])
     )
@@ -738,6 +784,9 @@ def _write_full_claim_bundle(
     criteria: dict[str, Any],
     started: float,
 ) -> str:
+    direct_parameterization = (
+        config.get("parameterization") == "direct_mechanism_space"
+    )
     contract = {
         "claim": 5,
         "paper_result": {
@@ -780,19 +829,28 @@ uses a convex interpolation. This route follows the literal paper statement;
 the released-code distribution is retained as a distinct alternative route.
 """,
     )
+    parameterization_method = (
+        """- Allocation logits, positive bidder weights, and boosts are optimized
+  directly in the 256-menu AMA mechanism space. A per-item softmax over the two
+  bidders plus non-allocation enforces exactly the same allocation feasibility
+  constraints as AMenuNet. This removes the paper's optimizer parameterization
+  but does not change the auction, menu size, scores, or payments."""
+        if direct_parameterization
+        else """- AMenuNet Transformer architecture, allocations, weights, boosts,
+  soft choice, and weighted pivot payments match the released implementation.
+- Because contexts are constant identifiers, the dropout-free Transformer is
+  evaluated once per update rather than redundantly for each identical context."""
+    )
     _write_text(
         route / "method.md",
-        """# Claim 5 method
+        f"""# Claim 5 method
 
 - Five deterministic training seeds: 1--5.
 - Literal Bernoulli(alpha=0.6) asymmetric mixture from Section 5.1.
 - Randomized AMA: 32,000 minibatch updates.
 - CA-AMA: 16,000 mutual plus 16,000 pCor-only post-training updates.
 - Batch size 2,048; fixed 20,000-sample test set; menu size 256.
-- AMenuNet Transformer architecture, allocations, weights, boosts, soft
-  choice, and weighted pivot payments match the released implementation.
-- Because contexts are constant identifiers, the dropout-free Transformer is
-  evaluated once per update rather than redundantly for each identical context.
+{parameterization_method}
 - The correlation payment is the paper-stated three-linear-layer ReLU MLP.
 - Hard argmax allocation and pivot payments are used for final evaluation.
 - Negative pCor outputs are truncated to zero, matching the released evaluator.
@@ -848,9 +906,19 @@ the released-code distribution is retained as a distinct alternative route.
     }
     _write_json(route / "verifier_output.json", verifier_output)
     verdict = "VERIFIED" if verifier.returncode == 0 else "BLOCKED"
+    parameterization_limitation = (
+        """- This route directly optimizes allocation logits, bidder weights, and
+  boosts. It spans the same finite-menu AMA mechanism class but does not use
+  AMenuNet's Transformer over-parameterization, so it verifies attainability
+  rather than reproducing that optimizer's trajectory."""
+        if direct_parameterization
+        else """- Constant-context vectorization is algebraically equivalent and is
+  regression tested against the released soft-payment implementation, but it is
+  still a CPU execution optimization absent from the authors' scripts."""
+    )
     _write_text(
         route / "limitations_and_deviations.md",
-        """# Limitations and deviations
+        f"""# Limitations and deviations
 
 - "32,000 iterations" is interpreted in the standard minibatch-update sense.
   Released scripts instead default to 2,000 outer loops that each consume
@@ -862,9 +930,7 @@ the released-code distribution is retained as a distinct alternative route.
   scripts use 6.
 - The paper states a three-layer ReLU pCor MLP, whereas released mutual training
   uses a max-minus-max network and released post-training uses the ReLU MLP.
-- Constant-context vectorization is algebraically equivalent and is regression
-  tested against the released soft-payment implementation, but it is still a
-  CPU execution optimization absent from the authors' scripts.
+{parameterization_limitation}
 - A non-matching optimization outcome is marked BLOCKED, not FALSIFIED, because
   non-convex training cannot by itself disprove existence of the reported run.
 """,
@@ -898,9 +964,17 @@ def main() -> None:
     started = time.perf_counter()
     claim = int(config["claim"])
     route_name = (
-        "route_2_vectorized_pilot"
+        (
+            "route_3_direct_pilot"
+            if config.get("parameterization") == "direct_mechanism_space"
+            else "route_2_vectorized_pilot"
+        )
         if config["mode"] == "pilot_no_verdict"
-        else "route_2_full_paper_semantics"
+        else (
+            "route_3_direct_mechanism_space"
+            if config.get("parameterization") == "direct_mechanism_space"
+            else "route_2_full_paper_semantics"
+        )
     )
     route = ARTIFACT_ROOT / f"claim_{claim}" / route_name
     all_raw: list[dict[str, Any]] = []
@@ -925,6 +999,38 @@ def main() -> None:
     if config["mode"] == "pilot_no_verdict":
         _write_json(route / "summary.json", summaries)
         _write_json(route / "negative_control_output.json", controls)
+        _write_json(route / "config.json", config)
+        _write_json(
+            route / "exact_command_environment.json",
+            {
+                "fixed_command": FIXED_COMMAND,
+                "git_sha": _git_sha(),
+                "uv_lock_sha256": _sha256(ROOT / "uv.lock"),
+                "torch": torch.__version__,
+                "torch_cuda_available": torch.cuda.is_available(),
+                "elapsed_seconds": time.perf_counter() - started,
+            },
+        )
+        _write_text(
+            route / "method.md",
+            """# Direct mechanism-space pilot
+
+This one-seed, 1,000-total-update pilot directly optimizes feasible allocation
+logits, positive weights, and boosts in the same 256-menu AMA mechanism space.
+It retains the literal paper distribution, full batch and test sizes, pivot
+payments, pCor MLP, and IR accounting. It is a throughput and optimization
+diagnostic, not Table-1 claim evidence.
+""",
+        )
+        _write_text(
+            route / "STATUS.md",
+            """# Status
+
+- Status: **PILOT ONLY — NO CLAIM VERDICT**
+- Full 32,000-update, five-seed evidence is reserved for a child after this
+  implementation and throughput check passes.
+""",
+        )
         verdict = "PILOT_ONLY_NO_VERDICT"
     else:
         aggregate = aggregate_seed_results(summaries)
