@@ -6,6 +6,7 @@ from types import SimpleNamespace
 import torch
 
 import empirical_train as et
+import claim5_falsification as c5f
 
 
 def _official_args(batch_size: int) -> SimpleNamespace:
@@ -96,3 +97,13 @@ def test_direct_mechanism_space_is_feasible_and_differentiable():
     loss.backward()
     assert model.allocation_logits.grad is not None
     assert torch.isfinite(model.allocation_logits.grad).all()
+
+
+def test_claim5_exact_falsification_bound_is_sensitive_but_not_triggered():
+    result = c5f.exact_falsification_bounds()
+    assert (
+        result["distribution"]["expected_total_welfare_upper_bound"]["exact"]
+        == "623/240"
+    )
+    assert all(result["necessary_checks"].values())
+    assert not result["valid_falsification_found"]

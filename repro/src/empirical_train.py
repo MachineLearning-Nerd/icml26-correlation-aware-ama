@@ -959,6 +959,11 @@ the released-code distribution is retained as a distinct alternative route.
 
 def main() -> None:
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    if config["mode"] == "falsification_audit":
+        from claim5_falsification import main as run_falsification_audit
+
+        run_falsification_audit()
+        return
     if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
         raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()

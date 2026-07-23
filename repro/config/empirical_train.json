@@ -2,7 +2,7 @@
   "claim": 5,
   "distribution": "paper_literal_bernoulli_mixture",
   "parameterization": "direct_mechanism_space",
-  "mode": "pilot_no_verdict",
+  "mode": "falsification_audit",
   "seeds": [1],
   "n_bidders": 2,
   "n_items": 5,
