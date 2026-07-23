@@ -101,6 +101,11 @@ def main():
     json.dump(res, open(out, "w"), indent=2, default=lambda o: bool(o) if isinstance(o, (np.bool_,)) else float(o))
     print("wrote", out)
 
+    # Cumulative campaign evidence. Children keep the fixed command and extend
+    # this entrypoint so every accepted claim is rerun on every node.
+    from theory_campaign import main as run_theory_campaign
+    run_theory_campaign()
+
 
 if __name__ == "__main__":
     main()
