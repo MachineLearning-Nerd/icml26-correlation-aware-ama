@@ -2,7 +2,26 @@
 name = "icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue"
 version = "0.1.0"
 description = "Clean-room repro of CA-AMA (Enhancing Affine Maximizer Auctions with Correlation-Aware Payment), ICML 2026, OpenReview TA3NDHgNJh."
-requires-python = ">=3.11,<3.13"
-dependencies = ["numpy", "scipy"]
+requires-python = "==3.12.*"
+dependencies = [
+    "marimo>=0.15,<1",
+    "matplotlib>=3.10,<4",
+    "numpy>=2.2,<3",
+    "pandas>=2.3,<4",
+    "psutil>=7,<8",
+    "pytest>=8.4,<10",
+    "scipy>=1.16,<2",
+    "torch==2.7.1",
+    "tqdm>=4.67,<5",
+]
+
 [tool.pytest.ini_options]
 pythonpath = ["repro/src"]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
