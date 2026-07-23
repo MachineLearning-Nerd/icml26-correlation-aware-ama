@@ -6,6 +6,7 @@ import csv
 import hashlib
 import json
 import math
+import platform
 import subprocess
 import sys
 import time
@@ -13,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import psutil
 import scipy.stats
 import torch
 from torch import nn
@@ -545,16 +547,362 @@ def run_seed(
     return raw, summary, controls, curve_rows
 
 
+def aggregate_seed_results(summaries: dict[str, Any]) -> dict[str, Any]:
+    metrics = (
+        "baseline_revenue",
+        "caama_revenue",
+        "caama_ir_regret",
+        "caama_ex_post_ir_revenue",
+        "zero_pcor_revenue",
+    )
+    aggregate: dict[str, Any] = {}
+    ordered_seeds = sorted(summaries, key=int)
+    for metric in metrics:
+        seed_means = np.asarray(
+            [summaries[seed][metric]["mean"] for seed in ordered_seeds],
+            dtype=float,
+        )
+        aggregate[metric] = {
+            **_metric_summary(seed_means),
+            "seed_means": seed_means.tolist(),
+        }
+    improvement = np.asarray(
+        [
+            summaries[seed]["caama_revenue"]["mean"]
+            - summaries[seed]["baseline_revenue"]["mean"]
+            for seed in ordered_seeds
+        ],
+        dtype=float,
+    )
+    aggregate["paired_caama_minus_baseline"] = {
+        **_metric_summary(improvement),
+        "seed_differences": improvement.tolist(),
+    }
+    return aggregate
+
+
+def verification_criteria(
+    config: dict[str, Any],
+    aggregate: dict[str, Any],
+    controls: dict[str, Any],
+) -> dict[str, Any]:
+    targets = {
+        "baseline_revenue": 1.7135,
+        "caama_revenue": 1.9359,
+        "caama_ir_regret": 0.0052,
+        "caama_ex_post_ir_revenue": 1.8553,
+    }
+    tolerance = config["verification_tolerances"]
+    relative_errors = {
+        key: abs(aggregate[key]["mean"] - target) / abs(target)
+        for key, target in targets.items()
+        if key != "caama_ir_regret"
+    }
+    regret_error = abs(
+        aggregate["caama_ir_regret"]["mean"]
+        - targets["caama_ir_regret"]
+    )
+    normal_regrets = np.asarray(
+        [
+            aggregate_value
+            for aggregate_value in aggregate["caama_ir_regret"]["seed_means"]
+        ],
+        dtype=float,
+    )
+    shuffled_regrets = np.asarray(
+        [
+            controls[seed]["rival_profile_reversal"]["ir_regret"]["mean"]
+            for seed in sorted(controls, key=int)
+        ],
+        dtype=float,
+    )
+    shuffled_effect = _metric_summary(shuffled_regrets - normal_regrets)
+    checks = {
+        "five_training_seeds": len(config["seeds"]) == 5,
+        "paper_scale_updates": (
+            int(config["baseline_updates"]) == 32_000
+            and int(config["mutual_updates"]) + int(config["post_updates"])
+            == 32_000
+        ),
+        "fixed_test_size": int(config["eval_samples"]) == 20_000,
+        "baseline_within_preregistered_tolerance": (
+            relative_errors["baseline_revenue"]
+            <= float(tolerance["revenue_relative_error"])
+        ),
+        "caama_within_preregistered_tolerance": (
+            relative_errors["caama_revenue"]
+            <= float(tolerance["revenue_relative_error"])
+        ),
+        "ex_post_ir_within_preregistered_tolerance": (
+            relative_errors["caama_ex_post_ir_revenue"]
+            <= float(tolerance["revenue_relative_error"])
+        ),
+        "ir_regret_within_preregistered_tolerance": (
+            regret_error <= float(tolerance["ir_regret_absolute_error"])
+        ),
+        "paired_improvement_ci_excludes_zero": (
+            aggregate["paired_caama_minus_baseline"]["ci95_low"]
+            > float(tolerance["paired_improvement_ci95_low_minimum"])
+        ),
+        "rival_reversal_increases_ir_regret": (
+            shuffled_effect["ci95_low"] > 0
+        ),
+    }
+    return {
+        "paper_targets": targets,
+        "relative_errors": relative_errors,
+        "ir_regret_absolute_error": regret_error,
+        "negative_control_paired_regret_effect": shuffled_effect,
+        "checks": checks,
+        "all_verification_checks_pass": all(checks.values()),
+    }
+
+
+def _independent_checker_source() -> str:
+    return """#!/usr/bin/env python3
+import csv
+import json
+import math
+import statistics
+from collections import defaultdict
+from pathlib import Path
+
+here = Path(__file__).resolve().parent
+rows = list(csv.DictReader((here / "raw_test_samples.csv").open()))
+by_seed = defaultdict(list)
+for row in rows:
+    by_seed[int(row["seed"])].append(row)
+assert sorted(by_seed) == [1, 2, 3, 4, 5]
+assert all(len(seed_rows) == 20000 for seed_rows in by_seed.values())
+
+keys = [
+    "baseline_revenue",
+    "caama_revenue",
+    "caama_ir_regret",
+    "caama_ex_post_ir_revenue",
+]
+seed_means = {
+    key: [
+        statistics.fmean(float(row[key]) for row in by_seed[seed])
+        for seed in sorted(by_seed)
+    ]
+    for key in keys
+}
+paired = [
+    seed_means["caama_revenue"][i] - seed_means["baseline_revenue"][i]
+    for i in range(5)
+]
+t4 = 2.7764451051977987
+paired_mean = statistics.fmean(paired)
+paired_se = statistics.stdev(paired) / math.sqrt(5)
+result = {
+    "raw_rows": len(rows),
+    "seed_counts": {str(k): len(v) for k, v in sorted(by_seed.items())},
+    "seed_means": seed_means,
+    "paired_caama_minus_baseline": paired,
+    "paired_mean": paired_mean,
+    "paired_ci95_low": paired_mean - t4 * paired_se,
+    "paired_ci95_high": paired_mean + t4 * paired_se,
+}
+print(json.dumps(result, sort_keys=True))
+"""
+
+
+def _claim_verifier_source() -> str:
+    return """#!/usr/bin/env python3
+import json
+import sys
+from pathlib import Path
+
+here = Path(__file__).resolve().parent
+criteria = json.loads((here / "verification_criteria.json").read_text())
+independent = json.loads((here / "independent_checker_output.json").read_text())
+checks = dict(criteria["checks"])
+checks["independent_raw_row_count"] = independent["raw_rows"] == 100000
+checks["independent_seed_counts"] = all(
+    count == 20000 for count in independent["seed_counts"].values()
+)
+ok = all(checks.values())
+verdict = "VERIFIED" if ok else "BLOCKED"
+print(json.dumps({"claim": 5, "verdict": verdict, "ok": ok, "checks": checks}, sort_keys=True))
+sys.exit(0 if ok else 1)
+"""
+
+
+def _write_full_claim_bundle(
+    route: Path,
+    config: dict[str, Any],
+    summaries: dict[str, Any],
+    aggregate: dict[str, Any],
+    controls: dict[str, Any],
+    criteria: dict[str, Any],
+    started: float,
+) -> str:
+    contract = {
+        "claim": 5,
+        "paper_result": {
+            "setting": "Linear Mixture alpha=0.6, 2 bidders x 5 items, asymmetric",
+            "randomized_ama_revenue": 1.7135,
+            "caama_revenue": 1.9359,
+            "caama_ir_regret": 0.0052,
+            "caama_ex_post_ir_revenue": 1.8553,
+        },
+        "paper_source": PAPER_URL,
+        "paper_sha256": PAPER_SHA256,
+        "anchors": ["S4.T1", "S5.p3", "S5.SS1.p3"],
+        "machine_checkable_contract": (
+            "Five-seed mean revenues and ex-post-IR revenue must be within 5% "
+            "relative error of Table 1, IR regret within 0.003 absolute error, "
+            "and the paired CA-AMA improvement 95% t interval must exclude zero."
+        ),
+        "pre_registered_tolerances": config["verification_tolerances"],
+        "allowed_verdicts": ["VERIFIED", "FALSIFIED", "BLOCKED"],
+    }
+    _write_json(route / "claim_contract.json", contract)
+    _write_text(
+        route / "source_audit.md",
+        f"""# Claim 5 source audit
+
+- Source: `{PAPER_URL}`
+- Retrieved: `2026-07-23T15:56:49Z`
+- SHA-256: `{PAPER_SHA256}`
+- Table anchor: `S4.T1`
+- Distribution anchor: `S5.SS1.p3`
+- Implementation anchor: `S5.p3`
+
+Table 1 reports Randomized AMA `1.7135`, CA-AMA `1.9359`, parenthetical
+IR regret `0.0052`, and ex-post-IR CA-AMA `1.8553` for the asymmetric
+two-bidder, five-item, alpha=0.6 setting. The prose calls regret values
+"near 0.001"; the exact row is `0.0052`, so this contract uses the row value.
+
+The paper specifies a Bernoulli mixture. Released `generate_data_22` instead
+uses a convex interpolation. This route follows the literal paper statement;
+the released-code distribution is retained as a distinct alternative route.
+""",
+    )
+    _write_text(
+        route / "method.md",
+        """# Claim 5 method
+
+- Five deterministic training seeds: 1--5.
+- Literal Bernoulli(alpha=0.6) asymmetric mixture from Section 5.1.
+- Randomized AMA: 32,000 minibatch updates.
+- CA-AMA: 16,000 mutual plus 16,000 pCor-only post-training updates.
+- Batch size 2,048; fixed 20,000-sample test set; menu size 256.
+- AMenuNet Transformer architecture, allocations, weights, boosts, soft
+  choice, and weighted pivot payments match the released implementation.
+- Because contexts are constant identifiers, the dropout-free Transformer is
+  evaluated once per update rather than redundantly for each identical context.
+- The correlation payment is the paper-stated three-linear-layer ReLU MLP.
+- Hard argmax allocation and pivot payments are used for final evaluation.
+- Negative pCor outputs are truncated to zero, matching the released evaluator.
+- Uncertainty is computed over five independent training-seed means with a
+  two-sided 95% Student-t interval.
+""",
+    )
+    _write_json(route / "per_seed_summary.json", summaries)
+    _write_json(route / "aggregate_summary.json", aggregate)
+    _write_json(route / "negative_control_output.json", controls)
+    _write_json(route / "verification_criteria.json", criteria)
+    _write_json(route / "config.json", config)
+    _write_json(
+        route / "exact_command_environment.json",
+        {
+            "fixed_command": FIXED_COMMAND,
+            "git_sha": _git_sha(),
+            "uv_lock_sha256": _sha256(ROOT / "uv.lock"),
+            "python": sys.version,
+            "platform": platform.platform(),
+            "machine": platform.machine(),
+            "physical_cpu_cores": psutil.cpu_count(logical=False),
+            "logical_cpu_cores": psutil.cpu_count(logical=True),
+            "memory_bytes": psutil.virtual_memory().total,
+            "torch": torch.__version__,
+            "torch_cuda_available": torch.cuda.is_available(),
+            "seeds": config["seeds"],
+            "elapsed_seconds": time.perf_counter() - started,
+        },
+    )
+    _write_text(route / "independent_checker.py", _independent_checker_source())
+    independent = subprocess.run(
+        [sys.executable, str(route / "independent_checker.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    independent_output = json.loads(independent.stdout)
+    _write_json(route / "independent_checker_output.json", independent_output)
+    _write_text(route / "claim_verifier.py", _claim_verifier_source())
+    verifier = subprocess.run(
+        [sys.executable, str(route / "claim_verifier.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    verifier_output = {
+        "returncode": verifier.returncode,
+        "stdout": verifier.stdout.strip(),
+        "stderr": verifier.stderr.strip(),
+    }
+    _write_json(route / "verifier_output.json", verifier_output)
+    verdict = "VERIFIED" if verifier.returncode == 0 else "BLOCKED"
+    _write_text(
+        route / "limitations_and_deviations.md",
+        """# Limitations and deviations
+
+- "32,000 iterations" is interpreted in the standard minibatch-update sense.
+  Released scripts instead default to 2,000 outer loops that each consume
+  32,768 new samples, so the public code and paper do not define one identical
+  counter.
+- This route follows the paper's Bernoulli mixture rather than the conflicting
+  released convex-interpolation generator.
+- Gamma is initialized at 5, one of the paper's stated choices; released data-22
+  scripts use 6.
+- The paper states a three-layer ReLU pCor MLP, whereas released mutual training
+  uses a max-minus-max network and released post-training uses the ReLU MLP.
+- Constant-context vectorization is algebraically equivalent and is regression
+  tested against the released soft-payment implementation, but it is still a
+  CPU execution optimization absent from the authors' scripts.
+- A non-matching optimization outcome is marked BLOCKED, not FALSIFIED, because
+  non-convex training cannot by itself disprove existence of the reported run.
+""",
+    )
+    _write_text(
+        route / "EVAL.md",
+        f"""# Claim 5 evaluation
+
+- Verdict: **{verdict}**
+- Randomized AMA observed mean: `{aggregate['baseline_revenue']['mean']:.6f}`
+  (paper `1.7135`)
+- CA-AMA observed mean: `{aggregate['caama_revenue']['mean']:.6f}`
+  (paper `1.9359`)
+- IR regret observed mean: `{aggregate['caama_ir_regret']['mean']:.6f}`
+  (paper row `0.0052`)
+- Ex-post-IR observed mean: `{aggregate['caama_ex_post_ir_revenue']['mean']:.6f}`
+  (paper `1.8553`)
+- Paired improvement 95% CI:
+  `[{aggregate['paired_caama_minus_baseline']['ci95_low']:.6f}, `
+  `{aggregate['paired_caama_minus_baseline']['ci95_high']:.6f}]`
+- Verifier exit: `{verifier.returncode}`
+""",
+    )
+    return verdict
+
+
 def main() -> None:
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-    if config["mode"] != "pilot_no_verdict":
-        raise ValueError(
-            "This branch is deliberately gated to pilot_no_verdict; "
-            "a full-evidence child must change the committed mode."
-        )
+    if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
+        raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()
     claim = int(config["claim"])
-    route = ARTIFACT_ROOT / f"claim_{claim}" / "route_2_vectorized_pilot"
+    route_name = (
+        "route_2_vectorized_pilot"
+        if config["mode"] == "pilot_no_verdict"
+        else "route_2_full_paper_semantics"
+    )
+    route = ARTIFACT_ROOT / f"claim_{claim}" / route_name
     all_raw: list[dict[str, Any]] = []
     all_curves: list[dict[str, Any]] = []
     summaries: dict[str, Any] = {}
@@ -566,7 +914,7 @@ def main() -> None:
         summaries[str(seed)] = summary
         controls[str(seed)] = control
         print(
-            f"PILOT_RESULT seed={seed} "
+            f"EMPIRICAL_RESULT seed={seed} "
             f"baseline={summary['baseline_revenue']['mean']:.6f} "
             f"caama={summary['caama_revenue']['mean']:.6f} "
             f"ir_regret={summary['caama_ir_regret']['mean']:.6f} "
@@ -574,46 +922,33 @@ def main() -> None:
         )
     _write_csv(route / "raw_test_samples.csv", all_raw)
     _write_csv(route / "learning_curves.csv", all_curves)
-    _write_json(route / "summary.json", summaries)
-    _write_json(route / "negative_control_output.json", controls)
-    _write_json(route / "config.json", config)
-    _write_json(
-        route / "exact_command_environment.json",
-        {
-            "fixed_command": FIXED_COMMAND,
-            "git_sha": _git_sha(),
-            "uv_lock_sha256": _sha256(ROOT / "uv.lock"),
-            "torch": torch.__version__,
-            "torch_cuda_available": torch.cuda.is_available(),
-            "elapsed_seconds": time.perf_counter() - started,
-        },
-    )
-    _write_text(
-        route / "method.md",
-        """# Route 2 method
-
-This route interprets the paper's 32,000 iterations as 32,000 minibatch
-updates, uses the literal Section 5.1 Bernoulli mixture, and uses the stated
-three-layer ReLU correlation-payment network. AMenuNet's constant bidder/item
-contexts are evaluated once per update; the resulting allocation menu,
-weights, boosts, welfare, and pivot-payment equations are unchanged.
-
-This child is a 1,000-update, one-seed end-to-end pilot. It is capacity and
-correctness evidence only, not evidence for the reported Table-1 number.
-""",
-    )
-    _write_text(
-        route / "STATUS.md",
-        """# Route 2 status
-
-- Status: **PILOT ONLY — NO CLAIM VERDICT**
-- Full paper scale: not yet run.
-- Purpose: verify vectorization, optimization, hard-payment evaluation,
-  uncertainty calculation, IR accounting, and negative controls.
-""",
-    )
+    if config["mode"] == "pilot_no_verdict":
+        _write_json(route / "summary.json", summaries)
+        _write_json(route / "negative_control_output.json", controls)
+        verdict = "PILOT_ONLY_NO_VERDICT"
+    else:
+        aggregate = aggregate_seed_results(summaries)
+        criteria = verification_criteria(
+            config, aggregate, controls
+        )
+        verdict = _write_full_claim_bundle(
+            route,
+            config,
+            summaries,
+            aggregate,
+            controls,
+            criteria,
+            started,
+        )
+        print(
+            "CLAIM_5_AGGREGATE "
+            f"baseline={aggregate['baseline_revenue']['mean']:.6f} "
+            f"caama={aggregate['caama_revenue']['mean']:.6f} "
+            f"regret={aggregate['caama_ir_regret']['mean']:.6f} "
+            f"ex_post_ir={aggregate['caama_ex_post_ir_revenue']['mean']:.6f}"
+        )
     print(f"EMPIRICAL_TRAIN_MODE={config['mode']}")
-    print("CLAIM_5_STATUS=PILOT_ONLY_NO_VERDICT")
+    print(f"CLAIM_5_VERDICT={verdict}")
     print(f"EMPIRICAL_TRAIN_RUNTIME_SECONDS={time.perf_counter() - started:.6f}")
 
 

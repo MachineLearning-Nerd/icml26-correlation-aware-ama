@@ -1,15 +1,15 @@
 {
   "claim": 5,
   "distribution": "paper_literal_bernoulli_mixture",
-  "mode": "pilot_no_verdict",
-  "seeds": [1],
+  "mode": "full_claim_evidence",
+  "seeds": [1, 2, 3, 4, 5],
   "n_bidders": 2,
   "n_items": 5,
   "alpha": 0.6,
   "menu_size": 256,
-  "baseline_updates": 1000,
-  "mutual_updates": 500,
-  "post_updates": 500,
+  "baseline_updates": 32000,
+  "mutual_updates": 16000,
+  "post_updates": 16000,
   "train_batch_size": 2048,
   "eval_samples": 20000,
   "eval_batch_size": 500,
@@ -22,5 +22,10 @@
   "gamma_max": 20.0,
   "target_ir_regret": 0.001,
   "warmup_updates": 100,
-  "log_every": 100
+  "log_every": 1000,
+  "verification_tolerances": {
+    "revenue_relative_error": 0.05,
+    "ir_regret_absolute_error": 0.003,
+    "paired_improvement_ci95_low_minimum": 0.0
+  }
 }
