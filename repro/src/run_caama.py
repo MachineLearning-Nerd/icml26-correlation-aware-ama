@@ -106,6 +106,9 @@ def main():
     from theory_campaign import main as run_theory_campaign
     run_theory_campaign()
 
+    from empirical_audit import main as run_empirical_audit
+    run_empirical_audit()
+
 
 if __name__ == "__main__":
     main()

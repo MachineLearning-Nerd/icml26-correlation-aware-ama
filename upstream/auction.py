@@ -9,7 +9,6 @@ from net import (TransformerMechanism,
                  TransformerMechanismAblationW, 
                  TransformerMechanismAblationWB,
                  TransformerMechanismAblationA,)
-from IPython import embed
 
 def generate_all_deterministic_alloc(n_agents, m_items, unit_demand = False) -> torch.tensor: # n buyers, m items -> alloc (n+1, m)
     alloc_num = (n_agents+1) ** (m_items)
