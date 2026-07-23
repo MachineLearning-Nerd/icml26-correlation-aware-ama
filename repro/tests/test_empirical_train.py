@@ -135,3 +135,23 @@ def test_claim4_pcor_sampler_and_reserve_core_are_feasible():
     assert torch.all(payment >= 0)
     assert torch.all(utility >= -1e-7)
     assert torch.all(payment.sum(dim=1) <= welfare + 1e-7)
+
+
+def test_claim4_pcor_is_rival_only_and_scaled_metrics_obey_bound():
+    torch.manual_seed(901)
+    model = et.PaperPaymentMLP(3, 10)
+    values = c4p.sample_torch(64, torch.Generator().manual_seed(902))
+    changed = values.clone()
+    changed[:, 1] = torch.rand(
+        changed[:, 1].shape, generator=torch.Generator().manual_seed(903)
+    )
+    original_payment = model(values)
+    changed_payment = model(changed)
+    assert torch.allclose(original_payment[:, 1], changed_payment[:, 1])
+
+    components = c4p._components(model, values)
+    raw, _ = c4p._metrics(components, scale=0.5)
+    assert np.all(
+        raw["caama_revenue"]
+        <= raw["welfare"] + raw["caama_ir_regret"] + 1e-6
+    )
