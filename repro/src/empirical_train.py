@@ -964,6 +964,11 @@ def main() -> None:
 
         run_falsification_audit()
         return
+    if config["mode"] == "claim4_conditional_support":
+        from claim4_conditional import main as run_claim4_conditional
+
+        run_claim4_conditional()
+        return
     if config["mode"] not in {"pilot_no_verdict", "full_claim_evidence"}:
         raise ValueError(f"unsupported empirical mode: {config['mode']}")
     started = time.perf_counter()

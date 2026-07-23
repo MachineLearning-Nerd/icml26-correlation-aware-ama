@@ -3,10 +3,12 @@
 
 from types import SimpleNamespace
 
+import numpy as np
 import torch
 
 import empirical_train as et
 import claim5_falsification as c5f
+import claim4_conditional as c4c
 
 
 def _official_args(batch_size: int) -> SimpleNamespace:
@@ -107,3 +109,16 @@ def test_claim5_exact_falsification_bound_is_sensitive_but_not_triggered():
     )
     assert all(result["necessary_checks"].values())
     assert not result["valid_falsification_found"]
+
+
+def test_claim4_conditional_floor_is_rival_only_and_support_ir():
+    values = c4c.sample_dirichlet_profiles(seed=77, profiles=256, items=2)
+    floor = c4c.conditional_utility_floor(values, reserve=0.2)
+    assert floor.shape == values.shape
+    assert np.all(floor >= 0)
+    metrics = c4c.auction_metrics(values, reserve=0.2)
+    assert np.min(metrics["minimum_bidder_utility"]) >= -1e-12
+    assert np.all(
+        metrics["caama_revenue"]
+        <= metrics["welfare"] + metrics["caama_ir_regret"] + 1e-12
+    )
