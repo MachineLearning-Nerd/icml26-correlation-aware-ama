@@ -28,7 +28,7 @@ Python 3.12 `.venv` locked by `uv`.
 
 [Read the illustrated report](reports/caama-claim-campaign/report.md) ·
 [Open the tutorial notebook](notebooks/caama_reproduction.py) ·
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/blob/main/notebooks/caama_reproduction.py)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/blob/master/notebooks/caama_reproduction.py)
 
 ## Experiment log
 
