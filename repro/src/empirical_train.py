@@ -992,6 +992,13 @@ def main() -> None:
 
         run_claim4_exact_full_seed()
         return
+    if config["mode"] == "claim4_exact_amenunet_five_seed":
+        from claim4_exact_amenunet_five_seed import (
+            main as run_claim4_exact_five_seed,
+        )
+
+        run_claim4_exact_five_seed()
+        return
     if config["mode"] == "theory_scope_audit":
         print("EMPIRICAL_TRAIN_STATUS=SKIPPED_THEORY_SCOPE_AUDIT")
         return

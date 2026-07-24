@@ -10,6 +10,7 @@ import empirical_train as et
 import claim5_falsification as c5f
 import claim4_conditional as c4c
 import claim4_pcor_pilot as c4p
+import claim4_exact_amenunet_five_seed as c4five
 
 
 def _official_args(batch_size: int) -> SimpleNamespace:
@@ -220,3 +221,24 @@ def test_claim4_pcor_is_rival_only_and_scaled_metrics_obey_bound():
         raw["caama_revenue"]
         <= raw["welfare"] + raw["caama_ir_regret"] + 1e-6
     )
+
+
+def test_claim4_five_seed_verifiers_are_strict_standalone_programs():
+    sources = {
+        "independent_checker.py": c4five._independent_checker_source(),
+        "negative_control_verifier.py": (
+            c4five._negative_control_verifier_source()
+        ),
+        "claim_verifier.py": c4five._claim_verifier_source(),
+    }
+    for filename, source in sources.items():
+        compile(source, filename, "exec")
+        assert "sys.exit(0 if" in source
+        assert "else 1)" in source
+    assert "100000" in sources["claim_verifier.py"]
+    assert "zero_pcor_ablation_removes_revenue_ci" in sources[
+        "negative_control_verifier.py"
+    ]
+    assert "rival_reversal_increases_regret_ci" in sources[
+        "negative_control_verifier.py"
+    ]
