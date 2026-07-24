@@ -1,10 +1,11 @@
 # Release gate — CA-AMA claim campaign
 
-Status: **READY FOR EXPLICIT PUBLICATION APPROVAL**
+Status: **PUBLISHED — AWAITING LIVE JUDGE**
 
-No Hugging Face or `master` publication has occurred. The previous live judge
-score remains 3/10 at judged Space revision
-`1c13494fc9e76a381d76c681cfd582495eb79d02`.
+The previous live judge score remains 3/10 at judged Space revision
+`1c13494fc9e76a381d76c681cfd582495eb79d02`. The additive candidate was
+published on 2026-07-24 and verified at final Space revision
+`2a8d251ffd164a986851643d500ab774608b4b41`. No score increase is claimed.
 
 ## Scientific release
 
@@ -92,14 +93,17 @@ judged tree.
 - Hugging Face billed amount: unavailable from the orchestration record; no
   amount is inferred.
 
-## Publication action after approval
+## Completed publication action
 
-1. Upload only the 102 allowlisted text paths to the existing Space
+1. Uploaded the 102 allowlisted text paths to the existing Space
    `DineshAI/TA3NDHgNJh`.
-2. Verify the exact returned Hugging Face revision and re-download it for a
-   post-publication manifest check.
-3. Mark the paper awaiting judge without asserting a score change.
-4. Mirror the same reader-facing text paths and evidence to GitHub `master`,
-   then verify the remote SHA with `git ls-remote`.
+2. Restored the protected `.gitattributes` after the Hub automatically added
+   two LFS rules for large CSV files.
+3. Re-downloaded final revision
+   `2a8d251ffd164a986851643d500ab774608b4b41`; the complete release validator
+   passed.
+4. Marked the campaign awaiting judge without asserting a score change.
+5. Mirrored the same reader-facing paths and evidence through the authorized
+   GitHub `master` fast-forward and verified the remote SHA.
 
 No second Space will be created.

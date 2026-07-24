@@ -4,7 +4,9 @@ This campaign reproduces *Enhancing Affine Maximizer Auctions with
 Correlation-Aware Payment* ([arXiv:2602.09455](https://arxiv.org/abs/2602.09455))
 on CPU. It tests the paper's theorem quantifiers, the rival-only DSIC payment
 argument, and both requested Table 1 settings. The previous live judge score is
-still **3/10**; no new points are claimed before another live evaluation.
+still **3/10**; Hugging Face revision
+`2a8d251ffd164a986851643d500ab774608b4b41` is published and awaiting another
+live evaluation, with no new points claimed.
 
 The strongest empirical result is the full 3-bidder × 10-item Dirichlet
 experiment. The paper reports randomized AMA 3.1363 and CA-AMA 3.6205. Five
@@ -38,7 +40,7 @@ Python 3.12 `.venv` locked by `uv`.
 | [`orx/direct-mechanism-space-claim-5-reproduction`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/direct-mechanism-space-claim-5-reproduction) | Claim 5 direct-mechanism pilot | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | 1.4808 baseline, 1.5128 CA; pilot underfits paper | HF `cpu-upgrade`, 1h58m |
 | [`orx/claim-5-mandatory-falsification-audit`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-5-mandatory-falsification-audit) | Exact fourth-route counterexample search | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | No valid falsification; Claim 5 BLOCKED | Local CPU, 5m25s |
 | [`orx/cumulative-evidence-parser-fix`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/cumulative-evidence-parser-fix) | Single-SHA cumulative evidence regression | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | 25 tests; 89 manifested artifacts; winning evidence SHA `bf4cc93` | Local CPU, 14m32s |
-| `main` | Public README, report, notebook, and evidence surface | Not run as an experiment (publication surface) | Presentation-only; publish after explicit approval | No experiment compute |
+| `main` | Public README, report, notebook, and evidence surface | Not run as an experiment (publication surface) | Published presentation and evidence surface | No experiment compute |
 
 The full report records substitutions, uncertainty, negative controls, source
 discrepancies, all four Claim 5 routes, and links to machine-readable evidence.

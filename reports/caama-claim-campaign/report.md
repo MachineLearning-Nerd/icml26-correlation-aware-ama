@@ -9,8 +9,9 @@ report. The reproduction found strong numerical support for that idea at the
 paper's full 3-bidder × 10-item Dirichlet scale. It also found a literal
 one-bidder counterexample to two “any number of bidders” theorem statements.
 
-This is an evidence report, not a judge result. The previous live score remains
-**3/10** until the external judge evaluates a future Hugging Face revision.
+This is an evidence report, not a judge result. Hugging Face revision
+`2a8d251ffd164a986851643d500ab774608b4b41` is published and awaiting external
+evaluation; the previous live score remains **3/10**.
 
 ## Evidence at a glance
 
