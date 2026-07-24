@@ -1,183 +1,156 @@
 # Correlation-aware auction payments: a claim-by-claim CPU reproduction
 
-![Paper and observed Claim 4 revenues](images/claim4_headline.svg)
+![Paper and exact full-scale seed-1 revenues](images/claim4_exact_seed1.svg)
 
-The paper asks whether an affine-maximizer auction can use correlation between
-bidders without sacrificing dominant-strategy truthfulness. The central idea is
-simple: add a payment that depends on rival values but not on the bidder's own
-report. The reproduction found strong numerical support for that idea at the
-paper's full 3-bidder × 10-item Dirichlet scale. It also found a literal
-one-bidder counterexample to two “any number of bidders” theorem statements.
+The paper asks whether an affine-maximizer auction can exploit bidder
+correlation without losing dominant-strategy truthfulness. Its key device is a
+payment term that sees rivals' values but never the bidder's own report. This
+reproduction audits all five judge claims, resolves the theorem scope, verifies
+that payment argument generally, and executes the released AMenuNet at the
+paper's full 3-bidder × 10-item scale.
 
-This is an evidence report, not a judge result. Hugging Face revision
-`2a8d251ffd164a986851643d500ab774608b4b41` is published and awaiting external
-evaluation; the previous live score remains **3/10**.
+The strongest terminal empirical evidence is one exact full-scale seed:
+randomized AMA revenue is `3.090107` versus the paper's `3.1363`, and CA-AMA
+revenue is `3.567311` versus `3.6205`. Both differ by 1.47%. This is evidence,
+not a new judge result; the last live score remains **3/10**.
 
 ## Evidence at a glance
 
 | Claim | Paper result | Observed evidence | Assessment |
 |---|---|---|---|
-| 1. Deterministic AMA can be arbitrarily poor for any bidder count | For every \(n\) and \(\epsilon>0\), some \(F\) has \(\mathrm{REV}^{D\text{-}AMA}\le\epsilon\mathrm{REV}\) | The construction is certified for every \(n\ge2\), but for \(n=1\), D-AMA implements the optimal posted price and its ratio is 1 for every positive-revenue distribution | **FALSIFIED**, HIGH |
-| 2. Independence equality and correlated separation for any bidder count | D-CA = D-AMA under independence; correlation permits full extraction while AMA is arbitrarily poor | Independence equality remains supported. The correlated “any \(n\)” half has the same valid \(n=1\) counterexample | **FALSIFIED**, HIGH |
-| 3. Rival-only \(p_i^{Cor}(V_{-i})\) preserves DSIC | Truthful-versus-misreport utility differences are unchanged | Exact cancellation plus 800 multi-item misreports; an own-bid-dependent negative control exhibits a profitable deviation | **VERIFIED**, HIGH |
-| 4. Dirichlet Value Share, \(\alpha=0.5\), 3 × 10 | AMA 3.1363; CA-AMA 3.6205; IR regret 0.0031; ex-post revenue 3.5623 | 3.0530; 3.7359; 0.00281; 3.6863 across five seeds | **BLOCKED**, MEDIUM |
-| 5. Linear Mixture Asymmetric, \(\alpha=0.6\), 2 × 5 | AMA 1.7135; CA-AMA 1.9359; IR regret 0.0052; ex-post revenue 1.8553 | CPU-upgrade pilot: 1.4808; 1.5128; 0.00557; 1.4715. Exact feasibility bounds find no contradiction | **BLOCKED**, LOW |
+| 1. Deterministic AMA can be arbitrarily poor for any bidder count | For every \(n\) and \(\epsilon>0\), some \(F\) has \(\mathrm{REV}^{D\text{-}AMA}\le\epsilon\mathrm{REV}\) | The construction is certified for \(n\ge2\), but at \(n=1\) deterministic AMA implements the optimal posted price | **FALSIFIED** literally; intended domain supported |
+| 2. Independence equality and correlated separation | CA-AMA equals AMA under independence; correlation permits optimal extraction | Both intended identities pass, but a one-bidder market has no rival profile and cannot exhibit the stated separation | **FALSIFIED** literally; intended domain supported |
+| 3. Rival-only \(p_i^{Cor}(V_{-i})\) preserves DSIC | Truthful-versus-misreport utility differences are unchanged | Exact symbolic cancellation and exhaustive finite multi-item checks; an own-report negative control finds a profitable deviation | **VERIFIED** |
+| 4. Dirichlet Value Share, \(\alpha=0.5\), 3 × 10 | AMA 3.1363; CA-AMA 3.6205; IR regret 0.0031; ex-post revenue 3.5623 | Exact seed 1: 3.090107; 3.567311; 0.006133; 3.466351 | **BLOCKED** pending exact five-seed aggregate |
+| 5. Linear Mixture Asymmetric, \(\alpha=0.6\), 2 × 5 | AMA 1.7135; CA-AMA 1.9359; IR regret 0.0052; ex-post revenue 1.8553 | CPU-upgrade pilot: 1.480823; 1.512781; 0.005571; 1.471493. Exact feasibility bounds find no contradiction | **BLOCKED** after four routes |
 
-The Table 1 value for Claim 5 regret is **0.0052**. The earlier judge summary's
-“near 0.001” is less precise than the source table.
+The Table 1 value for Claim 5 regret is `0.0052`; the earlier judge summary's
+“near 0.001” is less exact than the paper.
 
-## What changed in the mechanism
+## How the mechanism preserves incentives
 
-For an ordinary affine-maximizer auction, bidder \(i\)'s utility is its allocated
-value minus the pivot payment. CA-AMA adds
+CA-AMA adds a correlation-aware term to an ordinary affine-maximizer payment:
 
 \[
 p_i(v)=p_i^{AMA}(v)+p_i^{Cor}(v_{-i}).
 \]
 
-The extra term cancels from the truthful-versus-misreport comparison because
-the rivals are unchanged:
+For fixed rivals, the additional term is identical under a truthful report and
+an own-value misreport, so it cancels:
 
 \[
-[u^{AMA}(v_i)-p_i^{Cor}(v_{-i})]
--
-[u^{AMA}(b_i)-p_i^{Cor}(v_{-i})]
-=
-u^{AMA}(v_i)-u^{AMA}(b_i).
+\Delta u_i^{CA}
+=\Delta u_i^{AMA}.
 \]
 
-The implementation tests this twice: an exact structural identity for arbitrary
-rival-only functions and randomized feasible multi-item menus. The negative
-control replaces the rival-only term with one depending on the bidder's own
-report; it produces a utility gain of 1.0 and is rejected.
+This is a quantified structural proof, not a sampled two-bidder proxy. The
+independent checker evaluates the symbolic identity and exhaustive feasible
+domains with 2–4 bidders and 1–3 items. The negative control deliberately adds
+own-report dependence and produces a profitable deviation.
 
-## The literal theorem scope
+## Literal theorem scope
 
-![The n>=2 construction and the n=1 obstruction](images/theory_scope.svg)
+![The intended n>=2 construction and the n=1 obstruction](images/theory_scope.svg)
 
-For \(n\ge2\), 30 high-precision certificates cover bidder counts
-2, 3, 5, 10, and 50 and requested factors from 0.5 to 0.001. The common
-construction chooses
-\(\eta=e^{-2/\delta}\) and \(\eta_1=\eta^2\), yielding
+For \(n\ge2\), high-precision certificates cover bidder counts 2, 3, 5, 10,
+and 50 and requested factors from 0.5 to 0.001. The common construction chooses
+\(\eta=e^{-2/\delta}\) and \(\eta_1=\eta^2\), obtaining a revenue ratio below
+\(\delta\).
 
-\[
-\frac{\mathrm{REV}^{D\text{-}AMA}}{\mathrm{REV}}
-\le \delta/2+\eta(1-\eta)\delta/2 < \delta.
-\]
+The source says “any number of bidders.” At \(n=1\), every DSIC/IR single-item
+mechanism is a mixture of posted prices, while a deterministic AMA implements
+the best posted price. Its positive-revenue approximation ratio is therefore
+one, contradicting any factor below one. This counterexample satisfies the
+literal domain; it does not contradict the intended multi-bidder construction.
 
-The source, however, says “any number of bidders.” With one bidder, every
-DSIC/IR single-item allocation rule is a mixture of posted-price thresholds:
+The source audit also preserves an appendix discrepancy: the construction
+defines \(v_2=\eta_1(1-v_1)\), but one displayed inverse uses \(\eta\). Full
+extraction requires \(1-v_2/\eta_1=v_1\).
 
-\[
-\mathbb{E}[p(V)]
-=\int r\,\Pr[V\ge r]\,dG(r)
-\le \sup_r r\,\Pr[V\ge r].
-\]
+## Exact Claim 4 implementation
 
-A one-bidder deterministic AMA implements every posted price, so
-\(\mathrm{REV}^{D\text{-}AMA}=\mathrm{REV}\) whenever optimal revenue is
-positive. This contradicts the claimed factor for any \(\epsilon<1\). A
-zero-revenue distribution would make \(0\le\epsilon 0\) vacuously true; the
-paper's “arbitrarily small fraction” language and this campaign's non-vacuity
-rule require the positive-revenue reading.
+The exact route uses the released AMenuNet allocation and payment code, with
+the paper's Dirichlet Value Share distribution, \(\alpha=0.5\), 3 bidders,
+10 additive items, and menu size 2048. It follows Algorithm 1's hard argmax in
+post-training rather than substituting the soft outcome:
 
-The appendix has a second source discrepancy: it defines
-\(v_2=\eta_1(1-v_1)\) but prints \(1-v_2/\eta\). Full extraction requires the
-inverse \(1-v_2/\eta_1=v_1\).
+```text
+32,000 baseline updates
+16,000 mutual-payment updates
+16,000 hard-argmax post-training updates
+batch size 1,024
+fixed 20,000-profile test set
+```
 
-## Claim 4 at full distribution scale
-
-The full-scale route samples the literal Dirichlet Value Share distribution:
-three bidders, ten additive items, and concentration \(\alpha=0.5\). It trains a
-separate three-linear-layer ReLU payment network for each bidder, consuming only
-the other two bidders' 20 values. Five independent training seeds use 2,000
-updates each. A disjoint 10,000-profile validation set chooses a global payment
-scale satisfying the paper's IR-regret target, and a fixed 20,000-profile hard
-test evaluates each seed.
-
-![Claim 4 seed stability and IR regret](images/claim4_seed_stability.svg)
-
-| Metric | Paper | Observed mean | Seed-level 95% interval |
+| Metric | Paper | Exact seed 1 | Difference |
 |---|---:|---:|---:|
-| Randomized AMA revenue | 3.1363 | 3.0530 | fixed common test set |
-| CA-AMA revenue | 3.6205 | 3.7359 | [3.7297, 3.7422] |
-| CA-AMA gain | 0.4842 | 0.6829 | [0.6767, 0.6892] |
-| Ex-post IR regret | 0.0031 | 0.00281 | [0.00273, 0.00289] |
-| Ex-post IR revenue | 3.5623 | 3.6863 | [3.6807, 3.6918] |
+| Randomized AMA revenue | 3.1363 | 3.090107 | −1.47% |
+| CA-AMA revenue | 3.6205 | 3.567311 | −1.47% |
+| Ex-post IR regret | 0.0031 | 0.006133 | +0.003033 absolute |
+| Ex-post IR revenue | 3.5623 | 3.466351 | −2.69% |
 
-All numerical tolerances pass. The independent checker re-reads 100,000 raw
-profiles, verifies the seed/sample accounting, and checks samplewise
-revenue \(\le\) welfare + IR regret. Reversing rival profiles raises regret
-from 0.00281 to 0.12943, so the learned payment is using the intended
-correlation.
+The exact run took 8h28m on local CPU and passed all 27 cumulative tests.
+Zeroing the correlation payment reduces revenue to `3.012182`. Reversing rival
+profiles raises regret to `0.306815`; both negative controls behave in the
+pre-registered direction. An independent checker recomputes the terminal
+metrics from 20,000 raw profiles and verifies the configuration and sample
+integrity.
 
-Why **BLOCKED** rather than VERIFIED? The released materials omit a learned
-3 × 10, 2048-menu AMenuNet checkpoint and publish a contradictory 10 × 3
-command. This route uses a validated separable reserve allocation core and a
-held-out scalar calibration. Those are material substitutions even though the
-distribution, rival-only payment architecture, scale, seed count, uncertainty,
-and numeric effect are direct.
+Claim 4 remains **BLOCKED** because Table 1 reports five seeds. The exact
+five-seed aggregate is running under the unchanged command; no unfinished
+aggregate is promoted.
 
 ## Claim 5: four routes, no valid verdict upgrade
 
 ![Claim 5 paper values, CPU pilot, and exact welfare bound](images/claim5_context.svg)
 
-The paper describes a Bernoulli mixture: independently per item,
-\(v_1\sim U[0,1]\); with probability 0.6,
-\(v_2=(1-v_1)/4\), otherwise \(v_2\sim U[0,1/4]\). The released
-`generate_data_22` instead uses convex interpolation. The reproduction follows
-the paper text.
+The paper describes a Bernoulli mixture, while the public
+`generate_data_22` uses convex interpolation. Four distinct routes were
+therefore required:
 
 | Route | Method | Outcome |
 |---|---|---|
-| 1 | Source, data-generator, and code audit | Found the Bernoulli/convex-interpolation mismatch |
-| 2 | Vectorized paper-semantics optimizer | Undertrained pilot; faithful full CPU training projected impractical |
-| 3 | Direct mechanism-space `cpu-upgrade` run | 1.4808 baseline, 1.5128 CA, regret 0.00557; did not reach the paper values |
-| 4 | Mandatory exact falsification route | Expected welfare bound \(623/240=2.59583\); all reported values are feasible |
+| 1 | Source, generator, and data-contract audit | Established the Bernoulli/interpolation discrepancy |
+| 2 | Vectorized paper-semantics optimizer | Faithful but undertrained CPU route |
+| 3 | Direct mechanism-space HF `cpu-upgrade` run | 1.480823 baseline, 1.512781 CA; did not reach paper values |
+| 4 | Mandatory analytical falsification search | Exact welfare bound \(623/240=2.595833\); reported values remain feasible |
 
-The fourth route uses exact rational arithmetic. It verifies
-\(1.9359\le2.59583+0.0052\) and
-\(1.8553\le2.59583\). A counterfeit revenue above the bound is rejected.
-Because no assumption-satisfying counterexample was found and full faithful
-optimization remains unavailable, Claim 5 is **BLOCKED**, not falsified.
+A failed reproduction is not a falsification. The fourth route proves the
+reported revenues obey all necessary welfare and IR bounds, and a deliberately
+counterfeit above-bound revenue is rejected. With no assumption-satisfying
+counterexample and an unresolved public specification, Claim 5 remains
+**BLOCKED**.
 
-## Reproducibility and provenance
+## Reproducibility and compute
 
-All scientific nodes inherit the exact command:
+Every scientific node inherits exactly:
 
 ```bash
 uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests
 ```
 
-The winning cumulative run is
-[`orx/cumulative-evidence-parser-fix`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/cumulative-evidence-parser-fix)
-at `bf4cc9371feea65edf71ad1dc998ed88de23b7a7`. It ran on local CPU for
-14m32s, passed 25 tests, and produced 89 SHA-256-manifested artifacts. Local
-CPU has no incremental cloud charge. The Claim 5 direct pilot used Hugging
-Face `cpu-upgrade` for 1h58m; the orchestration record does not expose a billed
-amount, so no cost is invented.
-
-Important experiment branches:
-
-- [Frozen baseline](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/frozen-judged-reproduction-baseline)
-- [Literal theorem-scope audit](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/literal-n-1-theorem-scope-audit)
-- [Claim 4 five-seed validation](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-neural-multi-seed-validation)
-- [Claim 5 direct CPU-upgrade pilot](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/direct-mechanism-space-claim-5-reproduction)
-- [Claim 5 falsification audit](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-5-mandatory-falsification-audit)
+The exact Claim 4 seed is on
+[`orx/claim-4-exact-full-seed-evidence-only-gate`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-exact-full-seed-evidence-only-gate)
+at `c78365aba5ba515c53984a3d239c9edaab272fe2`; run
+`404b2395-c341-453e-8f0e-d7aa9b583e09` took 8h28m on local CPU. The Claim 5
+direct pilot used HF `cpu-upgrade` for 1h58m. No GPU was used. Local CPU had no
+incremental cloud charge; the orchestration record does not expose the HF
+billed amount, so none is inferred.
 
 Machine-readable entry points:
 
-- [Cumulative verdict index](../../.openresearch/artifacts/campaign_verdicts.json)
-- [SHA-256 artifact manifest](../../.openresearch/artifacts/campaign_manifest.json)
-- [Claim 1 evaluation](../../.openresearch/artifacts/claim_1/EVAL.md)
-- [Claim 4 multi-seed evaluation](../../.openresearch/artifacts/claim_4/route_3_cross_item_pcor_multiseed/EVAL.md)
-- [Claim 5 falsification evaluation](../../.openresearch/artifacts/claim_5/route_4_falsification_audit/EVAL.md)
+- [Claim 4 exact evaluation](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_4/route_5_exact_amenunet_full_seed_1/EVAL.md)
+- [Claim 4 exact contract](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_4/route_5_exact_amenunet_full_seed_1/claim_contract.json)
+- [Claim 4 independent checker](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_4/route_5_exact_amenunet_full_seed_1/independent_checker_output.json)
+- [Claim 1 evaluation](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_1/EVAL.md)
+- [Claim 3 evaluation](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_3/EVAL.md)
+- [Claim 5 falsification evaluation](../../release/hf_space_text/pages/campaign-2026-07-24/evidence/claim_5/route_4_falsification_audit/EVAL.md)
 
 ## Assessment
 
-The reproduction materially improves the evidence beyond the prior toy-only
-state: the theory claims are resolved at their literal quantifiers, the DSIC
-claim has exact structural evidence, and Claim 4 has a stable full-scale
-five-seed effect. It does not honestly close Claims 4 or 5 under the paper's
-exact released training procedure. Those remain BLOCKED for missing or
-inconsistent public artifacts and CPU-feasibility limits.
+The reproduction moves well beyond the prior two-bidder toy evidence. Claims
+1 and 2 are adjudicated at their literal quantifiers, Claim 3 has a general
+mechanism proof, and Claim 4 has direct full-scale released-code evidence that
+closely matches both revenue numbers. Claims 4 and 5 remain honestly BLOCKED:
+the former awaits a terminal exact five-seed aggregate, while the latter is
+limited by a material paper/code ambiguity that four routes did not resolve.

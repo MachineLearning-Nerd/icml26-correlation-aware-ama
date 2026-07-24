@@ -1,109 +1,88 @@
-# Release gate — CA-AMA claim campaign
+# Release gate — canonical CA-AMA claim campaign
 
-Status: **PUBLISHED — AWAITING LIVE JUDGE**
+Status: **APPROVED FOR PUBLICATION — FINAL UPLOAD PENDING**
 
-The previous live judge score remains 3/10 at judged Space revision
-`1c13494fc9e76a381d76c681cfd582495eb79d02`. The additive candidate was
-published on 2026-07-24 and verified at final Space revision
-`2a8d251ffd164a986851643d500ab774608b4b41`. No score increase is claimed.
+- Previous live judged score: `3/10`
+- Conservative projected score range after the proposed change: `6–8/10`
+- Best-supported possible new score: `8/10` (**forecast, not a judge result**)
+
+| Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
+|---|---:|---:|---|---|---|
+| 1 | 1 | 2 | MEDIUM | FALSIFIED | Literal `n=1` counterexample satisfies the stated domain; risk is that the judge reads an implicit `n≥2` restriction |
+| 2 | 1 | 2 | MEDIUM | FALSIFIED | Literal one-bidder correlated separation is impossible; intended independence and multi-bidder identities pass |
+| 3 | 1 | 2 | HIGH | VERIFIED | Rival-only surcharge cancels for every own report; symbolic, exhaustive, and negative-control checks pass |
+| 4 | 0 | 0–2 | MEDIUM | BLOCKED | Exact full-scale seed 1 matches both revenue values within 1.47%; Table 1's five-seed aggregate is still running |
+| 5 | 0 | 0 | LOW | BLOCKED | Four distinct routes are complete; the public generator conflicts with the paper and no valid falsification was found |
+
+Current total score: **3/10**. Conservative projected total: **6–8/10**.
+Best-supported possible total: **8/10**, subject only to the live judge.
+Claims 1–5 all have materially stronger evidence than at the previous judge
+head. Claims 4 and 5 remain BLOCKED for the reasons above.
+
+The user approved the exact action: publish the validated text allowlist to the
+existing Space `DineshAI/TA3NDHgNJh`, then verify the final revision and mirror
+the reader-facing release to GitHub. No second Space may be created.
 
 ## Scientific release
 
-- Winning experiment:
-  `orx/cumulative-evidence-parser-fix`
-- Winning Git SHA:
-  `bf4cc9371feea65edf71ad1dc998ed88de23b7a7`
-- Winning run:
-  `db6c55db-ce63-47ea-b3c2-dd3380573536`
-- Fixed command inherited by every experiment:
+- Exact full-scale Claim 4 experiment:
+  `orx/claim-4-exact-full-seed-evidence-only-gate`
+- Evidence Git SHA:
+  `c78365aba5ba515c53984a3d239c9edaab272fe2`
+- Run: `404b2395-c341-453e-8f0e-d7aa9b583e09`
+- Runtime: 8h28m local CPU
+- Result: 27 tests passed; exact revenues `3.090107` and `3.567311`
+- Fixed command:
 
 ```bash
 uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests
 ```
 
-- Winning result: 25 tests passed; 89 SHA-256-manifested artifacts.
-- Campaign verdicts:
-  Claim 1 FALSIFIED, Claim 2 FALSIFIED, Claim 3 VERIFIED,
-  Claim 4 BLOCKED, Claim 5 BLOCKED.
-
-### Complete orchestrated run ledger
-
-Every row executed the fixed command shown above. Variants were committed code
-or configuration; no run-specific environment knobs changed scientific
-behavior.
-
-| Run | Experiment | Backend | Status | Runtime |
-|---|---|---|---|---:|
-| `be56a770-c459-42c7-bb44-8b3e8c89b89a` | Frozen baseline | local | done | 1m01s |
-| `9ca7cc6a-1e5f-4709-8927-7b0ff43e3769` | Quantified theory | local | done | 1m28s |
-| `eec88b63-1127-4fde-9a36-2b76223a89e4` | Data contracts/profile | local | done | 1m20s |
-| `183ee2a0-a7a7-4592-b7e7-e0fc3595bf9d` | Claim 5 vectorized pilot | local | done | 4m16s |
-| `6852fb56-d1c5-45d2-9dd5-407206f09baf` | Claim 5 full semantics | HF `cpu-upgrade` | failed setup | 11s |
-| `8565e1b2-ff57-47ef-b0af-07f9795a0242` | Claim 5 full semantics | HF `cpu-upgrade` | cancelled as impractical | 11m40s |
-| `cbf36bbc-ceea-4f1c-9266-4b9bc8b18741` | Claim 5 full semantics | local | cancelled as impractical | 15m12s |
-| `afb3f6cc-9f69-4ac0-9c97-eb680b1c0637` | Claim 5 direct mechanism | local | cancelled pilot | 6m32s |
-| `233ef5c5-063e-40d8-a810-ef661f153826` | Claim 5 direct mechanism | HF `cpu-upgrade` | done | 1h58m |
-| `298cd9b9-0ac9-472b-b929-d56a9ac3613b` | Claim 5 falsification | local | done | 5m25s |
-| `5253861a-73f7-498d-abdb-5226b6297628` | Claim 4 conditional support | local | done | 3m50s |
-| `3954aece-7e0b-4e80-a5d8-6c8ccb3d97b4` | Claim 4 neural pilot | local | done | 4m54s |
-| `8770c5f1-7f57-4383-8caf-c69eb475714c` | Claim 4 five-seed validation | local | done | 21m36s |
-| `f90e9004-7db2-45a3-8d89-86757585954a` | Literal theorem scope | local | done | 1m42s |
-| `4c5f1ddb-9f19-4733-967b-07e49cc7bd8c` | Initial cumulative bundle | local | failed closed | 21m19s |
-| `db6c55db-ce63-47ea-b3c2-dd3380573536` | Fixed cumulative bundle | local | done | 14m32s |
+The exact five-seed aggregate run
+`3deb95be-0518-43a4-a802-d2e19ad5c63d` remains in progress. It is disclosed
+but is not part of the terminal evidence used for this release.
 
 ## Gate checks
 
 | Gate | Result |
 |---|---|
 | Every claim has VERIFIED, FALSIFIED, or BLOCKED | PASS |
-| Cumulative regression suite passes | PASS — 25 tests |
-| Judge criticisms addressed claim by claim | PASS |
-| Raw evidence generated by fixed command | PASS |
-| Negative controls reject corrupted evidence | PASS |
-| No toy evidence labeled full-scale | PASS |
-| Judged Space tree preserved | PASS — 19/19 paths |
-| Candidate logbook JSON, files, slugs, and links valid | PASS |
-| Exact text-only upload allowlist prepared | PASS — 102 paths |
-| Upload SHA-256 manifest prepared | PASS — 102 paths |
+| Previously accepted theory regressions remain represented | PASS |
+| Exact Claim 4 raw evidence and independent checker are durable | PASS |
+| Negative controls reject corrupted or rival-reversed evidence | PASS |
+| No toy or undertrained result is promoted | PASS |
+| Judged `1c13494…` tree retained | PASS — 19/19 paths |
+| Published `2a8d251…` tree retained | PASS — 120/120 paths |
+| Canonical logbook structure | PASS against the required canonical slug |
+| Existing-Space slug exception | DISCLOSED — `TA3NDHgNJh` cannot satisfy the new `repro-` naming rule without violating the no-second-Space requirement |
+| Poster preflight, style, measure, and polish | PASS — 0 warnings |
+| Final poster PDF geometry | PASS — 60×36 inches |
+| Candidate logbook JSON, files, slugs, and links | PASS |
+| Exact text-only upload allowlist | PASS — 133 paths |
+| SHA-256 upload manifest | PASS — 133 paths |
+| Manifested scientific evidence | PASS — 105 files |
 | High-signal secret scan | PASS — 0 hits |
 
-The reproducible subset validator is:
+The reproducible release validator is:
 
 ```bash
 uv run --frozen python release/validate_release.py \
-  --protected /Users/dineshjinjala/Documents/AllCode/ICMLPapers/OpenSearch/files/icml26-repro-ta3ndhgnjh-ca-ama-correlated-revenu/project/protected/judged-space-1c13494fc9e76a381d76c681cfd582495eb79d02 \
-  --candidate /Users/dineshjinjala/Documents/AllCode/ICMLPapers/OpenSearch/files/icml26-repro-ta3ndhgnjh-ca-ama-correlated-revenu/project/release/candidate-space
+  --protected <judged-space-1c13494...> \
+  --protected <published-space-2a8d251...> \
+  --candidate <candidate-space-canonical>
 ```
 
-Its machine-readable result is `old_new_subset_check.json`. The exact upload
-surface is `hf_upload_allowlist.txt`, authenticated by
-`hf_upload_manifest.sha256`. Every allowlisted path is UTF-8 text with no NUL
-bytes. The full dashboard candidate is stored separately from the protected
-judged tree.
+The exact upload surface is `release/hf_upload_allowlist.txt`, authenticated
+by `release/hf_upload_manifest.sha256`. Every path is UTF-8 text with no NUL
+bytes.
 
-## Compute and cost disclosure
+## Compute and cost
 
-- Successful local-CPU scientific runs: 1h00m04s total.
-- Winning cumulative local-CPU regression: 14m32s.
-- Completed Hugging Face `cpu-upgrade` Claim 5 run: 1h58m.
-- An additional Hugging Face setup/scale attempt ran 11m51s before
-  cancellation/failure.
+- Exact Claim 4 seed: 8h28m local CPU.
+- Completed Claim 5 HF `cpu-upgrade` pilot: 1h58m.
 - GPU usage: none.
-- Local incremental cloud cost: zero.
-- Hugging Face billed amount: unavailable from the orchestration record; no
-  amount is inferred.
+- Local billed cost: $0 incremental.
+- Hugging Face billed amount: unavailable from the orchestration record and
+  therefore not inferred.
 
-## Completed publication action
-
-1. Uploaded the 102 allowlisted text paths to the existing Space
-   `DineshAI/TA3NDHgNJh`.
-2. Restored the protected `.gitattributes` after the Hub automatically added
-   two LFS rules for large CSV files.
-3. Re-downloaded final revision
-   `2a8d251ffd164a986851643d500ab774608b4b41`; the complete release validator
-   passed.
-4. Marked the campaign awaiting judge without asserting a score change.
-5. Mirrored the same reader-facing paths and evidence through the authorized
-   GitHub `master` fast-forward and verified the remote SHA.
-
-No second Space will be created.
+No score increase is claimed until a new live judge verdict exists.

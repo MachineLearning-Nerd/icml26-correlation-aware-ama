@@ -69,13 +69,13 @@ def main() -> int:
         revision="main",
         parent_commit=args.expected_head,
         operations=operations,
-        commit_message="Add full CA-AMA claim reproduction evidence",
+        commit_message="Publish canonical five-claim CA-AMA logbook",
         commit_description=(
-            "Additive CPU reproduction campaign with theorem-scope checks, "
-            "general DSIC verification, full 3x10 Claim 4 evidence, a "
-            "four-route Claim 5 audit, independent checks, negative controls, "
-            "and manifests. Preserves the judged pages from revision "
-            "1c13494fc9e76a381d76c681cfd582495eb79d02."
+            "Canonical additive CPU reproduction with literal theorem-scope "
+            "checks, general DSIC verification, an exact full-scale Claim 4 "
+            "seed (honestly BLOCKED pending five seeds), a four-route Claim 5 "
+            "audit, independent checks, negative controls, and manifests. "
+            "Preserves the judged and previously published evidence trees."
         ),
     )
     after = api.repo_info(repo_id=args.repo_id, repo_type="space")

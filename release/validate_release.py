@@ -72,46 +72,79 @@ def validate_markdown_links(payload_files: dict[str, Path]) -> list[str]:
 
 
 def validate_artifact_manifest() -> tuple[int, list[str]]:
-    manifest_path = ARTIFACT_ROOT / "campaign_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_paths = [
+        ARTIFACT_ROOT / "campaign_manifest.json",
+        ARTIFACT_ROOT
+        / "claim_4"
+        / "route_5_exact_amenunet_full_seed_1"
+        / "artifact_manifest.json",
+    ]
     errors: list[str] = []
-    for relative, expected in manifest.items():
-        path = REPO_ROOT / relative
-        if not path.is_file():
-            errors.append(f"missing artifact: {relative}")
-            continue
-        if path.stat().st_size != expected["bytes"]:
-            errors.append(f"byte mismatch: {relative}")
-        if sha256(path) != expected["sha256"]:
-            errors.append(f"hash mismatch: {relative}")
-    return len(manifest), errors
+    artifact_count = 0
+    for manifest_path in manifest_paths:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        artifact_count += len(manifest)
+        for relative, expected in manifest.items():
+            path = REPO_ROOT / relative
+            if not path.is_file():
+                errors.append(f"missing artifact: {relative}")
+                continue
+            if path.stat().st_size != expected["bytes"]:
+                errors.append(f"byte mismatch: {relative}")
+            if sha256(path) != expected["sha256"]:
+                errors.append(f"hash mismatch: {relative}")
+    return artifact_count, errors
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--protected", required=True, type=Path)
+    parser.add_argument(
+        "--protected",
+        required=True,
+        type=Path,
+        action="append",
+        help="protected Space snapshot; repeat for judged and latest published heads",
+    )
     parser.add_argument("--candidate", required=True, type=Path)
     args = parser.parse_args()
 
-    protected = args.protected.resolve()
     candidate = args.candidate.resolve()
-    if protected == candidate:
-        raise SystemExit("protected and candidate directories must differ")
-
-    protected_files = files_below(protected)
     candidate_files = files_below(candidate)
     payload_files = files_below(PAYLOAD_ROOT)
-
-    missing_old = sorted(set(protected_files) - set(candidate_files))
-    changed_old = sorted(
-        relative
-        for relative, old_path in protected_files.items()
-        if relative in candidate_files
-        and sha256(old_path) != sha256(candidate_files[relative])
-    )
-    unexpected_old_changes = [
-        relative for relative in changed_old if relative != "logbook.json"
-    ]
+    allowed_old_changes = {"README.md", "logbook.json", "pages/index.md"}
+    protected_checks: list[dict[str, object]] = []
+    all_missing_old: list[str] = []
+    all_unexpected_old_changes: list[str] = []
+    for protected_arg in args.protected:
+        protected = protected_arg.resolve()
+        if protected == candidate:
+            raise SystemExit("protected and candidate directories must differ")
+        protected_files = files_below(protected)
+        missing_old = sorted(set(protected_files) - set(candidate_files))
+        changed_old = sorted(
+            relative
+            for relative, old_path in protected_files.items()
+            if relative in candidate_files
+            and sha256(old_path) != sha256(candidate_files[relative])
+        )
+        unexpected_old_changes = sorted(
+            set(changed_old) - allowed_old_changes
+        )
+        label = protected.name
+        protected_checks.append(
+            {
+                "snapshot": label,
+                "protected_file_count": len(protected_files),
+                "retained_file_count": len(protected_files) - len(missing_old),
+                "missing_old_files": missing_old,
+                "changed_old_files": changed_old,
+                "unexpected_old_changes": unexpected_old_changes,
+            }
+        )
+        all_missing_old.extend(f"{label}:{path}" for path in missing_old)
+        all_unexpected_old_changes.extend(
+            f"{label}:{path}" for path in unexpected_old_changes
+        )
 
     payload_sync_errors = [
         relative
@@ -171,14 +204,13 @@ def main() -> int:
     )
 
     checks = {
-        "protected_revision": "1c13494fc9e76a381d76c681cfd582495eb79d02",
-        "protected_file_count": len(protected_files),
+        "protected_snapshots": protected_checks,
         "candidate_file_count": len(candidate_files),
         "upload_file_count": len(payload_files),
         "manifested_artifact_count": artifact_count,
-        "missing_old_files": missing_old,
-        "changed_old_files": changed_old,
-        "unexpected_old_changes": unexpected_old_changes,
+        "missing_old_files": all_missing_old,
+        "unexpected_old_changes": all_unexpected_old_changes,
+        "allowed_changed_old_paths": sorted(allowed_old_changes),
         "payload_sync_errors": payload_sync_errors,
         "non_text_uploads": sorted(set(non_text)),
         "secret_pattern_hits": secret_hits,
@@ -189,8 +221,8 @@ def main() -> int:
     }
     checks["passed"] = not any(
         (
-            missing_old,
-            unexpected_old_changes,
+            all_missing_old,
+            all_unexpected_old_changes,
             payload_sync_errors,
             non_text,
             secret_hits,
@@ -199,7 +231,7 @@ def main() -> int:
             missing_markdown_links,
             artifact_errors,
         )
-    ) and changed_old == ["logbook.json"]
+    )
 
     SUBSET_JSON_PATH.write_text(
         json.dumps(checks, indent=2, sort_keys=True) + "\n",
@@ -211,19 +243,22 @@ def main() -> int:
                 "# Protected logbook subset check",
                 "",
                 f"- Result: **{'PASS' if checks['passed'] else 'FAIL'}**",
-                f"- Protected revision: `{checks['protected_revision']}`",
-                f"- Protected files retained: {len(protected_files) - len(missing_old)}/{len(protected_files)}",
+                *[
+                    f"- Protected snapshot `{record['snapshot']}` retained: "
+                    f"{record['retained_file_count']}/{record['protected_file_count']}"
+                    for record in protected_checks
+                ],
                 f"- Candidate files: {len(candidate_files)}",
                 f"- Exact text upload allowlist: {len(payload_files)} files",
                 f"- Manifested evidence files verified: {artifact_count}",
-                f"- Intentionally changed protected path: `{', '.join(changed_old)}`",
-                f"- Unexpected protected changes: {len(unexpected_old_changes)}",
+                f"- Allowed navigation/metadata changes: `{', '.join(sorted(allowed_old_changes))}`",
+                f"- Unexpected protected changes: {len(all_unexpected_old_changes)}",
                 f"- Missing local Markdown targets: {len(missing_markdown_links)}",
                 f"- Secret-pattern hits: {sum(map(len, secret_hits.values()))}",
                 "",
-                "All original paths remain reachable. The only byte-changed original",
-                "path is `logbook.json`, extended to expose the additive campaign tree;",
-                "the six original page files and all original assets remain byte-identical.",
+                "All protected paths remain reachable. Only root navigation and",
+                "metadata paths may change; legacy claim pages and evidence remain",
+                "byte-identical and the canonical claim pages are additive.",
                 "",
             ]
         ),

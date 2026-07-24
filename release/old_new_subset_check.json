@@ -1,20 +1,46 @@
 {
-  "artifact_manifest_errors": [],
-  "candidate_file_count": 120,
-  "changed_old_files": [
-    "logbook.json"
+  "allowed_changed_old_paths": [
+    "README.md",
+    "logbook.json",
+    "pages/index.md"
   ],
+  "artifact_manifest_errors": [],
+  "candidate_file_count": 149,
   "duplicate_logbook_slugs": [],
-  "manifested_artifact_count": 89,
+  "manifested_artifact_count": 105,
   "missing_logbook_files": [],
   "missing_markdown_links": [],
   "missing_old_files": [],
   "non_text_uploads": [],
   "passed": true,
   "payload_sync_errors": [],
-  "protected_file_count": 19,
-  "protected_revision": "1c13494fc9e76a381d76c681cfd582495eb79d02",
+  "protected_snapshots": [
+    {
+      "changed_old_files": [
+        "README.md",
+        "logbook.json",
+        "pages/index.md"
+      ],
+      "missing_old_files": [],
+      "protected_file_count": 19,
+      "retained_file_count": 19,
+      "snapshot": "judged-space-1c13494fc9e76a381d76c681cfd582495eb79d02",
+      "unexpected_old_changes": []
+    },
+    {
+      "changed_old_files": [
+        "README.md",
+        "logbook.json",
+        "pages/index.md"
+      ],
+      "missing_old_files": [],
+      "protected_file_count": 120,
+      "retained_file_count": 120,
+      "snapshot": "published-space-2a8d251ffd164a986851643d500ab774608b4b41",
+      "unexpected_old_changes": []
+    }
+  ],
   "secret_pattern_hits": {},
   "unexpected_old_changes": [],
-  "upload_file_count": 102
+  "upload_file_count": 133
 }

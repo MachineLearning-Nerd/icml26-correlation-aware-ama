@@ -1,0 +1,5 @@
+{
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "{\"claim\": 4, \"reason\": \"one of five required training seeds\", \"route\": \"exact_amenunet_full_seed_1\", \"route_integrity_pass\": true, \"verdict\": \"BLOCKED\"}"
+}

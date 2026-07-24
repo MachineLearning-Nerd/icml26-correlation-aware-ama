@@ -8,12 +8,12 @@ still **3/10**; Hugging Face revision
 `2a8d251ffd164a986851643d500ab774608b4b41` is published and awaiting another
 live evaluation, with no new points claimed.
 
-The strongest empirical result is the full 3-bidder × 10-item Dirichlet
-experiment. The paper reports randomized AMA 3.1363 and CA-AMA 3.6205. Five
-local-CPU seeds produced 3.0530 and 3.7359, with IR regret 0.00281 versus the
-paper's 0.0031. This is substantial support, but the verdict remains **BLOCKED**
-because the release lacks a matching learned 3 × 10, 2048-menu core and this
-route substitutes a separable reserve core plus held-out payment scaling.
+The strongest empirical result is an exact released-AMenuNet run at the full
+3-bidder × 10-item Dirichlet scale. The paper reports randomized AMA 3.1363
+and CA-AMA 3.6205; exact seed 1 produced 3.090107 and 3.567311, both 1.47%
+lower. It used 32,000 baseline, 16,000 mutual-payment, and 16,000 hard-argmax
+post-training updates and took 8h28m on local CPU. The verdict remains
+**BLOCKED** until the pre-registered five-seed aggregate terminates.
 
 The literal “any number of bidders” wording in Claims 1 and 2 is
 **FALSIFIED** at \(n=1\): a one-bidder deterministic AMA implements the optimal
@@ -36,14 +36,16 @@ Python 3.12 `.venv` locked by `uv`.
 |---|---|---|---|---|
 | [`orx/frozen-judged-reproduction-baseline`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/frozen-judged-reproduction-baseline) | Freeze the judged reproduction | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | Existing two-bidder toy baseline preserved | Local CPU, 1m01s |
 | [`orx/literal-n-1-theorem-scope-audit`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/literal-n-1-theorem-scope-audit) | Test the exact “any \(n\)” scope | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | Claims 1–2 FALSIFIED literally; intended \(n\ge2\) construction passes | Local CPU, 1m42s |
-| [`orx/claim-4-neural-multi-seed-validation`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-neural-multi-seed-validation) | Full 3 × 10, five-seed pCor validation | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | Numeric contract passes; exact paper core unavailable, so BLOCKED | Local CPU, 21m36s |
+| [`orx/claim-4-exact-full-seed-evidence-only-gate`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-exact-full-seed-evidence-only-gate) | Exact released AMenuNet, full 3 × 10 seed 1 | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | 3.090107 baseline, 3.567311 CA; 27 tests pass; five-seed aggregate pending | Local CPU, 8h28m |
+| [`orx/claim-4-exact-five-seed-parallel-verification`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-exact-five-seed-parallel-verification) | Pre-registered exact five-seed aggregate | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | In progress; no aggregate verdict promoted | Local CPU, running |
 | [`orx/direct-mechanism-space-claim-5-reproduction`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/direct-mechanism-space-claim-5-reproduction) | Claim 5 direct-mechanism pilot | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | 1.4808 baseline, 1.5128 CA; pilot underfits paper | HF `cpu-upgrade`, 1h58m |
 | [`orx/claim-5-mandatory-falsification-audit`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-5-mandatory-falsification-audit) | Exact fourth-route counterexample search | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | No valid falsification; Claim 5 BLOCKED | Local CPU, 5m25s |
 | [`orx/cumulative-evidence-parser-fix`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/cumulative-evidence-parser-fix) | Single-SHA cumulative evidence regression | `uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests` | 25 tests; 89 manifested artifacts; winning evidence SHA `bf4cc93` | Local CPU, 14m32s |
 | `main` | Public README, report, notebook, and evidence surface | Not run as an experiment (publication surface) | Published presentation and evidence surface | No experiment compute |
 
-The full report records substitutions, uncertainty, negative controls, source
-discrepancies, all four Claim 5 routes, and links to machine-readable evidence.
+The full report records exact training counts, uncertainty, negative controls,
+source discrepancies, all four Claim 5 routes, and links to machine-readable
+evidence.
 
 ---
 

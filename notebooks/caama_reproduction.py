@@ -19,9 +19,9 @@ def _(mo):
     # Correlation-aware auction payments: reproduced evidence
 
     **Headline result.** On the paper's full 3-bidder × 10-item
-    Dirichlet setting, five CPU training seeds produced CA-AMA revenue
-    **3.7359** versus **3.0530** for the baseline. The paper reports
-    3.6205 versus 3.1363.
+    Dirichlet setting, an exact released-AMenuNet seed produced CA-AMA
+    revenue **3.567311** versus **3.090107** for randomized AMA. The
+    paper reports 3.6205 versus 3.1363; both errors are 1.47%.
 
     This notebook embeds the completed evidence. It does not rerun the
     expensive experiments.
@@ -33,7 +33,7 @@ def _(mo):
 def _(np, plt):
     headline_labels = ["Randomized AMA", "CA-AMA"]
     headline_paper = np.array([3.1363, 3.6205])
-    headline_observed = np.array([3.053014, 3.735941])
+    headline_observed = np.array([3.090107, 3.567311])
     headline_x = np.arange(2)
     headline_width = 0.34
     headline_fig, headline_ax = plt.subplots(figsize=(7.2, 3.5))
@@ -48,7 +48,7 @@ def _(np, plt):
         headline_x + headline_width / 2,
         headline_observed,
         headline_width,
-        label="Observed, five seeds",
+        label="Observed, exact seed 1",
         color=["#5975A4", "#D65F5F"],
     )
     headline_ax.set_xticks(headline_x, headline_labels)
@@ -124,37 +124,38 @@ def _(mo, np, scope_delta):
 
 @app.cell
 def _(np, plt):
-    seed_ids = np.array([1, 7, 19, 41, 73])
-    seed_revenues = np.array(
-        [3.732785, 3.731810, 3.744466, 3.734596, 3.736045]
+    control_fig, (control_left, control_right) = plt.subplots(
+        1, 2, figsize=(8.4, 3.3)
     )
-    seed_regrets = np.array(
-        [0.002729, 0.002902, 0.002792, 0.002799, 0.002842]
+    control_left.bar(
+        ["CA-AMA", "Zero pCor"],
+        [3.567311, 3.012182],
+        color=["#D65F5F", "#687386"],
     )
-    seed_fig, (seed_left, seed_right) = plt.subplots(1, 2, figsize=(8.4, 3.3))
-    seed_left.plot(seed_ids, seed_revenues, "o-", color="#D65F5F")
-    seed_left.axhline(3.6205, color="#687386", linestyle="--")
-    seed_left.set_title("CA-AMA revenue")
-    seed_left.set_xlabel("Training seed")
-    seed_left.grid(alpha=0.25)
-    seed_right.plot(seed_ids, seed_regrets, "o-", color="#55A868")
-    seed_right.axhline(0.0031, color="#687386", linestyle="--")
-    seed_right.set_title("Ex-post IR regret")
-    seed_right.set_xlabel("Training seed")
-    seed_right.grid(alpha=0.25)
-    seed_fig.suptitle("Claim 4 stability across five independent seeds")
-    seed_fig
+    control_left.set_title("Correlation-payment ablation")
+    control_left.set_ylabel("Revenue")
+    control_left.grid(axis="y", alpha=0.25)
+    control_right.bar(
+        ["Correct rivals", "Reversed rivals"],
+        [0.006133, 0.306815],
+        color=["#55A868", "#C44E52"],
+    )
+    control_right.set_title("Rival-profile negative control")
+    control_right.set_ylabel("Ex-post IR regret")
+    control_right.grid(axis="y", alpha=0.25)
+    control_fig.suptitle("Exact seed-1 diagnostic controls")
+    control_fig
     return
 
 
 @app.cell
 def _(mo):
     mo.md(r"""
-    Claim 4 is still **BLOCKED**, despite passing the numerical tolerances.
-    The public release has no matching learned 3 × 10, 2048-menu AMenuNet
-    checkpoint and publishes a contradictory 10 × 3 command. The
-    reproduction uses a validated separable reserve core and held-out
-    payment scaling, which are material substitutions.
+    Claim 4 is still **BLOCKED** because Table 1 averages five seeds.
+    The exact seed-1 route used the released 3 × 10, 2048-menu AMenuNet,
+    32,000 baseline updates, 16,000 mutual-payment updates, and 16,000
+    hard-argmax post-training updates. Its pre-registered five-seed
+    aggregate is still running, so no aggregate result is promoted.
 
     ## Claim 5: what the exact bound can and cannot say
 
@@ -182,7 +183,7 @@ def _(mo):
         ["1", "FALSIFIED", "HIGH", "Literal n=1 scope"],
         ["2", "FALSIFIED", "HIGH", "Correlated separation at n=1"],
         ["3", "VERIFIED", "HIGH", "Exact rival-only cancellation"],
-        ["4", "BLOCKED", "MEDIUM", "Exact 3×10 learned core unavailable"],
+        ["4", "BLOCKED", "MEDIUM", "Exact seed 1; five-seed aggregate pending"],
         ["5", "BLOCKED", "LOW", "Four routes; full CPU optimization unavailable"],
     ]
     mo.md(
@@ -209,9 +210,10 @@ def _(mo):
     uv run --frozen python -m pytest -q repro/tests
     ```
 
-    The winning evidence SHA is
-    `bf4cc9371feea65edf71ad1dc998ed88de23b7a7`. It produced 89
-    SHA-256-manifested artifacts and passed 25 tests on local CPU.
+    The exact Claim 4 evidence SHA is
+    `c78365aba5ba515c53984a3d239c9edaab272fe2`. Run
+    `404b2395-c341-453e-8f0e-d7aa9b583e09` took 8h28m on local CPU and
+    passed all 27 cumulative tests.
 
     This notebook is a tutorial surface. Formal verdicts come from the
     fail-closed claim verifiers and independent checker outputs, not from

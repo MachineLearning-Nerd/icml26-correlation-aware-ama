@@ -1,0 +1,29 @@
+{
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "anchors": [
+    "S4.T1",
+    "S5.SS1",
+    "S5.p3",
+    "A1.SS4"
+  ],
+  "claim": 4,
+  "paper_result": {
+    "baseline_revenue": 3.1363,
+    "caama_ex_post_ir_revenue": 3.5623,
+    "caama_ir_regret": 0.0031,
+    "caama_revenue": 3.6205
+  },
+  "paper_sha256": "2018a533559d5777eedfb1a0bb043bd490b07b2d89b8f5d3edf3adad4ad72e4f",
+  "paper_source": "https://ar5iv.labs.arxiv.org/html/2602.09455",
+  "quantifiers": {
+    "test_profiles": 20000,
+    "total_iterations_per_mechanism": 32000,
+    "training_seeds": 5
+  },
+  "route_scope": "Full paper-scale convergence gate for seed 1 only; no claim verification is possible until five-seed evidence is aggregated.",
+  "setting": "Dirichlet Value Share alpha=0.5, 3 bidders x 10 items"
+}
