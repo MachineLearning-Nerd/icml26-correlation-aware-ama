@@ -1,6 +1,6 @@
 # Release gate — canonical CA-AMA claim campaign
 
-Status: **APPROVED FOR PUBLICATION — FINAL UPLOAD PENDING**
+Status: **PUBLISHED — AWAITING LIVE JUDGE**
 
 - Previous live judged score: `3/10`
 - Conservative projected score range after the proposed change: `6–8/10`
@@ -19,9 +19,10 @@ Best-supported possible total: **8/10**, subject only to the live judge.
 Claims 1–5 all have materially stronger evidence than at the previous judge
 head. Claims 4 and 5 remain BLOCKED for the reasons above.
 
-The user approved the exact action: publish the validated text allowlist to the
-existing Space `DineshAI/TA3NDHgNJh`, then verify the final revision and mirror
-the reader-facing release to GitHub. No second Space may be created.
+The approved 133-path text-only release was published to the existing Space
+`DineshAI/TA3NDHgNJh` and re-downloaded at exact revision
+`615386b5740671c4481b076588c796192449516a`. The final validator passes.
+No second Space was created.
 
 ## Scientific release
 
@@ -86,3 +87,13 @@ bytes.
   therefore not inferred.
 
 No score increase is claimed until a new live judge verdict exists.
+
+## Completed publication
+
+1. Parent revision verified:
+   `2a8d251ffd164a986851643d500ab774608b4b41`.
+2. Canonical logbook committed at:
+   `615386b5740671c4481b076588c796192449516a`.
+3. Exact revision re-downloaded; both protected snapshots remain complete,
+   payload hashes match, and `.gitattributes` remains byte-identical.
+4. Release status marked awaiting live judge; score remains 3/10.

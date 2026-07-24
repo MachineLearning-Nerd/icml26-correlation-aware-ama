@@ -5,7 +5,7 @@ Correlation-Aware Payment* ([arXiv:2602.09455](https://arxiv.org/abs/2602.09455)
 on CPU. It tests the paper's theorem quantifiers, the rival-only DSIC payment
 argument, and both requested Table 1 settings. The previous live judge score is
 still **3/10**; Hugging Face revision
-`2a8d251ffd164a986851643d500ab774608b4b41` is published and awaiting another
+`615386b5740671c4481b076588c796192449516a` is published and awaiting another
 live evaluation, with no new points claimed.
 
 The strongest empirical result is an exact released-AMenuNet run at the full
