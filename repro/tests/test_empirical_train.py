@@ -124,6 +124,32 @@ def test_literal_sampler_preserves_asymmetric_support():
     assert torch.all((values[:, 1] >= 0) & (values[:, 1] <= 0.25))
 
 
+def test_dirichlet_sampler_is_scoped_to_supplied_generator():
+    config = {
+        "n_bidders": 3,
+        "n_items": 10,
+        "alpha": 0.5,
+        "distribution": "dirichlet_value_share",
+    }
+    first = et.sample_values(
+        config, 128, torch.Generator().manual_seed(2002)
+    )
+    # Perturb the global RNG. Generator-scoped sampling must be unaffected.
+    torch.manual_seed(999_999)
+    _ = torch.rand(10_000)
+    repeated = et.sample_values(
+        config, 128, torch.Generator().manual_seed(2002)
+    )
+    different = et.sample_values(
+        config, 128, torch.Generator().manual_seed(2003)
+    )
+    assert torch.equal(first, repeated)
+    assert not torch.equal(first, different)
+    per_item_totals = first.sum(dim=1)
+    assert torch.all(per_item_totals >= 0.5)
+    assert torch.all(per_item_totals <= 1.0)
+
+
 def test_direct_mechanism_space_is_feasible_and_differentiable():
     torch.manual_seed(777)
     model = et.DirectAMA(3, 4, 16, 10)

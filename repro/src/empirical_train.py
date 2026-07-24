@@ -302,11 +302,14 @@ def sample_values(
         totals = 0.5 + 0.5 * torch.rand(
             (batch_size, m), generator=generator
         )
-        # torch.distributions does not accept a Generator, so isolate its global
-        # RNG with the seed established once per training seed.
-        shares = torch.distributions.Dirichlet(
-            torch.full((n,), alpha)
-        ).sample((batch_size, m))
+        # torch.distributions.Dirichlet.sample has no Generator argument.
+        # Sampling its gamma representation directly keeps both training and
+        # the fixed seed-2002 test set scoped to the supplied generator.
+        concentration = torch.full((batch_size, m, n), alpha)
+        gamma = torch._standard_gamma(
+            concentration, generator=generator
+        )
+        shares = gamma / gamma.sum(dim=-1, keepdim=True)
         return (shares * totals.unsqueeze(-1)).permute(0, 2, 1)
     raise ValueError(f"unknown distribution: {distribution}")
 
