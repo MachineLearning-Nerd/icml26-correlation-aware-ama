@@ -1,0 +1,20 @@
+{
+  "artifact_manifest_errors": [],
+  "candidate_file_count": 120,
+  "changed_old_files": [
+    "logbook.json"
+  ],
+  "duplicate_logbook_slugs": [],
+  "manifested_artifact_count": 89,
+  "missing_logbook_files": [],
+  "missing_markdown_links": [],
+  "missing_old_files": [],
+  "non_text_uploads": [],
+  "passed": true,
+  "payload_sync_errors": [],
+  "protected_file_count": 19,
+  "protected_revision": "1c13494fc9e76a381d76c681cfd582495eb79d02",
+  "secret_pattern_hits": {},
+  "unexpected_old_changes": [],
+  "upload_file_count": 102
+}

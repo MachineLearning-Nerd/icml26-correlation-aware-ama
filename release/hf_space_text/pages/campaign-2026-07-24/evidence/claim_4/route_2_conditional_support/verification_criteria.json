@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "baseline_within_5_percent": true,
+    "caama_within_5_percent": false,
+    "ex_post_within_5_percent": false,
+    "five_training_seeds": true,
+    "fixed_test_size": true,
+    "ir_regret_within_0_003": false,
+    "paired_improvement_ci_excludes_zero": true,
+    "paper_scale_bidders_items": true,
+    "shuffled_rivals_increase_regret": true
+  },
+  "ir_regret_absolute_error": 0.0031,
+  "relative_errors": {
+    "baseline_revenue": 0.02787116106379213,
+    "caama_ex_post_ir_revenue": 0.06592296949949095,
+    "caama_revenue": 0.08093837708825755
+  },
+  "targets": {
+    "baseline_revenue": 3.1363,
+    "caama_ex_post_ir_revenue": 3.5623,
+    "caama_ir_regret": 0.0031,
+    "caama_revenue": 3.6205
+  }
+}

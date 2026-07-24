@@ -1,0 +1,92 @@
+{
+  "all_claims_have_honest_terminal_status": true,
+  "claims": {
+    "1": {
+      "basis": "literal n=1 positive-revenue counterexample plus valid n>=2 certificates",
+      "confidence": "HIGH",
+      "resolved": true,
+      "verdict": "FALSIFIED"
+    },
+    "2": {
+      "basis": "independence equality supported; literal any-n correlated separation falsified at n=1",
+      "confidence": "HIGH",
+      "resolved": true,
+      "verdict": "FALSIFIED"
+    },
+    "3": {
+      "basis": "exact rival-only cancellation identity and multi-item property checks",
+      "confidence": "HIGH",
+      "resolved": true,
+      "verdict": "VERIFIED"
+    },
+    "4": {
+      "basis": "five-seed full-scale numbers pass, but the exact released 3x10 learned 2048-menu AMA core/checkpoint is unavailable",
+      "confidence": "MEDIUM",
+      "observed": {
+        "baseline_revenue": 3.053014222639799,
+        "caama_ex_post_ir_revenue": 3.686269669314432,
+        "caama_ir_regret": 0.0028126945753363117,
+        "caama_revenue": 3.735940527594939
+      },
+      "resolved": true,
+      "verdict": "BLOCKED"
+    },
+    "5": {
+      "basis": "four routes completed; exact falsification found no contradiction and faithful full optimization remains unavailable",
+      "confidence": "LOW",
+      "resolved": true,
+      "verdict": "BLOCKED"
+    }
+  },
+  "fixed_command": "uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests",
+  "git_sha": "bf4cc9371feea65edf71ad1dc998ed88de23b7a7",
+  "paper": "arXiv:2602.09455",
+  "route_inventory": {
+    "claim_4": [
+      {
+        "method": "paper/source/data contract and released-code audit",
+        "result": "full 3x10 distribution confirmed; released 10x3 command conflicts with Table 1",
+        "route": 1,
+        "run_id": "eec88b63-1127-4fde-9a36-2b76223a89e4"
+      },
+      {
+        "method": "analytic conditional-support full-scale mechanism",
+        "result": "positive gain but neural 2048-menu procedure and target magnitude unresolved",
+        "route": 2,
+        "run_id": "5253861a-73f7-498d-abdb-5226b6297628"
+      },
+      {
+        "method": "five-seed rival-only three-layer neural pCor",
+        "result": "all numeric tolerances pass; exact released 3x10 core remains unavailable",
+        "route": 3,
+        "run_id": "8770c5f1-7f57-4383-8caf-c69eb475714c"
+      }
+    ],
+    "claim_5": [
+      {
+        "method": "literal Bernoulli-mixture source/data audit",
+        "result": "paper distribution differs from released convex interpolation",
+        "route": 1,
+        "run_id": "eec88b63-1127-4fde-9a36-2b76223a89e4"
+      },
+      {
+        "method": "vectorized paper-semantics optimization",
+        "result": "undertrained pilot; full local/HF jobs projected impractical CPU time",
+        "route": 2,
+        "run_id": "183ee2a0-a7a7-4592-b7e7-e0fc3595bf9d"
+      },
+      {
+        "method": "direct mechanism-space CPU-upgrade optimization",
+        "result": "1.480823 baseline, 1.512781 CA, 0.005571 regret; pilot underfits paper",
+        "route": 3,
+        "run_id": "233ef5c5-063e-40d8-a810-ef661f153826"
+      },
+      {
+        "method": "exact rational falsification bound",
+        "result": "reported values satisfy necessary welfare/IR bounds; no valid falsification",
+        "route": 4,
+        "run_id": "298cd9b9-0ac9-472b-b929-d56a9ac3613b"
+      }
+    ]
+  }
+}

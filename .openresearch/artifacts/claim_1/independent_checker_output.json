@@ -1,0 +1,104 @@
+{
+  "all_30_certificates_pass": true,
+  "checker": "Decimal recomputation of both the paper bound and its simplified identity",
+  "max_formula_disagreement": "100E-102",
+  "n_1_domain_check": "literal source scope audited: positive-revenue separation is impossible because one-bidder D-AMA implements the optimal posted price",
+  "n_1_finite_support_checks": [
+    {
+      "best_deterministic_posted_price_revenue": 0.32000000000000006,
+      "dominated_by_deterministic_ama": true,
+      "monotone_allocation": [
+        0.0,
+        0.25,
+        0.8
+      ],
+      "posted_price_revenues": [
+        0.1,
+        0.32000000000000006,
+        0.27
+      ],
+      "probabilities": [
+        0.2,
+        0.5,
+        0.3
+      ],
+      "randomized_dsic_revenue": 0.22850000000000004,
+      "threshold_mixture_weights": [
+        0.0,
+        0.25,
+        0.55
+      ],
+      "values": [
+        0.1,
+        0.4,
+        0.9
+      ]
+    },
+    {
+      "best_deterministic_posted_price_revenue": 0.3,
+      "dominated_by_deterministic_ama": true,
+      "monotone_allocation": [
+        0.1,
+        0.6,
+        1.0
+      ],
+      "posted_price_revenues": [
+        0.2,
+        0.2,
+        0.3
+      ],
+      "probabilities": [
+        0.6,
+        0.1,
+        0.3
+      ],
+      "randomized_dsic_revenue": 0.24,
+      "threshold_mixture_weights": [
+        0.1,
+        0.5,
+        0.4
+      ],
+      "values": [
+        0.2,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "best_deterministic_posted_price_revenue": 0.48999999999999994,
+      "dominated_by_deterministic_ama": true,
+      "monotone_allocation": [
+        0.0,
+        0.2,
+        0.7,
+        0.9
+      ],
+      "posted_price_revenues": [
+        0.05,
+        0.27,
+        0.48999999999999994,
+        0.3
+      ],
+      "probabilities": [
+        0.1,
+        0.2,
+        0.4,
+        0.3
+      ],
+      "randomized_dsic_revenue": 0.359,
+      "threshold_mixture_weights": [
+        0.0,
+        0.2,
+        0.49999999999999994,
+        0.20000000000000007
+      ],
+      "values": [
+        0.05,
+        0.3,
+        0.7,
+        1.0
+      ]
+    }
+  ],
+  "n_1_finite_support_checks_pass": true
+}

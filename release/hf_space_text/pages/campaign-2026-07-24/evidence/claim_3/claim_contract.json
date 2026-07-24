@@ -1,0 +1,15 @@
+{
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "anchors": "S3.Thmtheorem2; proof A2.2.p1",
+  "claim": 3,
+  "domain_and_quantifiers": "all allocation menus A, positive weights w, boosts lambda, rival-only functions pCor, bidders, values, and reports",
+  "machine_checkable_contract": "Prove the correlation-payment term cancels exactly from the truthful versus misreport utility difference and independently test multi-item menus.",
+  "paper_sha256": "2018a533559d5777eedfb1a0bb043bd490b07b2d89b8f5d3edf3adad4ad72e4f",
+  "paper_source": "https://ar5iv.labs.arxiv.org/html/2602.09455",
+  "success_verdict": "VERIFIED",
+  "title": "Proposition 3.2: pCor_i(V_-i) preserves DSIC"
+}

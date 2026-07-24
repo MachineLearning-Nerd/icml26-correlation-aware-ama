@@ -1,0 +1,13 @@
+{
+  "own_bid_dependent_payment": {
+    "allocation_unchanged": true,
+    "dsic_holds": false,
+    "misreport": 0.0,
+    "misreport_utility": 1.0,
+    "profitable_gain": 1.0,
+    "rejected_as_intended": true,
+    "true_value": 1.0,
+    "truthful_report": 1.0,
+    "truthful_utility": 0.0
+  }
+}

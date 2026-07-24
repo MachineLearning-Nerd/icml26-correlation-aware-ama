@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "baseline_feasible": true,
+    "caama_feasible_with_regret": true,
+    "ex_post_feasible": true,
+    "expected_welfare_exact": true
+  },
+  "expected_welfare_exact": "623/240",
+  "valid_falsification_found": false
+}

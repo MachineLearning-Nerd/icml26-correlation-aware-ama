@@ -1,0 +1,5 @@
+{
+  "returncode": 1,
+  "stderr": "",
+  "stdout": "{\"checks\": {\"baseline_within_5_percent\": true, \"caama_within_5_percent\": false, \"ex_post_within_5_percent\": false, \"five_training_seeds\": true, \"fixed_test_size\": true, \"independent_checker\": true, \"ir_regret_within_0_003\": false, \"method_matches_paper_neural_2048_menu\": false, \"paired_improvement_ci_excludes_zero\": true, \"paper_scale_bidders_items\": true, \"shuffled_rivals_increase_regret\": true}, \"claim\": 4, \"verdict\": \"BLOCKED\"}"
+}

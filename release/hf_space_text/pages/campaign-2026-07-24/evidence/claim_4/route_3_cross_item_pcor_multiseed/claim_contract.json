@@ -1,0 +1,29 @@
+{
+  "claim": 4,
+  "paper_result": {
+    "baseline": 3.1363,
+    "caama": 3.6205,
+    "ex_post_ir": 3.5623,
+    "ir_regret": 0.0031
+  },
+  "validation_scope": {
+    "batch_size": 1024,
+    "payment_scale_grid_points": 201,
+    "test_profiles": 20000,
+    "test_profiles_total": 100000,
+    "training_seeds": [
+      1,
+      7,
+      19,
+      41,
+      73
+    ],
+    "updates": 2000,
+    "validation_profiles": 10000
+  },
+  "verification_tolerances": {
+    "ir_regret_absolute_above_paper": 0.001,
+    "paired_improvement_ci95_low_minimum": 0.0,
+    "revenue_relative_error": 0.05
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "correlation_required": {
+    "ca_full_surplus": 1.0,
+    "distribution": "two bidders with support {(1,0),(0,1)}",
+    "independent_myerson_style_benchmark": 0.5,
+    "purpose": "removing independence invalidates the equality conclusion",
+    "strict_advantage": 0.5
+  },
+  "paper_formula_typo_detected": {
+    "constructed_rival": "v2=eta_1(1-v1)",
+    "correct_inverse_payment": "1-v2/eta_1=v1",
+    "printed_appendix_payment": "1-v2/eta",
+    "printed_formula_matches_v1_when_eta_1_lt_eta": false
+  },
+  "positive_revenue_n_1_falsification": {
+    "all_independent_cases_pass": true,
+    "conclusion": "For every one-bidder distribution with positive optimal revenue, REV_D-AMA=REV, so REV_D-AMA<=epsilon*REV is impossible for epsilon<1.",
+    "dama_implements_every_posted_price": "w_1=1, lambda_allocate=0, lambda_reserve=r",
+    "dsic_ir_representation": "x(v)=integral 1{v>=r} dG(r); p(v)=integral r*1{v>=r} dG(r)",
+    "expected_revenue_identity": "E[p(V)]=integral r*Pr[V>=r] dG(r) <= sup_r r*Pr[V>=r]",
+    "finite_support_independent_cases": [
+      {
+        "best_deterministic_posted_price_revenue": 0.32000000000000006,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.0,
+          0.25,
+          0.8
+        ],
+        "posted_price_revenues": [
+          0.1,
+          0.32000000000000006,
+          0.27
+        ],
+        "probabilities": [
+          0.2,
+          0.5,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.22850000000000004,
+        "threshold_mixture_weights": [
+          0.0,
+          0.25,
+          0.55
+        ],
+        "values": [
+          0.1,
+          0.4,
+          0.9
+        ]
+      },
+      {
+        "best_deterministic_posted_price_revenue": 0.3,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.1,
+          0.6,
+          1.0
+        ],
+        "posted_price_revenues": [
+          0.2,
+          0.2,
+          0.3
+        ],
+        "probabilities": [
+          0.6,
+          0.1,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.24,
+        "threshold_mixture_weights": [
+          0.1,
+          0.5,
+          0.4
+        ],
+        "values": [
+          0.2,
+          0.5,
+          1.0
+        ]
+      },
+      {
+        "best_deterministic_posted_price_revenue": 0.48999999999999994,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.0,
+          0.2,
+          0.7,
+          0.9
+        ],
+        "posted_price_revenues": [
+          0.05,
+          0.27,
+          0.48999999999999994,
+          0.3
+        ],
+        "probabilities": [
+          0.1,
+          0.2,
+          0.4,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.359,
+        "threshold_mixture_weights": [
+          0.0,
+          0.2,
+          0.49999999999999994,
+          0.20000000000000007
+        ],
+        "values": [
+          0.05,
+          0.3,
+          0.7,
+          1.0
+        ]
+      }
+    ],
+    "literal_source_quantifier": "for any number of bidders n",
+    "positive_optimal_revenue_required": true,
+    "positive_revenue_n1_separation_impossible": true,
+    "test_epsilon": 0.5,
+    "tested_number_of_bidders": 1,
+    "valid_literal_scope_falsification": true
+  }
+}

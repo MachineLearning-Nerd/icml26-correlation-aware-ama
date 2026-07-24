@@ -1,0 +1,24 @@
+{
+  "elapsed_seconds": 0.43018583400407806,
+  "fixed_command": "uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests",
+  "git_sha": "bf4cc9371feea65edf71ad1dc998ed88de23b7a7",
+  "logical_cpu_cores": 8,
+  "machine": "arm64",
+  "memory_bytes": 17179869184,
+  "numpy": "2.5.1",
+  "physical_cpu_cores": 8,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "processor": "arm",
+  "python": "3.12.11 (main, Aug 18 2025, 19:02:39) [Clang 20.1.4 ]",
+  "scipy": "1.18.0",
+  "seeds": [
+    1103,
+    2207,
+    3301,
+    4409,
+    5519
+  ],
+  "torch": "2.7.1",
+  "torch_cuda_available": false,
+  "uv_lock_sha256": "8ed761e9dd2405ad735d9aee996dd4af413fe2a1cc4919ac1724e89b507456ef"
+}
