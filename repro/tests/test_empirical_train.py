@@ -71,6 +71,45 @@ def test_hard_pivot_payments_are_nonnegative_externalities():
     assert torch.isfinite(payment).all()
 
 
+def test_post_training_uses_hard_argmax_ama_path(monkeypatch):
+    config = {
+        "n_bidders": 2,
+        "n_items": 2,
+        "menu_size": 8,
+        "allocation_temperature": 10.0,
+        "parameterization": "amenunet_constant_context",
+        "train_batch_size": 4,
+        "mutual_updates": 0,
+        "post_updates": 1,
+        "learning_rate": 0.0003,
+        "warmup_updates": 100,
+        "softmax_temperature": 500.0,
+        "gamma_initial": 3.0,
+        "gamma_learning_rate": 0.01,
+        "gamma_min": 1.0,
+        "gamma_max": 20.0,
+        "target_ir_regret": 0.001,
+        "log_every": 1,
+        "distribution": "dirichlet_value_share",
+        "alpha": 0.5,
+    }
+    hard_calls = 0
+    original_hard = et.EfficientAMA.hard_outcomes
+
+    def counted_hard(self, values):
+        nonlocal hard_calls
+        hard_calls += 1
+        return original_hard(self, values)
+
+    def forbidden_soft(self, values, temperature):
+        raise AssertionError("post-training called the soft AMA path")
+
+    monkeypatch.setattr(et.EfficientAMA, "hard_outcomes", counted_hard)
+    monkeypatch.setattr(et.EfficientAMA, "soft_outcomes", forbidden_soft)
+    et.train_caama(config, seed=7, curve_rows=[])
+    assert hard_calls == 1
+
+
 def test_literal_sampler_preserves_asymmetric_support():
     config = {
         "n_bidders": 2,

@@ -394,9 +394,9 @@ def train_caama(
         optimizer.zero_grad(set_to_none=True)
         if phase == "post":
             with torch.no_grad():
-                payment, valuation, _ = model.soft_outcomes(
-                    values, float(config["softmax_temperature"])
-                )
+                # Algorithm 1, lines 10--13: post-training freezes the AMA
+                # parameters and uses the true argmax AMA payment/utility.
+                payment, valuation, _ = model.hard_outcomes(values)
         else:
             payment, valuation, _ = model.soft_outcomes(
                 values, float(config["softmax_temperature"])
@@ -978,6 +978,11 @@ def main() -> None:
         from claim4_pcor_pilot import main as run_claim4_pcor_multiseed
 
         run_claim4_pcor_multiseed()
+        return
+    if config["mode"] == "claim4_exact_amenunet_pilot":
+        from claim4_exact_amenunet import main as run_claim4_exact_amenunet
+
+        run_claim4_exact_amenunet()
         return
     if config["mode"] == "theory_scope_audit":
         print("EMPIRICAL_TRAIN_STATUS=SKIPPED_THEORY_SCOPE_AUDIT")
