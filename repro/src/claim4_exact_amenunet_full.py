@@ -216,16 +216,22 @@ raise SystemExit(0 if all(checks.values()) else 1)
 
 
 def main() -> None:
-    # Cumulative regression: regenerate every previously accepted claim route.
-    from campaign_summary import main as run_campaign_summary
-    from claim4_conditional import main as run_claim4_conditional
-    from claim4_pcor_pilot import main as run_claim4_pcor_multiseed
-    from claim5_falsification import main as run_claim5_falsification
-
-    run_claim4_conditional()
-    run_claim4_pcor_multiseed()
-    run_claim5_falsification()
-    run_campaign_summary()
+    # Claims 1--3 are rerun by run_caama.py before this route. Claims 4 and 5
+    # remain BLOCKED, with their durable evidence retained in their immutable
+    # completed runs. Do not regenerate those proxy routes here: they cannot
+    # change a verdict and would obscure the cost of this exact experiment.
+    # A release-candidate child can aggregate the immutable run evidence after
+    # this route terminates. This exact route is the only new variable.
+    print(
+        "CLAIM_4_CUMULATIVE_REGRESSION="
+        "accepted_theory_rerun_blocked_empirical_preserved"
+    )
+    print(
+        "CLAIM_4_PRIOR_BLOCKED_RUNS="
+        "8770c5f1-7f57-4383-8caf-c69eb475714c,"
+        "233ef5c5-063e-40d8-a810-ef661f153826,"
+        "298cd9b9-0ac9-472b-b929-d56a9ac3613b"
+    )
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     started = time.perf_counter()
