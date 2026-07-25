@@ -1,0 +1,9 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "rival_reversal_increases_regret_ci": true,
+    "zero_pcor_ablation_removes_revenue_ci": true
+  },
+  "returncode": 0,
+  "stderr": ""
+}

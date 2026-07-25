@@ -1018,7 +1018,10 @@ def main() -> None:
                 text=True,
             )
             if not completed.stdout.strip():
-                raise AssertionError(f"{script} produced no JSON output")
+                raise AssertionError(
+                    f"{script} produced no JSON output: "
+                    f"{completed.stderr.strip()}"
+                )
             record = json.loads(completed.stdout)
             record["returncode"] = completed.returncode
             record["stderr"] = completed.stderr

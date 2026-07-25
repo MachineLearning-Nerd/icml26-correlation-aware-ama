@@ -1,0 +1,112 @@
+{
+  "aggregate_means": {
+    "baseline_revenue": 3.0850108384990693,
+    "caama_ex_post_ir_revenue": 3.4732431969603894,
+    "caama_ir_regret": 0.005835349303224098,
+    "caama_revenue": 3.572629892292023
+  },
+  "all_checks_pass": true,
+  "checks": {
+    "baseline_within_tolerance": true,
+    "caama_within_tolerance": true,
+    "ex_post_ir_within_tolerance": true,
+    "five_exact_seeds": true,
+    "five_raw_files": true,
+    "ir_regret_within_tolerance": true,
+    "literal_setting": true,
+    "paired_improvement_ci_excludes_zero": true,
+    "paper_batch_and_test_sizes": true,
+    "paper_scale_updates": true,
+    "released_amenunet_parameterization": true,
+    "rival_reversal_increases_regret_ci": true,
+    "twenty_thousand_rows_per_seed": true,
+    "zero_pcor_ablation_removes_revenue_ci": true
+  },
+  "ir_regret_absolute_error": 0.002735349303224098,
+  "negative_controls": {
+    "rival_reversal_regret_effect": {
+      "ci95_high": 0.30460867349750104,
+      "ci95_low": 0.290231438891109,
+      "mean": 0.297420056194305,
+      "standard_error": 0.0025891444025808955,
+      "values": [
+        0.302223912969701,
+        0.2930893783827544,
+        0.2904153723194951,
+        0.30399078142844566,
+        0.29738083587112885
+      ]
+    },
+    "zero_pcor_revenue_effect": {
+      "ci95_high": 0.5617107597577586,
+      "ci95_low": 0.5277223239171491,
+      "mean": 0.5447165418374539,
+      "standard_error": 0.006120855005737292,
+      "values": [
+        0.5501292816936969,
+        0.538193028637767,
+        0.525589983963966,
+        0.5621442203521729,
+        0.5475261945396666
+      ]
+    }
+  },
+  "paired_caama_minus_baseline": {
+    "ci95_high": 0.4954931567097674,
+    "ci95_low": 0.4797449508761394,
+    "mean": 0.4876190537929534,
+    "standard_error": 0.0028360376735246293,
+    "values": [
+      0.49653817592859273,
+      0.4796424539029598,
+      0.48578699010014503,
+      0.48542439191937437,
+      0.4907032571136951
+    ]
+  },
+  "raw_rows": 100000,
+  "relative_errors": {
+    "baseline_revenue": 0.016353397793875124,
+    "caama_ex_post_ir_revenue": 0.024999804351012157,
+    "caama_revenue": 0.013221960422034757
+  },
+  "returncode": 0,
+  "seed_counts": {
+    "1": 20000,
+    "2": 20000,
+    "3": 20000,
+    "4": 20000,
+    "5": 20000
+  },
+  "seed_means": {
+    "baseline_revenue": [
+      3.074466696846485,
+      3.090557922679186,
+      3.083771893209219,
+      3.0994402756631376,
+      3.076817404097319
+    ],
+    "caama_ex_post_ir_revenue": [
+      3.4668811115816234,
+      3.4752081477850676,
+      3.4783314061805606,
+      3.47461635517478,
+      3.4711789640799164
+    ],
+    "caama_ir_regret": [
+      0.006185380081766755,
+      0.005638445066774539,
+      0.005276530726546545,
+      0.006369624837094216,
+      0.005706765803938437
+    ],
+    "caama_revenue": [
+      3.571004872775078,
+      3.5702003765821457,
+      3.569558883309364,
+      3.584864667582512,
+      3.567520661211014
+    ]
+  },
+  "stderr": ""
+}

@@ -1,0 +1,40 @@
+{
+  "allocation_temperature": 10.0,
+  "alpha": 0.5,
+  "baseline_updates": 32000,
+  "claim": 4,
+  "distribution": "dirichlet_value_share",
+  "eval_batch_size": 500,
+  "eval_samples": 20000,
+  "gamma_initial": 8.0,
+  "gamma_learning_rate": 0.01,
+  "gamma_max": 20.0,
+  "gamma_min": 1.0,
+  "learning_rate": 0.0003,
+  "log_every": 1000,
+  "menu_size": 2048,
+  "mode": "claim4_exact_amenunet_five_seed",
+  "mutual_updates": 16000,
+  "n_bidders": 3,
+  "n_items": 10,
+  "parallel_workers": 5,
+  "parameterization": "amenunet_constant_context",
+  "post_updates": 16000,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "softmax_temperature": 500.0,
+  "target_ir_regret": 0.001,
+  "torch_threads_per_worker": 2,
+  "train_batch_size": 1024,
+  "verification_tolerances": {
+    "ir_regret_absolute_error": 0.003,
+    "paired_improvement_ci95_low_minimum": 0.0,
+    "revenue_relative_error": 0.05
+  },
+  "warmup_updates": 100
+}

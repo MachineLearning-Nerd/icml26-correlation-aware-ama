@@ -1,0 +1,30 @@
+{
+  "all_verification_checks_pass": true,
+  "independent_checks": {
+    "baseline_within_tolerance": true,
+    "caama_within_tolerance": true,
+    "ex_post_ir_within_tolerance": true,
+    "five_exact_seeds": true,
+    "five_raw_files": true,
+    "ir_regret_within_tolerance": true,
+    "literal_setting": true,
+    "paired_improvement_ci_excludes_zero": true,
+    "paper_batch_and_test_sizes": true,
+    "paper_scale_updates": true,
+    "released_amenunet_parameterization": true,
+    "rival_reversal_increases_regret_ci": true,
+    "twenty_thousand_rows_per_seed": true,
+    "zero_pcor_ablation_removes_revenue_ci": true
+  },
+  "paper_targets": {
+    "baseline_revenue": 3.1363,
+    "caama_ex_post_ir_revenue": 3.5623,
+    "caama_ir_regret": 0.0031,
+    "caama_revenue": 3.6205
+  },
+  "pre_registered_tolerances": {
+    "ir_regret_absolute_error": 0.003,
+    "paired_improvement_ci95_low_minimum": 0.0,
+    "revenue_relative_error": 0.05
+  }
+}
