@@ -1,0 +1,25 @@
+{
+  "rival_profile_reversal": {
+    "ir_regret": {
+      "ci95_high": 0.30152860242559204,
+      "ci95_low": 0.28985520366649126,
+      "count": 20000,
+      "mean": 0.29569190304604165,
+      "standard_error": 0.0029777823376052393,
+      "std": 0.4211220167636388
+    },
+    "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+    "revenue": {
+      "ci95_high": 3.579152341216509,
+      "ci95_low": 3.5599654234352665,
+      "count": 20000,
+      "mean": 3.5695588823258877,
+      "standard_error": 0.004894415590620096,
+      "std": 0.6921748908145262
+    }
+  },
+  "zero_pcor_identity": {
+    "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+    "mean_zero_pcor_revenue": 3.043968899345398
+  }
+}

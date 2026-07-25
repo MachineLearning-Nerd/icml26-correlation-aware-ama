@@ -1,0 +1,62 @@
+{
+  "all_cases_pass": true,
+  "property_cases": [
+    {
+      "dsic_holds": true,
+      "m_items": 1,
+      "max_ama_misreport_gain": 0.0,
+      "max_caama_misreport_gain": 0.0,
+      "max_gain_shift_error": 0.0,
+      "menu_size": 8,
+      "misreports_checked": 80,
+      "n_bidders": 2,
+      "seed": 1103
+    },
+    {
+      "dsic_holds": true,
+      "m_items": 2,
+      "max_ama_misreport_gain": 0.0,
+      "max_caama_misreport_gain": 0.0,
+      "max_gain_shift_error": 5.551115123125783e-17,
+      "menu_size": 12,
+      "misreports_checked": 120,
+      "n_bidders": 3,
+      "seed": 2207
+    },
+    {
+      "dsic_holds": true,
+      "m_items": 3,
+      "max_ama_misreport_gain": 0.0,
+      "max_caama_misreport_gain": 0.0,
+      "max_gain_shift_error": 5.551115123125783e-17,
+      "menu_size": 18,
+      "misreports_checked": 160,
+      "n_bidders": 4,
+      "seed": 3301
+    },
+    {
+      "dsic_holds": true,
+      "m_items": 4,
+      "max_ama_misreport_gain": 0.0,
+      "max_caama_misreport_gain": 0.0,
+      "max_gain_shift_error": 0.0,
+      "menu_size": 24,
+      "misreports_checked": 200,
+      "n_bidders": 5,
+      "seed": 4409
+    },
+    {
+      "dsic_holds": true,
+      "m_items": 5,
+      "max_ama_misreport_gain": 0.0,
+      "max_caama_misreport_gain": 0.0,
+      "max_gain_shift_error": 2.220446049250313e-16,
+      "menu_size": 32,
+      "misreports_checked": 240,
+      "n_bidders": 6,
+      "seed": 5519
+    }
+  ],
+  "symbolic_identity": "[u_AMA(v_i;(v_i,V_-i))-c(V_-i)] - [u_AMA(v_i;(b_i,V_-i))-c(V_-i)] = u_AMA(v_i;(v_i,V_-i))-u_AMA(v_i;(b_i,V_-i)) >= 0",
+  "verdict": "VERIFIED"
+}

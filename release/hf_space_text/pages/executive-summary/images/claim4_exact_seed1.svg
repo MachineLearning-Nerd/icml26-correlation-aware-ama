@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Claim 4 paper and exact seed-1 revenues</title>
+  <desc id="desc">The exact full-scale seed-1 run produced randomized AMA revenue 3.090107 versus paper 3.1363 and CA-AMA revenue 3.567311 versus paper 3.6205. Both observed values are 1.47 percent below the paper.</desc>
+  <rect width="1200" height="675" rx="34" fill="#f8f5f2"/>
+  <text x="60" y="65" fill="#15394e" font-family="Inter,Arial,sans-serif" font-size="34" font-weight="700">Dirichlet Value Share · α=0.5 · 3 bidders × 10 items</text>
+  <text x="60" y="105" fill="#555" font-family="Georgia,serif" font-size="25">Paper Table 1 versus faithful AMenuNet seed 1</text>
+
+  <line x1="110" y1="535" x2="1140" y2="535" stroke="#7b8790" stroke-width="2"/>
+  <line x1="110" y1="155" x2="110" y2="535" stroke="#7b8790" stroke-width="2"/>
+  <g fill="#555" font-family="Inter,Arial,sans-serif" font-size="18" text-anchor="end">
+    <text x="96" y="541">0</text>
+    <text x="96" y="446">1</text>
+    <text x="96" y="351">2</text>
+    <text x="96" y="256">3</text>
+    <text x="96" y="161">4</text>
+  </g>
+  <g stroke="#d7dcdf" stroke-width="1">
+    <line x1="110" y1="440" x2="1140" y2="440"/>
+    <line x1="110" y1="345" x2="1140" y2="345"/>
+    <line x1="110" y1="250" x2="1140" y2="250"/>
+    <line x1="110" y1="155" x2="1140" y2="155"/>
+  </g>
+
+  <rect x="200" y="237.05" width="150" height="297.95" rx="10" fill="#8fa8b8"/>
+  <rect x="370" y="241.44" width="150" height="293.56" rx="10" fill="#245c7a"/>
+  <rect x="680" y="191.05" width="150" height="343.95" rx="10" fill="#dfb8b5"/>
+  <rect x="850" y="196.11" width="150" height="338.89" rx="10" fill="#c04a43"/>
+
+  <g font-family="Inter,Arial,sans-serif" font-size="25" font-weight="700" text-anchor="middle">
+    <text x="275" y="221" fill="#15394e">3.1363</text>
+    <text x="445" y="225" fill="#15394e">3.090107</text>
+    <text x="755" y="175" fill="#8d302b">3.6205</text>
+    <text x="925" y="180" fill="#8d302b">3.567311</text>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" font-size="22" text-anchor="middle">
+    <text x="360" y="585" fill="#15394e" font-weight="700">Randomized AMA</text>
+    <text x="840" y="585" fill="#8d302b" font-weight="700">CA-AMA</text>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" font-size="18" text-anchor="middle">
+    <text x="275" y="622" fill="#555">Paper</text>
+    <text x="445" y="622" fill="#555">Observed</text>
+    <text x="755" y="622" fill="#555">Paper</text>
+    <text x="925" y="622" fill="#555">Observed</text>
+  </g>
+
+  <rect x="925" y="92" width="215" height="74" rx="18" fill="#e8f1f8" stroke="#245c7a" stroke-width="2"/>
+  <text x="1032.5" y="121" text-anchor="middle" fill="#15394e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">relative error</text>
+  <text x="1032.5" y="151" text-anchor="middle" fill="#245c7a" font-family="Inter,Arial,sans-serif" font-size="27" font-weight="800">1.47% each</text>
+</svg>

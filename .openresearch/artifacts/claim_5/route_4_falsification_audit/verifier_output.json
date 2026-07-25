@@ -1,0 +1,5 @@
+{
+  "returncode": 1,
+  "stderr": "",
+  "stdout": "{\"claim\": 5, \"route_integrity\": true, \"valid_falsification_found\": false, \"verdict\": \"BLOCKED\"}"
+}

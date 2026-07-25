@@ -1,0 +1,15 @@
+{
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "anchors": "S3.Thmtheorem1; proof A2.16.p1--A2.22.p6",
+  "claim": 1,
+  "domain_and_quantifiers": "single item; every positive integer n (literal source wording: \"any number of bidders\"); every target delta>0; there exists a correlated distribution F with a non-vacuous positive optimal revenue",
+  "machine_checkable_contract": "Audit every positive integer n. For n>=2, construct F explicitly and certify REV_F^D-AMA < delta*REV_F. For n=1, test whether a positive-revenue separation can exist under DSIC and IR.",
+  "paper_sha256": "2018a533559d5777eedfb1a0bb043bd490b07b2d89b8f5d3edf3adad4ad72e4f",
+  "paper_source": "https://ar5iv.labs.arxiv.org/html/2602.09455",
+  "success_verdict": "FALSIFIED",
+  "title": "Proposition 3.1: deterministic AMA can be arbitrarily poor"
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "title": "Reproduction: Enhancing Affine Maximizer Auctions with Correlation-Aware Payment",
+  "emoji": "💰",
+  "space_id": "DineshAI/TA3NDHgNJh",
+  "paper": {
+    "arxiv_id": "2602.09455",
+    "openreview_id": "TA3NDHgNJh",
+    "title": "Enhancing Affine Maximizer Auctions with Correlation-Aware Payment"
+  },
+  "tags": [
+    "icml2026-repro",
+    "paper-TA3NDHgNJh"
+  ],
+  "updated_at": "2026-07-25T00:00:00+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Reproduction: Enhancing Affine Maximizer Auctions with Correlation-Aware Payment",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "executive-summary",
+        "title": "Executive summary",
+        "file": "pages/executive-summary-2026-07-25/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-1-deterministic-ama-poor",
+        "title": "Claim 1: deterministic AMA can be arbitrarily poor",
+        "file": "pages/claim-1-deterministic-ama-poor/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-2-correlation-separation",
+        "title": "Claim 2: independence equality and correlated separation",
+        "file": "pages/claim-2-correlation-separation/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-3-rival-only-dsic",
+        "title": "Claim 3: rival-only payments preserve DSIC",
+        "file": "pages/claim-3-rival-only-dsic/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-4-dirichlet-value-share",
+        "title": "Claim 4: Dirichlet Value Share Table 1",
+        "file": "pages/claim-4-verified-five-seed-2026-07-25/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-5-linear-mixture-asymmetric",
+        "title": "Claim 5: Linear Mixture Asymmetric Table 1",
+        "file": "pages/claim-5-linear-mixture-asymmetric/page.md",
+        "children": []
+      },
+      {
+        "slug": "conclusion",
+        "title": "Conclusion",
+        "file": "pages/conclusion-2026-07-25/conclusion.md",
+        "children": []
+      }
+    ]
+  },
+  "agent_view_tokens": 6000,
+  "revision": "claim-4-five-seed-verified-candidate"
+}

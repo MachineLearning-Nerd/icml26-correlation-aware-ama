@@ -1,0 +1,56 @@
+{
+  "contradictions": {
+    "caama_below_welfare_plus_reported_regret": false,
+    "ex_post_ir_revenue_below_expected_welfare": false,
+    "randomized_ama_below_expected_welfare": false,
+    "reported_regret_nonnegative": false
+  },
+  "distribution": {
+    "alpha": {
+      "decimal": 0.6,
+      "exact": "3/5"
+    },
+    "correlated_component_expected_item_welfare": {
+      "decimal": 0.525,
+      "exact": "21/40"
+    },
+    "expected_total_welfare_upper_bound": {
+      "decimal": 2.595833333333333,
+      "exact": "623/240"
+    },
+    "independent_component_expected_item_welfare": {
+      "decimal": 0.5104166666666666,
+      "exact": "49/96"
+    },
+    "items": 5,
+    "mixture_expected_item_welfare": {
+      "decimal": 0.5191666666666667,
+      "exact": "623/1200"
+    }
+  },
+  "necessary_checks": {
+    "caama_below_welfare_plus_reported_regret": true,
+    "ex_post_ir_revenue_below_expected_welfare": true,
+    "randomized_ama_below_expected_welfare": true,
+    "reported_regret_nonnegative": true
+  },
+  "paper_values": {
+    "caama_ex_post_ir_revenue": {
+      "decimal": 1.8553,
+      "exact": "18553/10000"
+    },
+    "caama_ir_regret": {
+      "decimal": 0.0052,
+      "exact": "13/2500"
+    },
+    "caama_revenue": {
+      "decimal": 1.9359,
+      "exact": "19359/10000"
+    },
+    "randomized_ama_revenue": {
+      "decimal": 1.7135,
+      "exact": "3427/2000"
+    }
+  },
+  "valid_falsification_found": false
+}

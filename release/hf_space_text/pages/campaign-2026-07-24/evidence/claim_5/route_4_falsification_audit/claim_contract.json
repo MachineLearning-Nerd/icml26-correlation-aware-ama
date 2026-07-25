@@ -1,0 +1,18 @@
+{
+  "allowed_verdicts": [
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "assumptions": [
+    "additive valuations and feasible item allocations",
+    "v1j is Uniform[0,1]",
+    "with probability 0.6, v2j=(1-v1j)/4",
+    "otherwise v2j is independent Uniform[0,1/4]",
+    "five independent items",
+    "paper Regret_IR definition"
+  ],
+  "claim": 5,
+  "exact_statement": "For the asymmetric Linear Mixture with alpha=0.6, two bidders, and five items, Table 1 reports randomized AMA revenue 1.7135, CA-AMA revenue 1.9359, IR regret 0.0052, and ex-post-IR revenue 1.8553.",
+  "falsification_rule": "FALSIFIED only if a reported value violates a necessary distributional, allocation-feasibility, or IR inequality. A failed training run is not a counterexample.",
+  "quantifier": "The claim concerns the four reported five-seed mean values for this single experimental configuration."
+}

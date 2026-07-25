@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "skill": "posterly",
+  "timestamp": "2026-07-24T10:42:52Z",
+  "poster_html": "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
+  "canvas": {
+    "source": "page-rule",
+    "width_cm": 152.4,
+    "height_cm": 91.44,
+    "orientation": "landscape",
+    "source_url": null
+  },
+  "overall": "PASS",
+  "hard_failures": 0,
+  "warnings": 0,
+  "soft_advisories": 0,
+  "gates": [
+    {
+      "name": "preflight",
+      "severity": "hard",
+      "status": "PASS",
+      "command": [
+        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "/private/tmp/posterly-caama/tools/poster_check.py",
+        "preflight",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+      ],
+      "summary": {
+        "exit_code": 0,
+        "tail": "[preflight] /Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html\n  problems: 0   warnings: 0\n[preflight] PASS"
+      },
+      "artifacts": []
+    },
+    {
+      "name": "style",
+      "severity": "hard",
+      "status": "PASS",
+      "command": [
+        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "/private/tmp/posterly-caama/tools/style_check.py",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
+        "--tokens",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/design_tokens.json",
+        "--disable",
+        "4,5",
+        "--json",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
+      ],
+      "summary": {
+        "gate": "style",
+        "status": "PASS",
+        "rules": [
+          {
+            "id": 1,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 2,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 3,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 4,
+            "severity": "hard",
+            "status": "SKIPPED",
+            "detail": "disabled via --disable (rule 4)"
+          },
+          {
+            "id": 5,
+            "severity": "hard",
+            "status": "SKIPPED",
+            "detail": "disabled via --disable (rule 5)"
+          },
+          {
+            "id": 6,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 7,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 8,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 9,
+            "severity": "warn",
+            "status": "PASS",
+            "detail": "9 --fs-* token(s) defined"
+          },
+          {
+            "id": 10,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 11,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 12,
+            "severity": "warn",
+            "status": "PASS",
+            "detail": "dark area = 0.0% of poster (<= 8%)"
+          },
+          {
+            "id": 13,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          },
+          {
+            "id": 14,
+            "severity": "hard",
+            "status": "PASS",
+            "detail": "ok"
+          }
+        ]
+      },
+      "artifacts": [
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
+      ]
+    },
+    {
+      "name": "asset",
+      "severity": "hard",
+      "status": "NOT_RUN",
+      "command": [],
+      "summary": {
+        "not_run": "no --manifest: real-figure provenance gate opted out (NOT verified)"
+      },
+      "artifacts": []
+    },
+    {
+      "name": "measure",
+      "severity": "hard",
+      "status": "PASS",
+      "command": [
+        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "/private/tmp/posterly-caama/tools/poster_check.py",
+        "measure",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+      ],
+      "summary": {
+        "exit_code": 0,
+        "tail": "[measure] viewport = 5760 x 3456 px\n[measure] columns found: 1 (+ 1 hero)\n  col0    last-card-bottom =  3076.58 px\n  hero    last-card-bottom =  3076.38 px\n  spread = 0.20 px   (target < 5.0 px)\n  intercard gap in [30.23 (col0), 30.23 (col0)] px   (target [12.0, 50.0])\n  gap -> footer-strip in [41.36, 41.56] px   (target [30.0, 50.0])\n[measure] PASS"
+      },
+      "artifacts": []
+    },
+    {
+      "name": "polish",
+      "severity": "soft",
+      "status": "PASS",
+      "command": [
+        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "/private/tmp/posterly-caama/tools/poster_check.py",
+        "polish",
+        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+      ],
+      "summary": {
+        "exit_code": 0,
+        "tail": "  contrast pairs (<7) : 9\n  case-corrupt runs   : 0\n  beside-text floats  : 0\n  flex/<br> parents   : 0\n  header logos        : 0\n  banner images       : 0\n  warnings            : 0\n[polish] PASS"
+      },
+      "artifacts": [],
+      "advisories": 0
+    }
+  ]
+}

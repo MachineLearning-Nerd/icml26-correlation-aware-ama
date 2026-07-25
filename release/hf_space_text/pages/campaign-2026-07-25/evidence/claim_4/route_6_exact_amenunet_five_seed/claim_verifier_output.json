@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "baseline_within_tolerance": true,
+    "caama_within_tolerance": true,
+    "ex_post_ir_within_tolerance": true,
+    "five_exact_seeds": true,
+    "five_raw_files": true,
+    "independent_checker_passed": true,
+    "ir_regret_within_tolerance": true,
+    "literal_setting": true,
+    "negative_control_verifier_passed": true,
+    "paired_improvement_ci_excludes_zero": true,
+    "paper_batch_and_test_sizes": true,
+    "paper_scale_updates": true,
+    "released_amenunet_parameterization": true,
+    "rival_reversal_increases_regret_ci": true,
+    "twenty_thousand_rows_per_seed": true,
+    "zero_pcor_ablation_removes_revenue_ci": true
+  },
+  "claim": 4,
+  "ok": true,
+  "returncode": 0,
+  "stderr": "",
+  "verdict": "VERIFIED"
+}

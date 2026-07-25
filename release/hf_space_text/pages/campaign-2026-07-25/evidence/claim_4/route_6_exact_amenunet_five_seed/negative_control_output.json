@@ -1,0 +1,127 @@
+{
+  "1": {
+    "rival_profile_reversal": {
+      "ir_regret": {
+        "ci95_high": 0.3143517015744756,
+        "ci95_low": 0.30246688452846,
+        "count": 20000,
+        "mean": 0.3084092930514678,
+        "standard_error": 0.003031713300953063,
+        "std": 0.42874900674347266
+      },
+      "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+      "revenue": {
+        "ci95_high": 3.580555881223124,
+        "ci95_low": 3.561453864529687,
+        "count": 20000,
+        "mean": 3.5710048728764057,
+        "standard_error": 0.004872758062686008,
+        "std": 0.6891120538413401
+      }
+    },
+    "zero_pcor_identity": {
+      "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+      "mean_zero_pcor_revenue": 3.020875591081381
+    }
+  },
+  "2": {
+    "rival_profile_reversal": {
+      "ir_regret": {
+        "ci95_high": 0.3045539500004144,
+        "ci95_low": 0.2929016968986434,
+        "count": 20000,
+        "mean": 0.2987278234495289,
+        "standard_error": 0.002972388264618166,
+        "std": 0.42035917964616387
+      },
+      "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+      "revenue": {
+        "ci95_high": 3.579710413003075,
+        "ci95_low": 3.5606903351305847,
+        "count": 20000,
+        "mean": 3.5702003740668298,
+        "standard_error": 0.004851856183223416,
+        "std": 0.6861560816998317
+      }
+    },
+    "zero_pcor_identity": {
+      "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+      "mean_zero_pcor_revenue": 3.0320073479443788
+    }
+  },
+  "3": {
+    "rival_profile_reversal": {
+      "ir_regret": {
+        "ci95_high": 0.30152860242559204,
+        "ci95_low": 0.28985520366649126,
+        "count": 20000,
+        "mean": 0.29569190304604165,
+        "standard_error": 0.0029777823376052393,
+        "std": 0.4211220167636388
+      },
+      "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+      "revenue": {
+        "ci95_high": 3.579152341216509,
+        "ci95_low": 3.5599654234352665,
+        "count": 20000,
+        "mean": 3.5695588823258877,
+        "standard_error": 0.004894415590620096,
+        "std": 0.6921748908145262
+      }
+    },
+    "zero_pcor_identity": {
+      "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+      "mean_zero_pcor_revenue": 3.043968899345398
+    }
+  },
+  "4": {
+    "rival_profile_reversal": {
+      "ir_regret": {
+        "ci95_high": 0.3163089545452551,
+        "ci95_low": 0.3044118579858246,
+        "count": 20000,
+        "mean": 0.31036040626553985,
+        "standard_error": 0.003034845697859556,
+        "std": 0.4291919945622625
+      },
+      "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+      "revenue": {
+        "ci95_high": 3.594417760121072,
+        "ci95_low": 3.575311578381812,
+        "count": 20000,
+        "mean": 3.584864669251442,
+        "standard_error": 0.004873820529594087,
+        "std": 0.6892623093524379
+      }
+    },
+    "zero_pcor_identity": {
+      "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+      "mean_zero_pcor_revenue": 3.022720447230339
+    }
+  },
+  "5": {
+    "rival_profile_reversal": {
+      "ir_regret": {
+        "ci95_high": 0.30900858342842535,
+        "ci95_low": 0.2971666199217092,
+        "count": 20000,
+        "mean": 0.30308760167506726,
+        "standard_error": 0.003020781736370807,
+        "std": 0.42720305005445425
+      },
+      "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+      "revenue": {
+        "ci95_high": 3.577105659249108,
+        "ci95_low": 3.557935665259082,
+        "count": 20000,
+        "mean": 3.567520662254095,
+        "standard_error": 0.0048900984789022614,
+        "std": 0.6915643590203621
+      }
+    },
+    "zero_pcor_identity": {
+      "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+      "mean_zero_pcor_revenue": 3.0199944666713474
+    }
+  }
+}

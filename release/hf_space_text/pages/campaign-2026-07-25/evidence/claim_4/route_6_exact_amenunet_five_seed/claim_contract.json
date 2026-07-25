@@ -1,0 +1,40 @@
+{
+  "allowed_verdicts": [
+    "VERIFIED",
+    "FALSIFIED",
+    "BLOCKED"
+  ],
+  "anchors": [
+    "S4.T1",
+    "S5.SS1",
+    "S5.p3",
+    "A1.SS4"
+  ],
+  "claim": 4,
+  "exact_statement": "For Dirichlet Value Share(alpha=0.5), 3 bidders x 10 items, Table 1 reports randomized AMA revenue 3.1363, CA-AMA revenue 3.6205, IR regret 0.0031, and ex-post-IR revenue 3.5623, averaged over five seeds.",
+  "paper_result": {
+    "baseline_revenue": 3.1363,
+    "caama_ex_post_ir_revenue": 3.5623,
+    "caama_ir_regret": 0.0031,
+    "caama_revenue": 3.6205
+  },
+  "paper_sha256": "2018a533559d5777eedfb1a0bb043bd490b07b2d89b8f5d3edf3adad4ad72e4f",
+  "paper_source": "https://ar5iv.labs.arxiv.org/html/2602.09455",
+  "pre_registered_tolerances": {
+    "ir_regret_absolute_error": 0.003,
+    "paired_improvement_ci95_low_minimum": 0.0,
+    "revenue_relative_error": 0.05
+  },
+  "quantifiers": {
+    "test_profiles_per_seed": 20000,
+    "training_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "updates_per_mechanism": 32000
+  },
+  "verdict_rule": "VERIFIED only if every independent numeric, uncertainty, integrity, and negative-control check passes; otherwise BLOCKED. Optimization mismatch is not falsification."
+}

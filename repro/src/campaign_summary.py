@@ -69,28 +69,22 @@ def main() -> None:
         claim: _theory_verdict(claim)
         for claim in (1, 2, 3)
     }
-    claim4_route2 = _read_json(
+    claim4_route6 = _read_json(
         ARTIFACT_ROOT
         / "claim_4"
-        / "route_2_conditional_support"
-        / "verifier_output.json"
-    )
-    claim4_route3 = _read_json(
-        ARTIFACT_ROOT
-        / "claim_4"
-        / "route_3_cross_item_pcor_multiseed"
+        / "route_6_exact_amenunet_five_seed"
         / "claim_verifier_output.json"
     )
     claim4_independent = _read_json(
         ARTIFACT_ROOT
         / "claim_4"
-        / "route_3_cross_item_pcor_multiseed"
+        / "route_6_exact_amenunet_five_seed"
         / "independent_checker_output.json"
     )
     claim4_summary = _read_json(
         ARTIFACT_ROOT
         / "claim_4"
-        / "route_3_cross_item_pcor_multiseed"
+        / "route_6_exact_amenunet_five_seed"
         / "aggregate_summary.json"
     )
     claim5_route4 = _read_json(
@@ -126,6 +120,18 @@ def main() -> None:
                 "run_id": "8770c5f1-7f57-4383-8caf-c69eb475714c",
                 "result": "all numeric tolerances pass; exact released 3x10 core remains unavailable",
             },
+            {
+                "route": 5,
+                "method": "exact released-AMenuNet full-scale seed gate",
+                "run_id": "404b2395-c341-453e-8f0e-d7aa9b583e09",
+                "result": "all revenue metrics within 2.7%; one of five seeds remained BLOCKED",
+            },
+            {
+                "route": 6,
+                "method": "exact released-AMenuNet five-seed verification",
+                "run_id": "3deb95be-0518-43a4-a802-d2e19ad5c63d",
+                "result": "all preregistered numeric, uncertainty, integrity, and negative-control checks pass",
+            },
         ],
         "claim_5": [
             {
@@ -155,18 +161,14 @@ def main() -> None:
         ],
     }
 
-    claim4_numeric_checks = _checks_payload(claim4_route3)
+    claim4_numeric_checks = _checks_payload(claim4_route6)
     claim4_resolved = bool(
-        claim4_route2["returncode"] == 1
-        and all(claim4_independent["checks"].values())
-        and all(
-            value
-            for key, value in claim4_numeric_checks.items()
-            if key != "exact_released_2048_menu_core_available"
-        )
-        and not claim4_numeric_checks[
-            "exact_released_2048_menu_core_available"
-        ]
+        claim4_route6["returncode"] == 0
+        and claim4_route6["verdict"] == "VERIFIED"
+        and claim4_route6["ok"]
+        and claim4_independent["returncode"] == 0
+        and claim4_independent["all_checks_pass"]
+        and all(claim4_numeric_checks.values())
     )
     claim5_output = json.loads(claim5_route4["stdout"])
     claim5_resolved = bool(
@@ -201,12 +203,13 @@ def main() -> None:
                 "basis": "exact rival-only cancellation identity and multi-item property checks",
             },
             "4": {
-                "verdict": "BLOCKED",
-                "confidence": "MEDIUM",
+                "verdict": "VERIFIED",
+                "confidence": "HIGH",
                 "resolved": claim4_resolved,
                 "basis": (
-                    "five-seed full-scale numbers pass, but the exact released "
-                    "3x10 learned 2048-menu AMA core/checkpoint is unavailable"
+                    "exact released-AMenuNet five-seed full-scale run passes "
+                    "all preregistered numeric, uncertainty, integrity, and "
+                    "negative-control checks"
                 ),
                 "observed": {
                     key: claim4_summary[key]["mean"]
@@ -245,13 +248,13 @@ def main() -> None:
 - Claim 1: **{theory[1][0]}** (HIGH)
 - Claim 2: **{theory[2][0]}** (HIGH)
 - Claim 3: **{theory[3][0]}** (HIGH)
-- Claim 4: **BLOCKED** (MEDIUM)
+- Claim 4: **VERIFIED** (HIGH)
 - Claim 5: **BLOCKED** (LOW; all four required routes complete)
 - Fixed command: `{FIXED_COMMAND}`
 - Git SHA: `{_git_sha()}`
 
-`BLOCKED` is an honest terminal evidence status, not a passing result.
-No toy or substituted mechanism is promoted to full verification.
+Claim 4 is promoted only from the exact five-seed verifier. Claim 5 remains
+honestly BLOCKED; no toy or substituted mechanism is promoted.
 """,
     )
     manifest: dict[str, dict[str, Any]] = {}

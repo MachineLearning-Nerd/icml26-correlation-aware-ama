@@ -1,0 +1,28 @@
+{
+  "numeric_diagnostics": {
+    "caama_minus_baseline": 0.4772042388349771,
+    "ir_regret_absolute_error": 0.0030328973609030983,
+    "one_seed_numeric_alignment_5pct": false,
+    "paper_caama_minus_baseline": 0.48419999999999996,
+    "relative_errors": {
+      "baseline_revenue": 0.014728507024119842,
+      "caama_ex_post_ir_revenue": 0.02693447408881816,
+      "caama_revenue": 0.014691003382065995
+    }
+  },
+  "reason": "five-seed Table-1 mean is not identified by one seed",
+  "route_integrity_checks": {
+    "external_independent_checker": true,
+    "finite_metrics": true,
+    "fixed_test_size": true,
+    "inferred_2048_menu": true,
+    "literal_3x10_dirichlet_alpha_point_5": true,
+    "means_recomputed": true,
+    "paper_batch_size": true,
+    "paper_scale_updates": true,
+    "released_amenunet_parameterization": true,
+    "single_preregistered_seed": true
+  },
+  "route_integrity_pass": true,
+  "table_claim_checked": false
+}

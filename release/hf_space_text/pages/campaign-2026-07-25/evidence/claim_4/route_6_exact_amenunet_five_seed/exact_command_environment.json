@@ -1,0 +1,385 @@
+{
+  "elapsed_seconds": 51470.228912708,
+  "fixed_command": "uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests",
+  "git_sha": "8b3aa42e97f01f1202a7bed4b38394c6be88e6f0",
+  "logical_cpu_cores": 8,
+  "machine": "arm64",
+  "memory_bytes": 17179869184,
+  "parallel_workers": 5,
+  "physical_cpu_cores": 8,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.11 (main, Aug 18 2025, 19:02:39) [Clang 20.1.4 ]",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "torch": "2.7.1",
+  "torch_cuda_available": false,
+  "torch_threads_per_worker": 2,
+  "uv_lock_sha256": "8ed761e9dd2405ad735d9aee996dd4af413fe2a1cc4919ac1724e89b507456ef",
+  "worker_results": [
+    {
+      "controls": {
+        "rival_profile_reversal": {
+          "ir_regret": {
+            "ci95_high": 0.3143517015744756,
+            "ci95_low": 0.30246688452846,
+            "count": 20000,
+            "mean": 0.3084092930514678,
+            "standard_error": 0.003031713300953063,
+            "std": 0.42874900674347266
+          },
+          "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+          "revenue": {
+            "ci95_high": 3.580555881223124,
+            "ci95_low": 3.561453864529687,
+            "count": 20000,
+            "mean": 3.5710048728764057,
+            "standard_error": 0.004872758062686008,
+            "std": 0.6891120538413401
+          }
+        },
+        "zero_pcor_identity": {
+          "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+          "mean_zero_pcor_revenue": 3.020875591081381
+        }
+      },
+      "elapsed_seconds": 51456.247241958,
+      "raw_rows": 20000,
+      "seed": 1,
+      "summary": {
+        "baseline_revenue": {
+          "ci95_high": 3.0826907244092916,
+          "ci95_low": 3.0662426692836786,
+          "count": 20000,
+          "mean": 3.074466696846485,
+          "standard_error": 0.004195755585135292,
+          "std": 0.593369445290099
+        },
+        "caama_ex_post_ir_revenue": {
+          "ci95_high": 3.474871105844771,
+          "ci95_low": 3.4588911173184758,
+          "count": 20000,
+          "mean": 3.4668811115816234,
+          "standard_error": 0.004076355872931852,
+          "std": 0.5764837760559443
+        },
+        "caama_ir_regret": {
+          "ci95_high": 0.006692297780234406,
+          "ci95_low": 0.005678462383299103,
+          "count": 20000,
+          "mean": 0.006185380081766755,
+          "standard_error": 0.00025862057833664636,
+          "std": 0.03657447293924587
+        },
+        "caama_revenue": {
+          "ci95_high": 3.57613091966768,
+          "ci95_low": 3.565878825882476,
+          "count": 20000,
+          "mean": 3.571004872775078,
+          "standard_error": 0.002615219819613553,
+          "std": 0.3698479337484406
+        },
+        "zero_pcor_revenue": {
+          "ci95_high": 3.027457524383673,
+          "ci95_low": 3.014293657779089,
+          "count": 20000,
+          "mean": 3.020875591081381,
+          "standard_error": 0.0033579877016675554,
+          "std": 0.4748911749980316
+        }
+      }
+    },
+    {
+      "controls": {
+        "rival_profile_reversal": {
+          "ir_regret": {
+            "ci95_high": 0.3045539500004144,
+            "ci95_low": 0.2929016968986434,
+            "count": 20000,
+            "mean": 0.2987278234495289,
+            "standard_error": 0.002972388264618166,
+            "std": 0.42035917964616387
+          },
+          "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+          "revenue": {
+            "ci95_high": 3.579710413003075,
+            "ci95_low": 3.5606903351305847,
+            "count": 20000,
+            "mean": 3.5702003740668298,
+            "standard_error": 0.004851856183223416,
+            "std": 0.6861560816998317
+          }
+        },
+        "zero_pcor_identity": {
+          "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+          "mean_zero_pcor_revenue": 3.0320073479443788
+        }
+      },
+      "elapsed_seconds": 51436.454371666005,
+      "raw_rows": 20000,
+      "seed": 2,
+      "summary": {
+        "baseline_revenue": {
+          "ci95_high": 3.098649465587857,
+          "ci95_low": 3.0824663797705147,
+          "count": 20000,
+          "mean": 3.090557922679186,
+          "standard_error": 0.004128164222717322,
+          "std": 0.5838105831470224
+        },
+        "caama_ex_post_ir_revenue": {
+          "ci95_high": 3.4829125436095576,
+          "ci95_low": 3.4675037519605776,
+          "count": 20000,
+          "mean": 3.4752081477850676,
+          "standard_error": 0.003930648525169181,
+          "std": 0.555877645321606
+        },
+        "caama_ir_regret": {
+          "ci95_high": 0.006116583328196436,
+          "ci95_low": 0.005160306805352641,
+          "count": 20000,
+          "mean": 0.005638445066774539,
+          "standard_error": 0.00024393781094565704,
+          "std": 0.034498016061495225
+        },
+        "caama_revenue": {
+          "ci95_high": 3.575343440731772,
+          "ci95_low": 3.5650573124325193,
+          "count": 20000,
+          "mean": 3.5702003765821457,
+          "standard_error": 0.002623901727676049,
+          "std": 0.37107574096136636
+        },
+        "zero_pcor_revenue": {
+          "ci95_high": 3.0386697809771137,
+          "ci95_low": 3.025344914911644,
+          "count": 20000,
+          "mean": 3.0320073479443788,
+          "standard_error": 0.0033990572616888104,
+          "std": 0.480699287876307
+        }
+      }
+    },
+    {
+      "controls": {
+        "rival_profile_reversal": {
+          "ir_regret": {
+            "ci95_high": 0.30152860242559204,
+            "ci95_low": 0.28985520366649126,
+            "count": 20000,
+            "mean": 0.29569190304604165,
+            "standard_error": 0.0029777823376052393,
+            "std": 0.4211220167636388
+          },
+          "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+          "revenue": {
+            "ci95_high": 3.579152341216509,
+            "ci95_low": 3.5599654234352665,
+            "count": 20000,
+            "mean": 3.5695588823258877,
+            "standard_error": 0.004894415590620096,
+            "std": 0.6921748908145262
+          }
+        },
+        "zero_pcor_identity": {
+          "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+          "mean_zero_pcor_revenue": 3.043968899345398
+        }
+      },
+      "elapsed_seconds": 51455.469485167,
+      "raw_rows": 20000,
+      "seed": 3,
+      "summary": {
+        "baseline_revenue": {
+          "ci95_high": 3.0915581998058843,
+          "ci95_low": 3.075985586612554,
+          "count": 20000,
+          "mean": 3.083771893209219,
+          "standard_error": 0.003972437974099483,
+          "std": 0.5617875658657391
+        },
+        "caama_ex_post_ir_revenue": {
+          "ci95_high": 3.486101466280187,
+          "ci95_low": 3.470561346080934,
+          "count": 20000,
+          "mean": 3.4783314061805606,
+          "standard_error": 0.003964149294353557,
+          "std": 0.5606153695346535
+        },
+        "caama_ir_regret": {
+          "ci95_high": 0.005745061836868521,
+          "ci95_low": 0.004807999616224569,
+          "count": 20000,
+          "mean": 0.005276530726546545,
+          "standard_error": 0.00023903640982839516,
+          "std": 0.033804853268028984
+        },
+        "caama_revenue": {
+          "ci95_high": 3.5747941667557046,
+          "ci95_low": 3.5643235998630236,
+          "count": 20000,
+          "mean": 3.569558883309364,
+          "standard_error": 0.002670950406233001,
+          "std": 0.3777294288920638
+        },
+        "zero_pcor_revenue": {
+          "ci95_high": 3.0507358938037235,
+          "ci95_low": 3.037201904887073,
+          "count": 20000,
+          "mean": 3.043968899345398,
+          "standard_error": 0.003452402679376238,
+          "std": 0.4882434691947088
+        }
+      }
+    },
+    {
+      "controls": {
+        "rival_profile_reversal": {
+          "ir_regret": {
+            "ci95_high": 0.3163089545452551,
+            "ci95_low": 0.3044118579858246,
+            "count": 20000,
+            "mean": 0.31036040626553985,
+            "standard_error": 0.003034845697859556,
+            "std": 0.4291919945622625
+          },
+          "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+          "revenue": {
+            "ci95_high": 3.594417760121072,
+            "ci95_low": 3.575311578381812,
+            "count": 20000,
+            "mean": 3.584864669251442,
+            "standard_error": 0.004873820529594087,
+            "std": 0.6892623093524379
+          }
+        },
+        "zero_pcor_identity": {
+          "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+          "mean_zero_pcor_revenue": 3.022720447230339
+        }
+      },
+      "elapsed_seconds": 51441.497792707996,
+      "raw_rows": 20000,
+      "seed": 4,
+      "summary": {
+        "baseline_revenue": {
+          "ci95_high": 3.107698808282921,
+          "ci95_low": 3.091181743043354,
+          "count": 20000,
+          "mean": 3.0994402756631376,
+          "standard_error": 0.00421335946406443,
+          "std": 0.5958590097232952
+        },
+        "caama_ex_post_ir_revenue": {
+          "ci95_high": 3.4826862943419727,
+          "ci95_low": 3.466546416007587,
+          "count": 20000,
+          "mean": 3.47461635517478,
+          "standard_error": 0.004117142370191058,
+          "std": 0.5822518578145105
+        },
+        "caama_ir_regret": {
+          "ci95_high": 0.0068769084113178185,
+          "ci95_low": 0.005862341262870613,
+          "count": 20000,
+          "mean": 0.006369624837094216,
+          "standard_error": 0.0002588072417731162,
+          "std": 0.03660087113559135
+        },
+        "caama_revenue": {
+          "ci95_high": 3.5900474808518896,
+          "ci95_low": 3.5796818543131343,
+          "count": 20000,
+          "mean": 3.584864667582512,
+          "standard_error": 0.0026441810360717135,
+          "std": 0.37394366825823594
+        },
+        "zero_pcor_revenue": {
+          "ci95_high": 3.029347374835831,
+          "ci95_low": 3.0160935196248473,
+          "count": 20000,
+          "mean": 3.022720447230339,
+          "standard_error": 0.003380943011278143,
+          "std": 0.47813754601600816
+        }
+      }
+    },
+    {
+      "controls": {
+        "rival_profile_reversal": {
+          "ir_regret": {
+            "ci95_high": 0.30900858342842535,
+            "ci95_low": 0.2971666199217092,
+            "count": 20000,
+            "mean": 0.30308760167506726,
+            "standard_error": 0.003020781736370807,
+            "std": 0.42720305005445425
+          },
+          "purpose": "break the samplewise rival/own-bid relationship while leaving the trained mechanism fixed",
+          "revenue": {
+            "ci95_high": 3.577105659249108,
+            "ci95_low": 3.557935665259082,
+            "count": 20000,
+            "mean": 3.567520662254095,
+            "standard_error": 0.0048900984789022614,
+            "std": 0.6915643590203621
+          }
+        },
+        "zero_pcor_identity": {
+          "interpretation": "With pCor identically zero, the CA model reduces to its AMA component.",
+          "mean_zero_pcor_revenue": 3.0199944666713474
+        }
+      },
+      "elapsed_seconds": 51407.535807917004,
+      "raw_rows": 20000,
+      "seed": 5,
+      "summary": {
+        "baseline_revenue": {
+          "ci95_high": 3.0850486623978277,
+          "ci95_low": 3.06858614579681,
+          "count": 20000,
+          "mean": 3.076817404097319,
+          "standard_error": 0.0041994445815383905,
+          "std": 0.5938911481645799
+        },
+        "caama_ex_post_ir_revenue": {
+          "ci95_high": 3.478920655620396,
+          "ci95_low": 3.4634372725394367,
+          "count": 20000,
+          "mean": 3.4711789640799164,
+          "standard_error": 0.003949676149708581,
+          "std": 0.5585685577899422
+        },
+        "caama_ir_regret": {
+          "ci95_high": 0.006191556777742709,
+          "ci95_low": 0.005221974830134164,
+          "count": 20000,
+          "mean": 0.005706765803938437,
+          "standard_error": 0.0002473319089008836,
+          "std": 0.03497801399752564
+        },
+        "caama_revenue": {
+          "ci95_high": 3.5726922338561526,
+          "ci95_low": 3.5623490885658753,
+          "count": 20000,
+          "mean": 3.567520661211014,
+          "standard_error": 0.0026384462654168717,
+          "std": 0.3731326492145183
+        },
+        "zero_pcor_revenue": {
+          "ci95_high": 3.026643086108111,
+          "ci95_low": 3.013345847234584,
+          "count": 20000,
+          "mean": 3.0199944666713474,
+          "standard_error": 0.0033920098056820646,
+          "std": 0.47970262708981026
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "baseline_within_5pct": true,
+    "caama_within_5pct": true,
+    "ex_post_within_5pct": true,
+    "exact_released_2048_menu_core_available": false,
+    "five_independent_training_seeds": true,
+    "negative_control": true,
+    "positive_gain_ci95": true,
+    "regret_at_paper_scale": true
+  },
+  "paper": {
+    "baseline": 3.1363,
+    "caama": 3.6205,
+    "ex_post": 3.5623,
+    "regret": 0.0031
+  }
+}

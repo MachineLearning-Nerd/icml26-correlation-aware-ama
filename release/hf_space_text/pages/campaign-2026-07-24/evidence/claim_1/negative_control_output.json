@@ -1,0 +1,140 @@
+{
+  "appendix_construction_rejects_n_1": true,
+  "positive_revenue_n_1_falsification": {
+    "all_independent_cases_pass": true,
+    "conclusion": "For every one-bidder distribution with positive optimal revenue, REV_D-AMA=REV, so REV_D-AMA<=epsilon*REV is impossible for epsilon<1.",
+    "dama_implements_every_posted_price": "w_1=1, lambda_allocate=0, lambda_reserve=r",
+    "dsic_ir_representation": "x(v)=integral 1{v>=r} dG(r); p(v)=integral r*1{v>=r} dG(r)",
+    "expected_revenue_identity": "E[p(V)]=integral r*Pr[V>=r] dG(r) <= sup_r r*Pr[V>=r]",
+    "finite_support_independent_cases": [
+      {
+        "best_deterministic_posted_price_revenue": 0.32000000000000006,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.0,
+          0.25,
+          0.8
+        ],
+        "posted_price_revenues": [
+          0.1,
+          0.32000000000000006,
+          0.27
+        ],
+        "probabilities": [
+          0.2,
+          0.5,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.22850000000000004,
+        "threshold_mixture_weights": [
+          0.0,
+          0.25,
+          0.55
+        ],
+        "values": [
+          0.1,
+          0.4,
+          0.9
+        ]
+      },
+      {
+        "best_deterministic_posted_price_revenue": 0.3,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.1,
+          0.6,
+          1.0
+        ],
+        "posted_price_revenues": [
+          0.2,
+          0.2,
+          0.3
+        ],
+        "probabilities": [
+          0.6,
+          0.1,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.24,
+        "threshold_mixture_weights": [
+          0.1,
+          0.5,
+          0.4
+        ],
+        "values": [
+          0.2,
+          0.5,
+          1.0
+        ]
+      },
+      {
+        "best_deterministic_posted_price_revenue": 0.48999999999999994,
+        "dominated_by_deterministic_ama": true,
+        "monotone_allocation": [
+          0.0,
+          0.2,
+          0.7,
+          0.9
+        ],
+        "posted_price_revenues": [
+          0.05,
+          0.27,
+          0.48999999999999994,
+          0.3
+        ],
+        "probabilities": [
+          0.1,
+          0.2,
+          0.4,
+          0.3
+        ],
+        "randomized_dsic_revenue": 0.359,
+        "threshold_mixture_weights": [
+          0.0,
+          0.2,
+          0.49999999999999994,
+          0.20000000000000007
+        ],
+        "values": [
+          0.05,
+          0.3,
+          0.7,
+          1.0
+        ]
+      }
+    ],
+    "literal_source_quantifier": "for any number of bidders n",
+    "positive_optimal_revenue_required": true,
+    "positive_revenue_n1_separation_impossible": true,
+    "test_epsilon": 0.5,
+    "tested_number_of_bidders": 1,
+    "valid_literal_scope_falsification": true
+  },
+  "weak_parameterization": [
+    {
+      "contract_holds": false,
+      "eta": "0.3678794411714423215955237701614608674458111310317678345078368016974614957448998033571472743459196437",
+      "eta_1": "0.1839397205857211607977618850807304337229055655158839172539184008487307478724499016785736371729598218",
+      "rejected_as_intended": true,
+      "target_delta": "0.5",
+      "upper_bound_ratio": "1.316060279414278839202238114919269566277094434484116082746081599151269252127550098321426362827040178"
+    },
+    {
+      "contract_holds": false,
+      "eta": "0.006737946999085467096636048423148424248849585027355085430305531572683522515604062281449138844208361548",
+      "eta_1": "0.003368973499542733548318024211574212124424792513677542715152765786341761257802031140724569422104180774",
+      "rejected_as_intended": true,
+      "target_delta": "0.1",
+      "upper_bound_ratio": "0.2993262053000914532903363951576851575751150414972644914569694468427316477484395937718550861155791638"
+    },
+    {
+      "contract_holds": false,
+      "eta": "1.928749847963917783017342816527012574752832651230262910897809103820511624979646591652373378777735137E-22",
+      "eta_1": "9.643749239819588915086714082635062873764163256151314554489045519102558124898232958261866893888675685E-23",
+      "rejected_as_intended": true,
+      "target_delta": "0.01",
+      "upper_bound_ratio": "0.02999999999999999999999807125015203608221698265718347298742524716734876973708910219089617948837502036"
+    }
+  ],
+  "weak_parameterization_rejected": true
+}

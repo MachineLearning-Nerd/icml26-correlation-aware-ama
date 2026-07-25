@@ -999,6 +999,43 @@ def main() -> None:
 
         run_claim4_exact_five_seed()
         return
+    if config["mode"] == "cumulative_verified_release":
+        from campaign_summary import main as run_campaign_summary
+        from claim5_falsification import main as run_claim5_falsification
+
+        route = (
+            ARTIFACT_ROOT
+            / "claim_4"
+            / "route_6_exact_amenunet_five_seed"
+        )
+
+        def replay(script: str, output: str) -> None:
+            completed = subprocess.run(
+                [sys.executable, str(route / script)],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if not completed.stdout.strip():
+                raise AssertionError(f"{script} produced no JSON output")
+            record = json.loads(completed.stdout)
+            record["returncode"] = completed.returncode
+            record["stderr"] = completed.stderr
+            _write_json(route / output, record)
+            if completed.returncode != 0:
+                raise AssertionError(f"{script} rejected committed evidence")
+
+        replay("independent_checker.py", "independent_checker_output.json")
+        replay(
+            "negative_control_verifier.py",
+            "negative_control_verifier_output.json",
+        )
+        replay("claim_verifier.py", "claim_verifier_output.json")
+        run_claim5_falsification()
+        run_campaign_summary()
+        print("CUMULATIVE_VERIFIED_RELEASE_REPLAY=PASS")
+        return
     if config["mode"] == "theory_scope_audit":
         print("EMPIRICAL_TRAIN_STATUS=SKIPPED_THEORY_SCOPE_AUDIT")
         return

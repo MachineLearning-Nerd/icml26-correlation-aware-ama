@@ -1,0 +1,7 @@
+{
+  "all_cases_pass": true,
+  "checker": "fresh random feasible multi-item menus with weighted VCG pivot payments",
+  "max_caama_misreport_gain": 0.0,
+  "max_gain_shift_error": 2.220446049250313e-16,
+  "misreports_checked": 800
+}
