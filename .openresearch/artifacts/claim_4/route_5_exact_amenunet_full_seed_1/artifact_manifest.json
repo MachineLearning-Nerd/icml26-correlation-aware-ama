@@ -1,0 +1,66 @@
+{
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/EVAL.md": {
+    "bytes": 421,
+    "sha256": "a6bfcb5fda46059ec3e4c82d20910a190b28c82687f2f79e99ca734bf0c0f0b7"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/claim_contract.json": {
+    "bytes": 810,
+    "sha256": "104055da5de6eeda82ca93c6e978daf4aaeca893bd0a8e15a267f4ee39a386c1"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/claim_verifier.py": {
+    "bytes": 790,
+    "sha256": "da62672872fa0e3d12b1380a22bbb9b102d968cdd7d55c33b6bfd1ca5772608a"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/claim_verifier_output.json": {
+    "bytes": 222,
+    "sha256": "41296d81336b084297104ae0601447c5f203677dc9e8c0fdcfd545cdbbfc7080"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/config.json": {
+    "bytes": 834,
+    "sha256": "72061ef708717bf8a94b408d9e35cdef7bbc4ca4254081859e94defce207a6d6"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/exact_command_environment.json": {
+    "bytes": 595,
+    "sha256": "d0426351b992ac8233a6afbbdbc177598cd631e700d72f1da28d7100ee263f02"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/independent_checker.py": {
+    "bytes": 1276,
+    "sha256": "b51fdef7a29d686d7e5a0ccb4a0e7dd6643e22c3e2363f5feb6dd7ff0182fe71"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/independent_checker_output.json": {
+    "bytes": 1649,
+    "sha256": "a5e57e3444e4fa59231ef2b3d12477c0c18692cdf44dd11d92dc0f6cf57caee8"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/learning_curves.csv": {
+    "bytes": 4481,
+    "sha256": "325fe5e55b0d845dbc4cec405c98783270dd4d89b1e23286afc522c96c195a11"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/limitations_and_deviations.md": {
+    "bytes": 538,
+    "sha256": "0ea74fd440be7e6c5f714360c1e2811d28d2d477531a1d6481240769087cc038"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/method.md": {
+    "bytes": 579,
+    "sha256": "f47c1b2289c1626dc1efca356d525349abd031d14f899d266f98a63572c8c3bf"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/negative_control_output.json": {
+    "bytes": 793,
+    "sha256": "dcceb4b13782d96517800ad5146dd30501db6731a21f68b67dc0676df71e55a7"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/raw_test_samples.csv": {
+    "bytes": 2392234,
+    "sha256": "edfd0e0d5c25eaf9f9b642fcf75c0256af5df529c5236f25dc682ad981fc4546"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/source_audit.md": {
+    "bytes": 765,
+    "sha256": "b4ce72c834740ae9fb90d7838dff004c018e064ada287218b051f28bb4db79cc"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/summary.json": {
+    "bytes": 1152,
+    "sha256": "9bda1d06cc57f028fcabed54c51308ee781e67b265cfee560a790bdc91458cf2"
+  },
+  ".openresearch/artifacts/claim_4/route_5_exact_amenunet_full_seed_1/verification_criteria.json": {
+    "bytes": 944,
+    "sha256": "188e29b0aa4fd428d88ada24b15f5a6c4aef92d2a5c49470042a0d00482b65fc"
+  }
+}
