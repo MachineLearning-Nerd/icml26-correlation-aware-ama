@@ -5,9 +5,9 @@
     "pages/index.md"
   ],
   "artifact_manifest_errors": [],
-  "candidate_file_count": 149,
+  "candidate_file_count": 202,
   "duplicate_logbook_slugs": [],
-  "manifested_artifact_count": 105,
+  "manifested_artifact_count": 164,
   "missing_logbook_files": [],
   "missing_markdown_links": [],
   "missing_old_files": [],
@@ -34,13 +34,13 @@
         "pages/index.md"
       ],
       "missing_old_files": [],
-      "protected_file_count": 120,
-      "retained_file_count": 120,
-      "snapshot": "published-space-2a8d251ffd164a986851643d500ab774608b4b41",
+      "protected_file_count": 149,
+      "retained_file_count": 149,
+      "snapshot": "published-space-615386b5740671c4481b076588c796192449516a",
       "unexpected_old_changes": []
     }
   ],
   "secret_pattern_hits": {},
   "unexpected_old_changes": [],
-  "upload_file_count": 133
+  "upload_file_count": 186
 }

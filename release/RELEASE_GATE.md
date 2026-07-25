@@ -1,6 +1,6 @@
 # Release gate — canonical CA-AMA claim campaign
 
-Status: **UPDATED CANDIDATE — VALIDATION IN PROGRESS**
+Status: **UPDATED CANDIDATE — READY FOR PUBLICATION APPROVAL**
 
 - Previous live judged score: `3/10`
 - Conservative projected score range after the proposed change: `6–8/10`
@@ -58,9 +58,9 @@ all exit zero. It is the only route promoted to Claim 4 VERIFIED.
 | Poster preflight, style, measure, and polish | PASS — 0 warnings |
 | Final poster PDF geometry | PASS — 60×36 inches |
 | Candidate logbook JSON, files, slugs, and links | PASS |
-| Exact text-only upload allowlist | PASS — 133 paths |
-| SHA-256 upload manifest | PASS — 133 paths |
-| Manifested scientific evidence | PASS — 105 files |
+| Exact text-only upload allowlist | PASS — 186 paths |
+| SHA-256 upload manifest | PASS — 186 paths |
+| Manifested scientific evidence | PASS — 164 files |
 | High-signal secret scan | PASS — 0 hits |
 
 The reproducible release validator is:
@@ -85,7 +85,9 @@ bytes.
 - Hugging Face billed amount: unavailable from the orchestration record and
   therefore not inferred.
 
-No score increase is claimed until a new live judge verdict exists.
+No score increase is claimed until a new live judge verdict exists. The exact
+action awaiting approval is an additive 186-path text-only update to the
+existing `DineshAI/TA3NDHgNJh` Space; no second Space will be created.
 
 ## Completed publication
 

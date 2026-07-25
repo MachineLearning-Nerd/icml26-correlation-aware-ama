@@ -19,6 +19,11 @@
   "candidate_claim_4_run": "3deb95be-0518-43a4-a802-d2e19ad5c63d",
   "candidate_claim_4_evidence_sha": "8b3aa42e97f01f1202a7bed4b38394c6be88e6f0",
   "candidate_publication_approved": false,
+  "candidate_validation": "PASS",
+  "candidate_upload_text_paths": 186,
+  "candidate_manifested_evidence_files": 164,
+  "candidate_protected_judged_paths_retained": 19,
+  "candidate_protected_published_paths_retained": 149,
   "score_increase_claimed": false,
   "gpu_used": false,
   "second_space_created": false
