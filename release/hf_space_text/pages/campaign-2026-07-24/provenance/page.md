@@ -1,7 +1,7 @@
 # Campaign provenance and limitations
 
 Winning scientific branch:
-`orx/cumulative-evidence-parser-fix`.
+`audit/cumulative-evidence-parser-fix`.
 
 Winning Git SHA:
 `bf4cc9371feea65edf71ad1dc998ed88de23b7a7`.

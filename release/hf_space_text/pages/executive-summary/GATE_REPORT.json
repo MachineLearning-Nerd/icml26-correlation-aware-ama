@@ -2,7 +2,7 @@
   "schema_version": 1,
   "skill": "posterly",
   "timestamp": "2026-07-24T10:42:52Z",
-  "poster_html": "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
+  "poster_html": "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
   "canvas": {
     "source": "page-rule",
     "width_cm": 152.4,
@@ -20,14 +20,14 @@
       "severity": "hard",
       "status": "PASS",
       "command": [
-        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "[redacted-local-user]/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
         "/private/tmp/posterly-caama/tools/poster_check.py",
         "preflight",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
       ],
       "summary": {
         "exit_code": 0,
-        "tail": "[preflight] /Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html\n  problems: 0   warnings: 0\n[preflight] PASS"
+        "tail": "[preflight] [redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html\n  problems: 0   warnings: 0\n[preflight] PASS"
       },
       "artifacts": []
     },
@@ -36,15 +36,15 @@
       "severity": "hard",
       "status": "PASS",
       "command": [
-        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "[redacted-local-user]/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
         "/private/tmp/posterly-caama/tools/style_check.py",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html",
         "--tokens",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/design_tokens.json",
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/design_tokens.json",
         "--disable",
         "4,5",
         "--json",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
       ],
       "summary": {
         "gate": "style",
@@ -137,7 +137,7 @@
         ]
       },
       "artifacts": [
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/style_check.json"
       ]
     },
     {
@@ -155,10 +155,10 @@
       "severity": "hard",
       "status": "PASS",
       "command": [
-        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "[redacted-local-user]/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
         "/private/tmp/posterly-caama/tools/poster_check.py",
         "measure",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
       ],
       "summary": {
         "exit_code": 0,
@@ -171,10 +171,10 @@
       "severity": "soft",
       "status": "PASS",
       "command": [
-        "/Users/dineshjinjala/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
+        "[redacted-local-user]/.cache/uv/builds-v0/.tmpjuQaQf/bin/python",
         "/private/tmp/posterly-caama/tools/poster_check.py",
         "polish",
-        "/Users/dineshjinjala/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
+        "[redacted-local-user]/.cache/openresearch/worktrees/MachineLearning-Nerd/icml26-correlation-aware-ama/chat_a8d9d0e0-4973-43bb-9865-94c6dce50d29/.trackio/logbook/pages/executive-summary/poster_embed.html"
       ],
       "summary": {
         "exit_code": 0,

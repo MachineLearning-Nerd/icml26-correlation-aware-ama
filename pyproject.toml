@@ -1,5 +1,5 @@
 [project]
-name = "icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue"
+name = "icml26-correlation-aware-ama"
 version = "0.1.0"
 description = "Clean-room repro of CA-AMA (Enhancing Affine Maximizer Auctions with Correlation-Aware Payment), ICML 2026, OpenReview TA3NDHgNJh."
 requires-python = "==3.12.*"

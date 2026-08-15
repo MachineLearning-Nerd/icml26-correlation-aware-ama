@@ -1,0 +1,29 @@
+{
+  "paper": "TA3NDHgNJh",
+  "paper_source": "arXiv:2602.09455",
+  "repository": "icml26-correlation-aware-ama",
+  "claims": {
+    "C1": {
+      "status": "FALSIFIED_LITERALLY_INTENDED_N_GE_2_SUPPORTED",
+      "promoted": false
+    },
+    "C2": {
+      "status": "FALSIFIED_LITERALLY_INTENDED_COMPONENTS_SUPPORTED",
+      "promoted": false
+    },
+    "C3": {
+      "status": "VERIFIED",
+      "promoted": true
+    },
+    "C4": {
+      "status": "BLOCKED_EXACT_2048_CORE_UNAVAILABLE",
+      "promoted": false
+    },
+    "C5": {
+      "status": "BLOCKED_SOURCE_CODE_MISMATCH_AND_UNDERTRAINED_ROUTES",
+      "promoted": false
+    }
+  },
+  "score_claim": false,
+  "official_author_endorsement": false
+}

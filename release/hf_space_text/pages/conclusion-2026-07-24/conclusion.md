@@ -5,7 +5,7 @@
 {"type":"artifact","id":"cell_reproduction_bundle_20260724","created_at":"2026-07-24T00:06:00+00:00","title":"Reproduction bundle"}
 -->
 Reproduction code and text evidence:
-https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue
+https://github.com/MachineLearning-Nerd/icml26-correlation-aware-ama
 
 ---
 <!-- trackio-cell

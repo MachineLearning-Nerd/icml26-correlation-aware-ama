@@ -130,7 +130,7 @@ uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytes
 ```
 
 The exact Claim 4 seed is on
-[`orx/claim-4-exact-full-seed-evidence-only-gate`](https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue/tree/orx/claim-4-exact-full-seed-evidence-only-gate)
+[`release/claim-4-exact-seed-evidence`](https://github.com/MachineLearning-Nerd/icml26-correlation-aware-ama/tree/release/claim-4-exact-seed-evidence)
 at `c78365aba5ba515c53984a3d239c9edaab272fe2`; run
 `404b2395-c341-453e-8f0e-d7aa9b583e09` took 8h28m on local CPU. The Claim 5
 direct pilot used HF `cpu-upgrade` for 1h58m. No GPU was used. Local CPU had no

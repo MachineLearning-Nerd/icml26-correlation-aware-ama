@@ -15,7 +15,10 @@ tags:
 
 # Reproduction: Enhancing Affine Maximizer Auctions with Correlation-Aware Payment
 
-A claim-by-claim CPU reproduction of
-[arXiv:2602.09455](https://arxiv.org/abs/2602.09455), published as a Trackio
-logbook. The last live judged score remains 3/10 until a new judge verdict is
-issued.
+A historical text-only snapshot of an independent claim-by-claim CPU audit of
+[arXiv:2602.09455](https://arxiv.org/abs/2602.09455). The last live judged
+score remains 3/10 until a new judge verdict is issued. This snapshot is
+preserved for provenance; it is not an author-endorsed result.
+
+Thank you to Haoran Sun, Xuanzhi Xia, Xu Chu, and Xiaotie Deng for making the
+paper and official implementation available for independent study.

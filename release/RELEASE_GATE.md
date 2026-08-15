@@ -27,7 +27,7 @@ No second Space was created.
 ## Scientific release
 
 - Exact full-scale Claim 4 experiment:
-  `orx/claim-4-exact-full-seed-evidence-only-gate`
+  `release/claim-4-exact-seed-evidence`
 - Evidence Git SHA:
   `c78365aba5ba515c53984a3d239c9edaab272fe2`
 - Run: `404b2395-c341-453e-8f0e-d7aa9b583e09`
@@ -87,6 +87,11 @@ bytes.
   therefore not inferred.
 
 No score increase is claimed until a new live judge verdict exists.
+
+The GitHub copy of the historical reader snapshot is intentionally sanitized:
+private local paths are redacted and the generated `.trackio/` export is kept
+outside the repository. This is a provenance mirror, not a new Hugging Face
+upload or a claim that the hosted Space changed.
 
 ## Completed publication
 

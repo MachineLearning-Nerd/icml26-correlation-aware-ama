@@ -1,0 +1,34 @@
+{
+  "paper": {
+    "title": "Enhancing Affine Maximizer Auctions with Correlation-Aware Payment",
+    "authors": [
+      "Haoran Sun",
+      "Xuanzhi Xia",
+      "Xu Chu",
+      "Xiaotie Deng"
+    ],
+    "arxiv": "https://arxiv.org/abs/2602.09455",
+    "arxiv_html": "https://arxiv.org/html/2602.09455",
+    "identifier": "arXiv:2602.09455"
+  },
+  "openreview": {
+    "challenge_id": "TA3NDHgNJh",
+    "url": "https://openreview.net/forum?id=TA3NDHgNJh"
+  },
+  "official_source": {
+    "url": "https://github.com/Haoran0301/CA-AMA",
+    "commit": "ed2af19ed02c70b58efdf705635981241222d045",
+    "local_path": "upstream/",
+    "is_submodule": false
+  },
+  "campaign_evidence": {
+    "winning_historical_sha": "bf4cc9371feea65edf71ad1dc998ed88de23b7a7",
+    "fixed_command": "uv run --frozen python repro/src/run_caama.py && uv run --frozen python -m pytest -q repro/tests",
+    "artifact_root": ".openresearch/artifacts/"
+  },
+  "public_logbook": {
+    "url": "https://huggingface.co/spaces/DineshAI/TA3NDHgNJh",
+    "status": "historical text-only publication snapshot; no new judge score claimed"
+  },
+  "retrieved_at": "2026-08-15"
+}

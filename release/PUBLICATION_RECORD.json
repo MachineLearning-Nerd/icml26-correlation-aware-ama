@@ -16,6 +16,7 @@
   "live_judge_status": "AWAITING_JUDGE",
   "live_judged_score": "3/10",
   "score_increase_claimed": false,
+  "github_mirror_status": "SANITIZED_LOCAL_SNAPSHOT_NO_NEW_UPLOAD",
   "gpu_used": false,
   "second_space_created": false
 }
