@@ -27,7 +27,6 @@
   "compute_policy": "Use committed theory certificates, empirical audit artifacts, and the lightweight publication gate; do not launch neural training during final-state verification.",
   "selection_rationale": "CA-AMA has 23 purpose-named branches and durable theory/empirical route evidence; the shared dossier makes its literal falsifications and blocked paper-level claims machine-readable.",
   "github_repository": "https://github.com/MachineLearning-Nerd/icml26-correlation-aware-ama",
-  "former_github_repository": "https://github.com/MachineLearning-Nerd/icml26-repro-TA3NDHgNJh-ca-ama-correlated-revenue",
   "branch_count": 23,
   "claim_statuses": {
     "C1": "FALSIFIED_LITERALLY_INTENDED_N_GE_2_SUPPORTED",
