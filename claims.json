@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "repository": "MachineLearning-Nerd/icml26-correlation-aware-ama",
+  "paper": {
+    "title": "Enhancing Affine Maximizer Auctions with Correlation-Aware Payment",
+    "arxiv": "2602.09455",
+    "openreview": "TA3NDHgNJh",
+    "authors": ["Haoran Sun", "Xuanzhi Xia", "Xu Chu", "Xiaotie Deng"]
+  },
+  "overall_verdict": "INCONCLUSIVE_SCOPED_FINDINGS_WITH_BLOCKED_PAPER_LEVEL_EMPIRICAL_CLAIMS",
+  "publication_allowed": false,
+  "score_claim": false,
+  "official_author_endorsement": false,
+  "claims": [
+    {
+      "id": "C1",
+      "paper_claim": "Deterministic AMA can be arbitrarily poor",
+      "status": "FALSIFIED_LITERALLY_INTENDED_N_GE_2_SUPPORTED",
+      "production_path": "repro/src/theory_campaign.py::run_claim_1",
+      "scope": "The n=1 posted-price counterexample contradicts the printed any-n quantifier; high-precision n>=2 certificates support the intended construction.",
+      "evidence": [".openresearch/artifacts/claim_1/", "evidence/claim_summary.json"]
+    },
+    {
+      "id": "C2",
+      "paper_claim": "Independence equality and correlated separation",
+      "status": "FALSIFIED_LITERALLY_INTENDED_COMPONENTS_SUPPORTED",
+      "production_path": "repro/src/theory_campaign.py::run_claim_2",
+      "scope": "Intended multi-bidder identities pass, but one bidder has no rival profile and cannot realize correlated separation.",
+      "evidence": [".openresearch/artifacts/claim_2/", "evidence/claim_summary.json"]
+    },
+    {
+      "id": "C3",
+      "paper_claim": "Rival-only payment preserves DSIC",
+      "status": "VERIFIED",
+      "production_path": "repro/src/theory_campaign.py::run_claim_3",
+      "scope": "Symbolic cancellation and exhaustive finite checks pass for 2–4 bidders and 1–3 items; own-report-dependent payment is a rejected negative control.",
+      "evidence": [".openresearch/artifacts/claim_3/", "evidence/claim_summary.json"]
+    },
+    {
+      "id": "C4",
+      "paper_claim": "Dirichlet Value Share empirical experiment",
+      "status": "BLOCKED_EXACT_2048_CORE_UNAVAILABLE",
+      "production_path": "repro/src publication routes under .openresearch/artifacts/claim_4/",
+      "scope": "Seed-1 AMenuNet evidence is close and the five-seed pCor proxy passes bounded checks, but exact_released_2048_menu_core_available is false.",
+      "evidence": [".openresearch/artifacts/claim_4/", "outputs/caama_summary.json"]
+    },
+    {
+      "id": "C5",
+      "paper_claim": "Linear Mixture Asymmetric empirical experiment",
+      "status": "BLOCKED_SOURCE_CODE_MISMATCH_AND_UNDERTRAINED_ROUTES",
+      "production_path": "repro/src routes under .openresearch/artifacts/claim_5/",
+      "scope": "Source/data mismatch, undertrained pilots, direct mechanism pilot, and exact welfare/IR audit do not supply a paper-faithful verdict or valid falsification.",
+      "evidence": [".openresearch/artifacts/claim_5/", "evidence/claim_summary.json"]
+    }
+  ],
+  "limitations": [
+    "The previous live judge score of 3/10 is historical provenance only.",
+    "C4 lacks the exact released five-seed 2048-menu core.",
+    "C5 remains blocked by public source/data contract and optimization limitations.",
+    "No current score or author endorsement is claimed."
+  ]
+}

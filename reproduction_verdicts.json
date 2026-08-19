@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "repository": "MachineLearning-Nerd/icml26-correlation-aware-ama",
+  "paper": {
+    "title": "Enhancing Affine Maximizer Auctions with Correlation-Aware Payment",
+    "arxiv": "2602.09455",
+    "openreview": "TA3NDHgNJh"
+  },
+  "overall_verdict": "INCONCLUSIVE_SCOPED_FINDINGS_WITH_BLOCKED_PAPER_LEVEL_EMPIRICAL_CLAIMS",
+  "publication_allowed": false,
+  "claims": [
+    {"id": "C1", "status": "FALSIFIED_LITERALLY_INTENDED_N_GE_2_SUPPORTED", "scope": "Literal any-n wording fails at n=1; intended n>=2 construction is supported."},
+    {"id": "C2", "status": "FALSIFIED_LITERALLY_INTENDED_COMPONENTS_SUPPORTED", "scope": "Multi-bidder components pass; one-bidder correlated separation is impossible."},
+    {"id": "C3", "status": "VERIFIED", "scope": "Rival-only DSIC cancellation and finite mechanism checks pass with a negative control."},
+    {"id": "C4", "status": "BLOCKED_EXACT_2048_CORE_UNAVAILABLE", "scope": "Seed-1 and pCor evidence are retained without promoting the missing exact five-seed released core."},
+    {"id": "C5", "status": "BLOCKED_SOURCE_CODE_MISMATCH_AND_UNDERTRAINED_ROUTES", "scope": "Source/data mismatch and undertrained routes prevent a paper-level verdict; no valid falsification found."}
+  ],
+  "limitations": [
+    "Historical 3/10 judge score is provenance only; no new score or author endorsement is claimed.",
+    "The lightweight gate does not launch the expensive scientific producers."
+  ]
+}

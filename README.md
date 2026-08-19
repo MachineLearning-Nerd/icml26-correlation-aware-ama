@@ -99,6 +99,10 @@ route. The publication checks are lightweight and do not launch training:
 ```bash
 uv run --frozen python repro/src/verify_publication.py
 uv run --frozen python repro/src/publication_gate.py --skip-producers
+
+# Root dossier gate: branches, identities, hashes, claim records, and the
+# lightweight publication gate
+python3 verify_final.py
 ```
 
 The historical campaign evidence is durable under
@@ -120,6 +124,9 @@ promotes a proxy or an undertrained run to an exact paper-level result.
 - `CLAIM_EVIDENCE.md` — how every claim status is produced.
 - `BRANCH_AUDIT.md` — old-to-new branch names, tips, and roles.
 - `SOURCE_MANIFEST.md` — paper/source boundaries, citation, and thanks.
+- `REPORT.md`, `claims.json`, and `reproduction_verdicts.json` — final scoped verdict and machine-readable claim records.
+- `ENVIRONMENT.md`, `AUTHOR_THANK_YOU.md`, and `EVIDENCE_MANIFEST.json` — execution boundary, author acknowledgement, and hash-bound evidence surface.
+- `verify_final.py` — root branch, identity, evidence, and publication-gate verifier.
 
 ## Clean branch map
 

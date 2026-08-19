@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Enhancing Affine Maximizer Auctions with Correlation-Aware Payment"
+type: software
+authors:
+  - family-names: Sun
+    given-names: Haoran
+  - family-names: Xia
+    given-names: Xuanzhi
+  - family-names: Chu
+    given-names: Xu
+  - family-names: Deng
+    given-names: Xiaotie
+date-released: 2026-08-19
+version: 1.0.0
+repository-code: "https://github.com/MachineLearning-Nerd/icml26-correlation-aware-ama"
+url: "https://arxiv.org/abs/2602.09455"
+identifiers:
+  - type: arxiv
+    value: "2602.09455"
+    description: "Paper preprint"
+keywords:
+  - affine maximizer auctions
+  - correlation-aware payments
+  - mechanism design
+  - ICML 2026
